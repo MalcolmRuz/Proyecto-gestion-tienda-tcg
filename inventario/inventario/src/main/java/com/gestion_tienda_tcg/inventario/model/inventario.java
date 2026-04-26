@@ -1,11 +1,10 @@
 package com.gestion_tienda_tcg.inventario.model;
 
-import jakarta.validation.constraints.NotBlank;
+import java.time.LocalDate;
+
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-
-import java.time.LocalDate;
 
 @Data
 @AllArgsConstructor
