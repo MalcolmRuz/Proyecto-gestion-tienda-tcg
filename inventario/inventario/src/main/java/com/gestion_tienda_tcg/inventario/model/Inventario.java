@@ -9,7 +9,7 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class inventario {
+public class Inventario {
     private String idInventario;
     private int stockActual;
     private LocalDate fechaInventario;
