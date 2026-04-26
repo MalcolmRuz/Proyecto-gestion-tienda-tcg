@@ -10,4 +10,5 @@ import lombok.NoArgsConstructor;
 
 public class Carrito {
     private char estado_carrito;
+    private Integer id_carrito;
 }
