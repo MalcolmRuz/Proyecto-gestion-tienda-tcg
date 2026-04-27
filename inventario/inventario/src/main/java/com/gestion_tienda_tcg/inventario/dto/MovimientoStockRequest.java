@@ -21,4 +21,5 @@ public class MovimientoStockRequest {
 
     @NotNull(message = "Debe indicar si es ENTRADA o Salida")
     private TipoMovimiento tipo;
+
 }
