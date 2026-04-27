@@ -14,7 +14,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
 @Slf4j
-
+@Service
 public class InventarioService {
 
     private final InventarioRepository inventarioRepository;

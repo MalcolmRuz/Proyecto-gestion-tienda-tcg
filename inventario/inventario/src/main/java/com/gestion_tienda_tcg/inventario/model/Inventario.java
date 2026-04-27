@@ -15,14 +15,12 @@ public class Inventario {
    @Id
    @GeneratedValue(strategy =  GenerationType.IDENTITY)
     private Long idInventario;
+   @Column(name = "id_producto")
+   private Long idProducto;
    @Column(name = "stock_actual", nullable = false)
    private int stockActual;
    @Column(name = "fecha_inventario")
     private LocalDate fechaInventario;
-
-   //@OneToMany(mappedBy = "inventario",cascade = CascadeType.ALL)
-   //private List<MovimientoStock> movimientos;
-    //por implementar
 
    //inicializa fecha
     @PrePersist

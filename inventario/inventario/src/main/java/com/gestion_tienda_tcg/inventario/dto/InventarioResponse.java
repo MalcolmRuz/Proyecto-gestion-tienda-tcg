@@ -9,6 +9,7 @@ import java.time.LocalDate;
 @AllArgsConstructor
 public class InventarioResponse {
     private final Long idInventario;
+    private final Long idProducto;
     private final int stockActual;
     private final LocalDate fechaInventario;
 }

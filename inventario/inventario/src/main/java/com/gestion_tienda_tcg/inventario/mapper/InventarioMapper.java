@@ -12,11 +12,11 @@ public class InventarioMapper {
         Inventario inventario = new Inventario();
         inventario.setStockActual(request.getStockActual());
         inventario.setFechaInventario(request.getFechaInventario());
-
+        inventario.setIdProducto(request.getIdProducto());
         return inventario;
 
     }
     public InventarioResponse toResponse(Inventario inventario){
-        return new InventarioResponse(inventario.getIdInventario(), inventario.getStockActual(), inventario.getFechaInventario());
+        return new InventarioResponse(inventario.getIdInventario(),inventario.getIdProducto(), inventario.getStockActual(), inventario.getFechaInventario());
     }
 }

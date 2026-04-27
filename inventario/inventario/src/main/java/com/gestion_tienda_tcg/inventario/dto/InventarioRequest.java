@@ -1,6 +1,8 @@
 package com.gestion_tienda_tcg.inventario.dto;
 
+import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -12,8 +14,11 @@ import java.time.LocalDate;
 @NoArgsConstructor
 public class InventarioRequest {
 
-@NotBlank(message = "Debe ingresar una fecha valida")
+@NotNull(message = "Debe ingresar una fecha valida")
     private LocalDate fechaInventario;
-@NotBlank
-    private int StockActual;
+@NotNull
+@Min(value = 0, message = "El stock no puede ser menor a 0")
+    private Integer stockActual;
+@NotNull
+    private Long idProducto;
 }
