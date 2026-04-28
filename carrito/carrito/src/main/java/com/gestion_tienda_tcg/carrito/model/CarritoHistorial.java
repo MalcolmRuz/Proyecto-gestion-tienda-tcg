@@ -1,5 +1,7 @@
 package com.gestion_tienda_tcg.carrito.model;
 
+import java.time.LocalDateTime;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
@@ -19,18 +21,21 @@ import lombok.Setter;
 @NoArgsConstructor
 
 @Entity
-@Table(name = "carrito")
+@Table(name = "carrito_historial")
+public class CarritoHistorial {
 
-public class Carrito {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long idCarrito;
+    private Long idHistorial;
 
-    @Column(nullable = false)
+    @Column(name = "estado") // ACTIVO, PAGADO, ANULADO, CANCELADO
     @Enumerated(EnumType.STRING)
-    private EstadoCarrito estadoCarrito; // ACTIVO, PAGADO, ANULADO, CANCELADO
+    private EstadoCarrito estado;
 
-    @Column(name = "total_carrito", nullable = false)
-    private Double totalCarrito;
+    @Column(name = "fecha_hist_carrito", nullable = false)
+    private LocalDateTime fechaCarrito;
+
+    @Column(name = "carrito_id", nullable = false)
+    private Long carritoId;
 
 }
