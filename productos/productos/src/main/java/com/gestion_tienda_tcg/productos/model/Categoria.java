@@ -16,7 +16,7 @@ public class Categoria {
     private Long idCategoria;
 
     @Column(name = "NOMBRE TCG")
-    private String categoriaTcg;
+    private String nombreTcg;
 
     @Column(name = "TIPO PRODUCTO")
     private String tipoProducto;

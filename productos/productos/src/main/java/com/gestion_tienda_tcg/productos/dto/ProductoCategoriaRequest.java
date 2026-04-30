@@ -9,11 +9,18 @@ import lombok.NoArgsConstructor;
 @Getter
 @AllArgsConstructor
 @NoArgsConstructor
-public class ProductoRequest {
-    @NotBlank
-    private String nombre;
-    @NotBlank
-    private String descripcion;
+public class ProductoCategoriaRequest {
     @NotNull
-    private Boolean estado;
+    private Long idProducto;
+    @NotBlank
+    private String nombreProducto;
+
+    @NotNull
+    private Long idCategoria;
+    @NotBlank
+    private String nombreCategoria;
+
+
+
+
 }

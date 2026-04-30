@@ -8,6 +8,6 @@ import java.util.Optional;
 
 @Repository
 public interface InventarioRepository  extends JpaRepository <Inventario,Long> {
-    //como idProducto no es la ID primaria de Inventario se debe crear este buscador ID
+   //***** como idProducto no es la ID primaria de Inventario se debe crear este buscador ID
     Optional<Inventario> findByIdProducto(Long idProducto);
 }

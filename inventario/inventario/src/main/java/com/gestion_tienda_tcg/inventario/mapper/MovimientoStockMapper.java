@@ -18,7 +18,12 @@ public class MovimientoStockMapper {
 
     }
 
-    public MovimientoStockResponse toResponse(MovimientoStock movimientoStock){
-        return new MovimientoStockResponse(movimientoStock.getIdMovimientoStock(), movimientoStock.getCantidadMovimiento(), movimientoStock.getInventario(),movimientoStock.getTipo(),movimientoStock.getFechaMovimiento());
+    public MovimientoStockResponse toResponse(MovimientoStock entity){
+        return new MovimientoStockResponse(
+                entity.getIdMovimientoStock(),
+                entity.getCantidadMovimiento(),
+                entity.getInventario().getIdInventario(),
+                entity.getTipo(),
+                entity.getFechaMovimiento());
     }
 }

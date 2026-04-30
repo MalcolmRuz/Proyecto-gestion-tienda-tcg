@@ -17,6 +17,10 @@ public class InventarioMapper {
 
     }
     public InventarioResponse toResponse(Inventario inventario){
-        return new InventarioResponse(inventario.getIdInventario(),inventario.getIdProducto(), inventario.getStockActual(), inventario.getFechaInventario());
+        return new InventarioResponse(
+                inventario.getIdInventario(),
+                inventario.getIdProducto(),
+                inventario.getStockActual(),
+                inventario.getFechaInventario());
     }
 }
