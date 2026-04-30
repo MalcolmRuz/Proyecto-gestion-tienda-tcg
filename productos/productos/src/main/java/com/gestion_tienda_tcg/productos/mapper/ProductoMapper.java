@@ -19,7 +19,8 @@ public class ProductoMapper {
                 producto.getIdProducto(),
                 producto.getNombreProducto(),
                 producto.getDescripcion(),
-                producto.isEstadoActivo());
+                producto.isEstadoActivo(),
+                producto.getProveedor().getIdProveedor());
 
     }
 }
