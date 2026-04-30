@@ -3,6 +3,7 @@ package com.gestion_tienda_tcg.inventario.service;
 import com.gestion_tienda_tcg.inventario.client.ProductoClient;
 import com.gestion_tienda_tcg.inventario.dto.InventarioRequest;
 import com.gestion_tienda_tcg.inventario.dto.InventarioResponse;
+import com.gestion_tienda_tcg.inventario.enums.TipoMovimiento;
 import com.gestion_tienda_tcg.inventario.exception.ErrorInternoException;
 import com.gestion_tienda_tcg.inventario.exception.InventarioInvalidoException;
 import com.gestion_tienda_tcg.inventario.mapper.InventarioMapper;
@@ -21,10 +22,12 @@ public class InventarioService {
     private final InventarioRepository inventarioRepository;
     private final InventarioMapper inventarioMapper;
     private final ProductoClient productoClient;
-    public InventarioService(InventarioRepository inventarioRepository, InventarioMapper inventarioMapper,ProductoClient productoClient){
+    private final MovimientoStockService movimientoStockService;
+    public InventarioService(InventarioRepository inventarioRepository, InventarioMapper inventarioMapper, ProductoClient productoClient, MovimientoStockService movimientoStockService){
         this.inventarioRepository = inventarioRepository;
     this.inventarioMapper = inventarioMapper;
     this.productoClient = productoClient;
+    this.movimientoStockService = movimientoStockService;
 
     }
     @Transactional
@@ -61,16 +64,89 @@ public class InventarioService {
             throw new ErrorInternoException("No se pudo completar el registro de inventario");
         }
     }
-    //public InventarioResponse obtenerStockPorProducto(Long idProducto){}
+
+    public InventarioResponse obtenerStockPorProducto(Long idProducto){
+    log.info("Obteniendo  stock para el producto con ID: {}",idProducto);
+    Inventario inventario = inventarioRepository.findByIdProducto(idProducto)
+            .orElseThrow (() -> new InventarioInvalidoException("No se encontró inventario para el producto : " + idProducto));
+        return inventarioMapper.toResponse(inventario);
+    }
 
 
+    @Transactional
+    public InventarioResponse aumentarStock(Long idProducto, Integer cantidad) {
+        log.info("Aumentando stock para el producto {}: +{}", idProducto, cantidad);
 
-    //public InventarioResponse aumentarStock(Long idProducto){}
+        Inventario inventario = inventarioRepository.findByIdProducto(idProducto)
+                .orElseThrow(() -> new InventarioInvalidoException("No se puede aumentar stock de un producto no registrado"));
 
-    //public InventarioResponse disminuirStock(Long idProducto){}
+        int nuevoStock = inventario.getStockActual() + cantidad;
+        inventario.setStockActual(nuevoStock);
 
-    //public InventarioResponse ajustarStockFisico (InventarioRequest request) //<-------------ESTO ES UN UPDATE
-    //public InventarioResponse eliminarInventario(InventarioRequest request)
+        inventarioRepository.save(inventario);
+
+        movimientoStockService.generarRegistro(
+                inventario,
+                cantidad,
+                TipoMovimiento.ENTRADA
+        );
+
+        return inventarioMapper.toResponse(inventario);
+    }
+
+
+    @Transactional
+    public InventarioResponse disminuirStock(Long idProducto, Integer cantidad) {
+        log.info("Disminuyendo stock para el producto {}: +{}", idProducto, cantidad);
+
+        Inventario inventario = inventarioRepository.findByIdProducto(idProducto)
+                .orElseThrow(() -> new InventarioInvalidoException("No se puede aumentar stock de un producto no registrado"));
+
+        if (inventario.getStockActual() < cantidad) {
+            throw new InventarioInvalidoException("Stock insuficiente. Disponible: "
+                    + inventario.getStockActual() + ", Solicitado: " + cantidad);
+        }
+
+        int nuevoStock = inventario.getStockActual() - cantidad;
+        inventario.setStockActual(nuevoStock);
+
+        inventarioRepository.save(inventario);
+
+        movimientoStockService.generarRegistro(
+                inventario,
+                cantidad * -1, //<-------para que se guarde como negativo en el registro
+                TipoMovimiento.SALIDA
+        );
+
+        return inventarioMapper.toResponse(inventario);
+    }
+
+
+    @Transactional
+    public InventarioResponse ajustarStockFisico(InventarioRequest request) {
+        log.info("Ajuste manual de stock para el producto ID: {}", request.getIdProducto());
+
+
+        Inventario inventario = inventarioRepository.findByIdProducto(request.getIdProducto())
+                .orElseThrow(() -> new InventarioInvalidoException("No existe registro para ajustar"));
+
+
+        int stockAnterior = inventario.getStockActual();
+
+
+        inventario.setStockActual(request.getStockActual());
+        inventarioRepository.save(inventario);
+
+
+        movimientoStockService.generarRegistro(
+                inventario,
+                request.getStockActual(),
+                TipoMovimiento.AJUSTE
+        );
+
+        return inventarioMapper.toResponse(inventario);
+    }
+
 
     }
 

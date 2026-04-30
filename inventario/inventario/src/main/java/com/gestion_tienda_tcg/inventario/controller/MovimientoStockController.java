@@ -1,15 +1,14 @@
 package com.gestion_tienda_tcg.inventario.controller;
 
+import com.gestion_tienda_tcg.inventario.dto.MovimientoStockRequest;
 import com.gestion_tienda_tcg.inventario.dto.MovimientoStockResponse;
+import com.gestion_tienda_tcg.inventario.enums.TipoMovimiento;
 import com.gestion_tienda_tcg.inventario.service.MovimientoStockService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -21,10 +20,15 @@ import java.util.List;
 public class MovimientoStockController {
     private final MovimientoStockService movimientoStockService;
 
+@GetMapping
+public ResponseEntity<List<MovimientoStockResponse>> listarHistorial(){
+    return ResponseEntity.ok(movimientoStockService.listarHistorialCompleto());
+}
 
-
-
-
+@GetMapping("/{idInventario}")
+public ResponseEntity<List<MovimientoStockResponse>> listarPorId(@PathVariable Long idInventario){
+    return  ResponseEntity.ok(movimientoStockService.listarMovimientosPorInventario(idInventario));
+}
 
 
 
@@ -34,5 +38,11 @@ public class MovimientoStockController {
             @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime fin) {
 
         return ResponseEntity.ok(movimientoStockService.reporteEntreFechas(inicio, fin));
-    }
+}
+
+@GetMapping("/tipo")
+    public ResponseEntity<List<MovimientoStockResponse>> listarPorTipo(@RequestParam TipoMovimiento tipo){
+    return  ResponseEntity.ok(movimientoStockService.listarPorTipo(tipo));
+
+}
 }

@@ -8,10 +8,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @Slf4j
 @RestController
@@ -25,5 +22,33 @@ public class InventarioController {
         InventarioResponse response = inventarioService.agregar(request);
 
         return  new ResponseEntity<>(response, HttpStatus.CREATED);
+    }
+
+
+
+    @GetMapping ("/{idProducto}")
+    public ResponseEntity<InventarioResponse> stockPorProducto(@Valid @PathVariable Long idProducto){
+        InventarioResponse response = inventarioService.obtenerStockPorProducto(idProducto);
+        return ResponseEntity.ok(response);
+
+
+    }
+
+    @PatchMapping("/{idProducto}/aumentar/{cantidad}")
+    public ResponseEntity<InventarioResponse> aumentarStock(@PathVariable Long idProducto, @PathVariable Integer cantidad){
+        InventarioResponse response = inventarioService.aumentarStock(idProducto,cantidad);
+        return ResponseEntity.ok(response);
+    }
+
+    @PatchMapping("/{idProducto}/reducir/{cantidad}")
+    public ResponseEntity<InventarioResponse> disminuirStock(@PathVariable Long idProducto, @PathVariable Integer cantidad){
+        InventarioResponse response = inventarioService.disminuirStock(idProducto,cantidad);
+        return ResponseEntity.ok(response);
+    }
+
+    @PutMapping
+    public ResponseEntity<InventarioResponse> ajustarStock(@RequestBody InventarioRequest request){
+        InventarioResponse response = inventarioService.ajustarStockFisico(request);
+        return ResponseEntity.ok(response);
     }
 }
