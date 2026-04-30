@@ -30,4 +30,9 @@ public class MovimientoStock {
     @Column(name = "fecha_movimiento",nullable = false)
     private LocalDateTime fechaMovimiento;
 
+    @PrePersist
+    protected void onCreate() {
+        this.fechaMovimiento = LocalDateTime.now();
+    }
+
 }
