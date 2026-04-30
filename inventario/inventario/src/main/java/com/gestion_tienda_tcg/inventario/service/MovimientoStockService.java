@@ -1,6 +1,6 @@
 package com.gestion_tienda_tcg.inventario.service;
 
-import com.gestion_tienda_tcg.inventario.dto.MovimientoStockRequest;
+
 import com.gestion_tienda_tcg.inventario.dto.MovimientoStockResponse;
 import com.gestion_tienda_tcg.inventario.enums.TipoMovimiento;
 import com.gestion_tienda_tcg.inventario.exception.InventarioInvalidoException;
@@ -10,10 +10,10 @@ import com.gestion_tienda_tcg.inventario.model.MovimientoStock;
 import com.gestion_tienda_tcg.inventario.repository.InventarioRepository;
 import com.gestion_tienda_tcg.inventario.repository.MovimientoStockRepository;
 import jakarta.transaction.Transactional;
-import lombok.RequiredArgsConstructor;
+
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Propagation;
+;
 
 import java.time.LocalDateTime;
 import java.util.List;

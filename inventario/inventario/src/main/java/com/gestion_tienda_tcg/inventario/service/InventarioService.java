@@ -11,8 +11,7 @@ import com.gestion_tienda_tcg.inventario.model.Inventario;
 import com.gestion_tienda_tcg.inventario.repository.InventarioRepository;
 import jakarta.transaction.Transactional;
 import lombok.extern.slf4j.Slf4j;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+
 import org.springframework.stereotype.Service;
 
 @Slf4j
