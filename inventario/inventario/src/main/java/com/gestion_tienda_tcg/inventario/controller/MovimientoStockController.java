@@ -1,6 +1,6 @@
 package com.gestion_tienda_tcg.inventario.controller;
 
-import com.gestion_tienda_tcg.inventario.dto.MovimientoStockRequest;
+
 import com.gestion_tienda_tcg.inventario.dto.MovimientoStockResponse;
 import com.gestion_tienda_tcg.inventario.enums.TipoMovimiento;
 import com.gestion_tienda_tcg.inventario.service.MovimientoStockService;
