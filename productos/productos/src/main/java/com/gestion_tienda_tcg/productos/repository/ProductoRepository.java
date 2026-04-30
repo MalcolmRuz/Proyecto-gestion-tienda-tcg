@@ -12,7 +12,7 @@ import java.util.List;
 @Repository
 public interface ProductoRepository extends JpaRepository<Producto,Long> {
     List<Producto> findByProveedor_IdProveedor(Long idProveedor);
-    @Modifying // Necesario para métodos que modifican datos
+    @Modifying
     @Query("UPDATE Producto p SET p.estadoActivo = false WHERE p.idProducto = :id")
     void desactivarProducto(@Param("id") Long id);
 }
