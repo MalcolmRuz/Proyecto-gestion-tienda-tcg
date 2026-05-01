@@ -4,8 +4,13 @@ import java.util.List;
 
 import org.springframework.stereotype.Service;
 
+import com.gestion_tienda_tcg.carrito.Client.ProductoClient;
 import com.gestion_tienda_tcg.carrito.dto.CarritoItemRequest;
 import com.gestion_tienda_tcg.carrito.dto.CarritoItemResponse;
+import com.gestion_tienda_tcg.carrito.dto.ProductoDto;
+import com.gestion_tienda_tcg.carrito.exception.BadRequestException;
+import com.gestion_tienda_tcg.carrito.exception.CarritoNotFoundException;
+import com.gestion_tienda_tcg.carrito.exception.ItemNotFoundException;
 import com.gestion_tienda_tcg.carrito.mapper.CarritoItemMapper;
 import com.gestion_tienda_tcg.carrito.model.Carrito;
 import com.gestion_tienda_tcg.carrito.model.CarritoItem;
@@ -24,6 +29,7 @@ public class CarritoItemService {
     private final CarritoItemRepository itemRepository;
     private final CarritoRepository carritoRepository;
     private final CarritoItemMapper itemMapper;
+    private final ProductoClient productoClient;
 
     // Crear items en el carrito
     @Transactional
@@ -32,12 +38,28 @@ public class CarritoItemService {
         log.info("Agregando item al carrito {}", idCarrito);
 
         Carrito carrito = carritoRepository.findById(idCarrito)
-                .orElseThrow(() -> new RuntimeException("Carrito no encontrado"));
+                .orElseThrow(() -> new CarritoNotFoundException("Carrito no encontrado"));
 
-        CarritoItem item = itemMapper.toEntity(request);
+        // LLAMADA AL MICROSERVICIO PRODUCTO
+        ProductoDto producto;
+        try {
+            producto = productoClient.obtenerProductoPorId(request.getProductoId());
+        } catch (Exception e) {
+            log.error("Error al consultar producto: {}", e.getMessage());
+            throw new BadRequestException("No se pudo obtener el producto");
+        }
+
+        if (producto == null) {
+            throw new BadRequestException("Producto no existe");
+        }
+
+        // CREAR ITEM
+        CarritoItem item = new CarritoItem();
+        item.setCantidad(request.getCantidad());
+        item.setPrecioUnitario(producto.getPrecio()); // 🔥 viene del otro microservicio
         item.setCarrito(carrito);
 
-        double totalItem = item.getPrecioUnitario() * item.getCantidad();
+        double totalItem = producto.getPrecio() * request.getCantidad();
         item.setPrecioTotalItem(totalItem);
 
         CarritoItem guardado = itemRepository.save(item);
@@ -53,7 +75,7 @@ public class CarritoItemService {
         log.info("Listando items del carrito {}", idCarrito);
 
         Carrito carrito = carritoRepository.findById(idCarrito)
-                .orElseThrow(() -> new RuntimeException("Carrito no encontrado"));
+                .orElseThrow(() -> new CarritoNotFoundException("Carrito no encontrado"));
 
         return carrito.getItems()
                 .stream()
@@ -61,13 +83,13 @@ public class CarritoItemService {
                 .toList();
     }
 
-    // 🔹 READ ONE
+    // Obtener item por ID
     public CarritoItemResponse buscarPorId(Long idItem) {
 
         log.info("Buscando item {}", idItem);
 
         CarritoItem item = itemRepository.findById(idItem)
-                .orElseThrow(() -> new RuntimeException("Item no encontrado"));
+                .orElseThrow(() -> new ItemNotFoundException("Item no encontrado"));
 
         return itemMapper.toResponse(item);
     }
@@ -79,11 +101,11 @@ public class CarritoItemService {
         log.info("Actualizando cantidad del item {}", idItem);
 
         if (cantidad <= 0) {
-            throw new RuntimeException("La cantidad debe ser mayor a 0");
+            throw new BadRequestException("La cantidad debe ser mayor a 0");
         }
 
         CarritoItem item = itemRepository.findById(idItem)
-                .orElseThrow(() -> new RuntimeException("Item no encontrado"));
+                .orElseThrow(() -> new ItemNotFoundException("Item no encontrado"));
 
         item.setCantidad(cantidad);
 
@@ -102,7 +124,7 @@ public class CarritoItemService {
         log.warn("Eliminando item {}", idItem);
 
         CarritoItem item = itemRepository.findById(idItem)
-                .orElseThrow(() -> new RuntimeException("Item no encontrado"));
+                .orElseThrow(() -> new ItemNotFoundException("Item no encontrado"));
 
         Carrito carrito = item.getCarrito();
 

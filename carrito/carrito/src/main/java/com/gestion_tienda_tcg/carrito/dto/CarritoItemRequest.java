@@ -16,5 +16,6 @@ public class CarritoItemRequest {
     private Double precioUnitario;
 
     // Para conectar con productos
+    @NotNull
     private Long productoId;
 }
