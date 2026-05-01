@@ -2,56 +2,86 @@ package com.gestion_tienda_tcg.carrito.service;
 
 import java.util.List;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.gestion_tienda_tcg.carrito.dto.CarritoRequest;
+import com.gestion_tienda_tcg.carrito.dto.CarritoResponse;
 import com.gestion_tienda_tcg.carrito.enums.EstadoCarrito;
+import com.gestion_tienda_tcg.carrito.mapper.CarritoMapper;
 import com.gestion_tienda_tcg.carrito.model.Carrito;
 import com.gestion_tienda_tcg.carrito.repository.CarritoRepository;
 
+import jakarta.transaction.Transactional;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 @Service
+@RequiredArgsConstructor
 public class CarritoService {
 
-    @Autowired
-    private CarritoRepository carritoRepository;
+    private final CarritoRepository carritoRepository;
+    private final CarritoMapper carritoMapper;
 
-    // Listar
-    public List<Carrito> listar() {
-        log.info("Listando carritos");
-        return carritoRepository.findAll();
-    }
+    // Crear carrito
+    @Transactional
+    public CarritoResponse crear(CarritoRequest request) {
 
-    // Buscar por Id
-    public Carrito buscarPorId(Long idCarrito) {
-        log.info("Buscando carrito {}", idCarrito);
-
-        return carritoRepository.findById(idCarrito)
-                .orElseThrow(() -> new RuntimeException("Carrito no encontrado"));
-    }
-
-    // Nuevo carrito
-    public Carrito crear(Carrito carrito) {
         log.info("Creando carrito");
-        return carritoRepository.save(carrito);
+
+        Carrito carrito = carritoMapper.toEntity(request);
+
+        carrito.setEstadoCarrito(EstadoCarrito.ACTIVO);
+        carrito.setTotalCarrito(0.0);
+
+        return carritoMapper.toResponse(carritoRepository.save(carrito));
     }
 
-    // Actualizar Estado carrito
-    public Carrito actualizarEstado(Long idCarrito, EstadoCarrito estado) {
-        log.info("Actualizando estado carrito {}", idCarrito);
+    // Listar carrito
+    public List<CarritoResponse> listar() {
 
-        Carrito carrito = buscarPorId(idCarrito);
+        log.info("Listando carritos");
+
+        return carritoRepository.findAll()
+                .stream()
+                .map(carritoMapper::toResponse)
+                .toList();
+    }
+
+    // Buscar carrito por Id
+    public CarritoResponse buscarPorId(Long id) {
+
+        log.info("Buscando carrito {}", id);
+
+        Carrito carrito = carritoRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Carrito no encontrado"));
+
+        return carritoMapper.toResponse(carrito);
+    }
+
+    // 🔹 Actualizar Estado carrito
+    @Transactional
+    public CarritoResponse actualizarEstado(Long id, EstadoCarrito estado) {
+
+        log.info("Actualizando estado carrito {}", id);
+
+        Carrito carrito = carritoRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Carrito no encontrado"));
+
         carrito.setEstadoCarrito(estado);
 
-        return carritoRepository.save(carrito);
+        return carritoMapper.toResponse(carrito);
     }
 
     // Eliminar carrito
-    public void eliminar(Long idCarrito) {
-        log.warn("Eliminando carrito {}", idCarrito);
-        carritoRepository.deleteById(idCarrito);
-    }
+    @Transactional
+    public void eliminar(Long id) {
 
+        log.warn("Eliminando carrito {}", id);
+
+        Carrito carrito = carritoRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Carrito no encontrado"));
+
+        carritoRepository.delete(carrito);
+    }
 }

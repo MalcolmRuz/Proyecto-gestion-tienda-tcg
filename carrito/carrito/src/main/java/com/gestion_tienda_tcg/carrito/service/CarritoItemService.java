@@ -2,68 +2,87 @@ package com.gestion_tienda_tcg.carrito.service;
 
 import java.util.List;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.gestion_tienda_tcg.carrito.dto.CarritoItemRequest;
+import com.gestion_tienda_tcg.carrito.dto.CarritoItemResponse;
+import com.gestion_tienda_tcg.carrito.mapper.CarritoItemMapper;
 import com.gestion_tienda_tcg.carrito.model.Carrito;
 import com.gestion_tienda_tcg.carrito.model.CarritoItem;
 import com.gestion_tienda_tcg.carrito.repository.CarritoItemRepository;
 import com.gestion_tienda_tcg.carrito.repository.CarritoRepository;
 
+import jakarta.transaction.Transactional;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 @Service
+@RequiredArgsConstructor
 public class CarritoItemService {
 
-    @Autowired
-    private CarritoItemRepository carritoItemRepository;
+    private final CarritoItemRepository itemRepository;
+    private final CarritoRepository carritoRepository;
+    private final CarritoItemMapper itemMapper;
 
-    @Autowired
-    private CarritoRepository carritoRepository;
-
-    // Agregar item
-
-    public CarritoItem agregarItem(Long idCarrito, CarritoItem item) {
+    // Crear items en el carrito
+    @Transactional
+    public CarritoItemResponse agregarItem(Long idCarrito, CarritoItemRequest request) {
 
         log.info("Agregando item al carrito {}", idCarrito);
 
         Carrito carrito = carritoRepository.findById(idCarrito)
                 .orElseThrow(() -> new RuntimeException("Carrito no encontrado"));
 
-        // Asociar carrito
+        CarritoItem item = itemMapper.toEntity(request);
         item.setCarrito(carrito);
 
-        // Calcular total del item
         double totalItem = item.getPrecioUnitario() * item.getCantidad();
         item.setPrecioTotalItem(totalItem);
 
-        CarritoItem guardado = carritoItemRepository.save(item);
+        CarritoItem guardado = itemRepository.save(item);
 
-        recalcularTotal(carrito.getIdCarrito());
+        recalcularTotal(carrito);
 
-        return guardado;
+        return itemMapper.toResponse(guardado);
     }
 
-    // Listar items
-
-    public List<CarritoItem> listarItems(Long idCarrito) {
+    // Listar items por carrito
+    public List<CarritoItemResponse> listarPorCarrito(Long idCarrito) {
 
         log.info("Listando items del carrito {}", idCarrito);
 
         Carrito carrito = carritoRepository.findById(idCarrito)
                 .orElseThrow(() -> new RuntimeException("Carrito no encontrado"));
 
-        return carrito.getItems();
+        return carrito.getItems()
+                .stream()
+                .map(itemMapper::toResponse)
+                .toList();
     }
 
-    // Actualizar Item
+    // 🔹 READ ONE
+    public CarritoItemResponse buscarPorId(Long idItem) {
 
-    public CarritoItem actualizarCantidad(Long idItem, Integer cantidad) {
+        log.info("Buscando item {}", idItem);
 
-        log.info("Actualizando item {}", idItem);
+        CarritoItem item = itemRepository.findById(idItem)
+                .orElseThrow(() -> new RuntimeException("Item no encontrado"));
 
-        CarritoItem item = carritoItemRepository.findById(idItem)
+        return itemMapper.toResponse(item);
+    }
+
+    // Actualizar carrito
+    @Transactional
+    public CarritoItemResponse actualizarCantidad(Long idItem, Integer cantidad) {
+
+        log.info("Actualizando cantidad del item {}", idItem);
+
+        if (cantidad <= 0) {
+            throw new RuntimeException("La cantidad debe ser mayor a 0");
+        }
+
+        CarritoItem item = itemRepository.findById(idItem)
                 .orElseThrow(() -> new RuntimeException("Item no encontrado"));
 
         item.setCantidad(cantidad);
@@ -71,46 +90,40 @@ public class CarritoItemService {
         double totalItem = item.getPrecioUnitario() * cantidad;
         item.setPrecioTotalItem(totalItem);
 
-        CarritoItem actualizado = carritoItemRepository.save(item);
+        recalcularTotal(item.getCarrito());
 
-        recalcularTotal(item.getCarrito().getIdCarrito());
-
-        return actualizado;
+        return itemMapper.toResponse(item);
     }
 
-    // Eliminar Item
-
+    // Eliminar item del carrito
+    @Transactional
     public void eliminarItem(Long idItem) {
 
         log.warn("Eliminando item {}", idItem);
 
-        CarritoItem item = carritoItemRepository.findById(idItem)
+        CarritoItem item = itemRepository.findById(idItem)
                 .orElseThrow(() -> new RuntimeException("Item no encontrado"));
 
-        Long idCarrito = item.getCarrito().getIdCarrito();
+        Carrito carrito = item.getCarrito();
 
-        carritoItemRepository.delete(item);
+        itemRepository.delete(item);
 
-        recalcularTotal(idCarrito);
+        recalcularTotal(carrito);
     }
 
-    // Calcular total
+    // Metodo recalcular
+    private void recalcularTotal(Carrito carrito) {
 
-    private void recalcularTotal(Long idCarrito) {
-
-        Carrito carrito = carritoRepository.findById(idCarrito)
-                .orElseThrow(() -> new RuntimeException("Carrito no encontrado"));
-
-        double total = 0.0;
-
-        if (carrito.getItems() != null) {
-            for (CarritoItem item : carrito.getItems()) {
-                total += item.getPrecioTotalItem();
-            }
+        if (carrito.getItems() == null) {
+            carrito.setTotalCarrito(0.0);
+            return;
         }
 
-        carrito.setTotalCarrito(total);
+        double total = carrito.getItems()
+                .stream()
+                .mapToDouble(CarritoItem::getPrecioTotalItem)
+                .sum();
 
-        carritoRepository.save(carrito);
+        carrito.setTotalCarrito(total);
     }
 }

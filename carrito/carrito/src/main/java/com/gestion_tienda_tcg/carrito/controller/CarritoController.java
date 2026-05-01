@@ -2,6 +2,7 @@ package com.gestion_tienda_tcg.carrito.controller;
 
 import java.util.List;
 
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -10,12 +11,15 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.gestion_tienda_tcg.carrito.dto.CarritoRequest;
+import com.gestion_tienda_tcg.carrito.dto.CarritoResponse;
 import com.gestion_tienda_tcg.carrito.enums.EstadoCarrito;
-import com.gestion_tienda_tcg.carrito.model.Carrito;
 import com.gestion_tienda_tcg.carrito.service.CarritoService;
 
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
@@ -27,48 +31,49 @@ public class CarritoController {
 
     private final CarritoService carritoService;
 
-    // CREAR
+    // Crear
     @PostMapping
-    public ResponseEntity<Carrito> crear(@RequestBody Carrito carrito) {
+    public ResponseEntity<CarritoResponse> crearCarrito(@Valid @RequestBody CarritoRequest request) {
 
-        log.info("Creando carrito");
+        log.info("Creando nuevo carrito");
 
-        Carrito nuevo = carritoService.crear(carrito);
+        CarritoResponse response = carritoService.crear(request);
 
-        return ResponseEntity.status(201).body(nuevo);
+        return new ResponseEntity<>(response, HttpStatus.CREATED);
     }
 
-    // LISTAR
+    // Listar
     @GetMapping
-    public ResponseEntity<List<Carrito>> listar() {
+    public ResponseEntity<List<CarritoResponse>> listarCarritos() {
 
         log.info("Listando carritos");
 
         return ResponseEntity.ok(carritoService.listar());
     }
 
-    // OBTENER POR ID
+    // Buscar por id
     @GetMapping("/{id}")
-    public ResponseEntity<Carrito> obtener(@PathVariable Long id) {
+    public ResponseEntity<CarritoResponse> obtenerPorId(@PathVariable Long id) {
 
-        log.info("Buscando carrito {}", id);
+        log.info("Obteniendo carrito {}", id);
 
         return ResponseEntity.ok(carritoService.buscarPorId(id));
     }
 
-    // CAMBIAR ESTADO
-    @PatchMapping("/{id}/estado/{estado}")
-    public ResponseEntity<Carrito> cambiarEstado(@PathVariable Long id,
-            @PathVariable EstadoCarrito estado) {
+    // Actualizar Estado
+    @PatchMapping("/{id}/estado")
+    public ResponseEntity<CarritoResponse> actualizarEstado(
+            @PathVariable Long id,
+            @RequestParam EstadoCarrito estado) {
 
         log.info("Actualizando estado carrito {}", id);
 
         return ResponseEntity.ok(carritoService.actualizarEstado(id, estado));
     }
 
-    // ELIMINAR
+    // Eliminar
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> eliminar(@PathVariable Long id) {
+    public ResponseEntity<Void> eliminarCarrito(@PathVariable Long id) {
 
         log.warn("Eliminando carrito {}", id);
 
