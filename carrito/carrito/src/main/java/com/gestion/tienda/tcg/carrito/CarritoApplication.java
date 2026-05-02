@@ -1,4 +1,4 @@
-package com.gestion_tienda_tcg.carrito;
+package com.gestion.tienda.tcg.carrito;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

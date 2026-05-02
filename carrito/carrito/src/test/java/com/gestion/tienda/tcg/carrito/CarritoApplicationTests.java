@@ -1,10 +1,10 @@
-package com.gestion_tienda_tcg.pedidos;
+package com.gestion.tienda.tcg.carrito;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-class PedidosApplicationTests {
+class CarritoApplicationTests {
 
 	@Test
 	void contextLoads() {

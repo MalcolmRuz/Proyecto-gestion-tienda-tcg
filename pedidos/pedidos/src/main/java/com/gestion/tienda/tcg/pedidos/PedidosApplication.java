@@ -1,4 +1,4 @@
-package com.gestion_tienda_tcg.pedidos;
+package com.gestion.tienda.tcg.pedidos;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
