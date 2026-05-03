@@ -3,7 +3,7 @@ package com.gestion.tienda.tcg.pedidos.model;
 import java.time.LocalDateTime;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.gestion.tienda.tcg.pedidos.enums.EstadoPedido;
+import com.gestion.tienda.tcg.pedidos.enums.EstadoEnvio;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -37,14 +37,14 @@ public class Envio {
 
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
-    private EstadoPedido estadoEnvio;
+    private EstadoEnvio estadoEnvio;
 
     @Column(nullable = false)
     private LocalDateTime fechaEnvio;
 
     // RELACION 1:1 CON PEDIDO
     @OneToOne
-    @JoinColumn(name = "pedido_id")
+    @JoinColumn(name = "pedido_id", nullable = false)
     @JsonBackReference
     private Pedido pedido;
 
@@ -54,7 +54,7 @@ public class Envio {
         fechaEnvio = LocalDateTime.now();
 
         if (estadoEnvio == null) {
-            estadoEnvio = EstadoPedido.PENDIENTE;
+            estadoEnvio = EstadoEnvio.PREPARANDO;
         }
     }
 }

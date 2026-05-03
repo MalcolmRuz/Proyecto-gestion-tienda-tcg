@@ -41,7 +41,7 @@ public class HistorialPedido {
 
     // RELACION M:1 CON PEDIDO
     @ManyToOne
-    @JoinColumn(name = "pedido_id")
+    @JoinColumn(name = "pedido_id", nullable = false)
     @JsonBackReference
     private Pedido pedido;
 

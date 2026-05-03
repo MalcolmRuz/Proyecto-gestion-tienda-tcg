@@ -7,15 +7,11 @@ import lombok.Data;
 @Data
 public class CarritoItemRequest {
 
-    @NotNull
+    @NotNull(message = "La cantidad es obligatoria")
     @Min(value = 1, message = "La cantidad debe ser mayor a 0")
     private Integer cantidad;
 
-    @NotNull
-    @Min(value = 1, message = "El precio debe ser mayor a 0")
-    private Double precioUnitario;
-
-    // Para conectar con productos
-    @NotNull
+    // FK lógica al microservicio producto
+    @NotNull(message = "El producto es obligatorio")
     private Long productoId;
 }

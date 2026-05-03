@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonBackReference;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -21,6 +22,7 @@ import lombok.NoArgsConstructor;
 @Entity
 @Table(name = "carrito_item")
 public class CarritoItem {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long idItem;
@@ -35,14 +37,12 @@ public class CarritoItem {
     private Double precioTotalItem;
 
     // Relacion M:1 con Carrito
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "carrito_id", nullable = false)
     @JsonBackReference
     private Carrito carrito;
 
-    // FK A MICROSERVICIO PRODUCTOS
-
-    @Column(name = "producto_id, nullable = false")
+    // FK lógica al microservicio producto
+    @Column(name = "producto_id", nullable = false)
     private Long productoId;
-
 }

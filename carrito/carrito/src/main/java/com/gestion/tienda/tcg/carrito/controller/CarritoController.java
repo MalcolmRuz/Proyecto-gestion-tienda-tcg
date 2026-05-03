@@ -11,12 +11,11 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.gestion.tienda.tcg.carrito.dto.ActualizarEstadoRequest;
 import com.gestion.tienda.tcg.carrito.dto.CarritoRequest;
 import com.gestion.tienda.tcg.carrito.dto.CarritoResponse;
-import com.gestion.tienda.tcg.carrito.enums.EstadoCarrito;
 import com.gestion.tienda.tcg.carrito.service.CarritoService;
 
 import jakarta.validation.Valid;
@@ -31,18 +30,21 @@ public class CarritoController {
 
     private final CarritoService carritoService;
 
-    // Crear
+    // Crear carrito
     @PostMapping
-    public ResponseEntity<CarritoResponse> crearCarrito(@Valid @RequestBody CarritoRequest request) {
+    public ResponseEntity<CarritoResponse> crearCarrito(
+            @Valid @RequestBody CarritoRequest request) {
 
         log.info("Creando nuevo carrito");
 
         CarritoResponse response = carritoService.crear(request);
 
-        return new ResponseEntity<>(response, HttpStatus.CREATED);
+        return ResponseEntity
+                .status(HttpStatus.CREATED)
+                .body(response);
     }
 
-    // Listar
+    // Listar carritos
     @GetMapping
     public ResponseEntity<List<CarritoResponse>> listarCarritos() {
 
@@ -51,29 +53,32 @@ public class CarritoController {
         return ResponseEntity.ok(carritoService.listar());
     }
 
-    // Buscar por id
+    // Buscar carrito por id
     @GetMapping("/{id}")
-    public ResponseEntity<CarritoResponse> obtenerPorId(@PathVariable Long id) {
+    public ResponseEntity<CarritoResponse> obtenerPorId(
+            @PathVariable Long id) {
 
         log.info("Obteniendo carrito {}", id);
 
         return ResponseEntity.ok(carritoService.buscarPorId(id));
     }
 
-    // Actualizar Estado
+    // Actualizar estado del carrito
     @PatchMapping("/{id}/estado")
     public ResponseEntity<CarritoResponse> actualizarEstado(
             @PathVariable Long id,
-            @RequestParam EstadoCarrito estado) {
+            @Valid @RequestBody ActualizarEstadoRequest request) {
 
-        log.info("Actualizando estado carrito {}", id);
+        log.info("Actualizando estado del carrito {}", id);
 
-        return ResponseEntity.ok(carritoService.actualizarEstado(id, estado));
+        return ResponseEntity.ok(
+                carritoService.actualizarEstado(id, request.getEstado()));
     }
 
-    // Eliminar
+    // Eliminar carrito
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> eliminarCarrito(@PathVariable Long id) {
+    public ResponseEntity<Void> eliminarCarrito(
+            @PathVariable Long id) {
 
         log.warn("Eliminando carrito {}", id);
 

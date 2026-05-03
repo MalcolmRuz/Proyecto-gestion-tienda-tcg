@@ -6,30 +6,31 @@ import com.gestion.tienda.tcg.carrito.dto.CarritoItemRequest;
 import com.gestion.tienda.tcg.carrito.dto.CarritoItemResponse;
 import com.gestion.tienda.tcg.carrito.model.CarritoItem;
 
-import lombok.RequiredArgsConstructor;
-
 @Component
-@RequiredArgsConstructor
 public class CarritoItemMapper {
 
-    // Request Entity
-    public CarritoItem toEntity(CarritoItemRequest request) {
+    // Request -> Entity
+    public CarritoItem toEntity(
+            CarritoItemRequest request) {
+
         CarritoItem item = new CarritoItem();
+
         item.setCantidad(request.getCantidad());
-        item.setPrecioUnitario(request.getPrecioUnitario());
+        item.setProductoId(request.getProductoId());
 
         return item;
     }
 
-    // Entity Response
+    // Entity -> Response
+    public CarritoItemResponse toResponse(
+            CarritoItem item) {
 
-    public CarritoItemResponse toResponse(CarritoItem item) {
         return new CarritoItemResponse(
+
                 item.getIdItem(),
+                item.getProductoId(),
                 item.getCantidad(),
                 item.getPrecioUnitario(),
-                item.getPrecioTotalItem()
-
-        );
+                item.getPrecioTotalItem());
     }
 }

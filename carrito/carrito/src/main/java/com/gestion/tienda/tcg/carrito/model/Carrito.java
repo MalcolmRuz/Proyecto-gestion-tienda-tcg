@@ -10,6 +10,7 @@ import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -27,6 +28,7 @@ import lombok.NoArgsConstructor;
 @Entity
 @Table(name = "carrito")
 public class Carrito {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long idCarrito;
@@ -39,21 +41,23 @@ public class Carrito {
     private Double totalCarrito;
 
     // Relacion 1:M con CarritoItem
-    @OneToMany(mappedBy = "carrito", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "carrito", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
     @JsonManagedReference
     private List<CarritoItem> items;
 
-    // Relacion M:1 con CarritoHistorial
-    @OneToMany(mappedBy = "carrito", cascade = CascadeType.ALL, orphanRemoval = true)
+    // Relacion 1:M con historial
+    @OneToMany(mappedBy = "carrito", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
     @JsonManagedReference
     private List<CarritoHistorial> historial;
 
-    // Estado = Activo y total= 0.0 por defecto
+    // Valores por defecto
     @PrePersist
     public void valoresPorDefecto() {
+
         if (this.estadoCarrito == null) {
             this.estadoCarrito = EstadoCarrito.ACTIVO;
         }
+
         if (this.totalCarrito == null) {
             this.totalCarrito = 0.0;
         }

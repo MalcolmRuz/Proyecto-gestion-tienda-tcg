@@ -14,8 +14,12 @@ import lombok.NoArgsConstructor;
 public class CarritoResponse {
 
     private Long idCarrito;
+
     private EstadoCarrito estadoCarrito;
+
     private Double totalCarrito;
 
     private List<CarritoItemResponse> items;
+
+    private List<CarritoHistorialResponse> historial;
 }

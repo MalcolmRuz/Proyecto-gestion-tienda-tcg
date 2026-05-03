@@ -8,6 +8,7 @@ import com.gestion.tienda.tcg.carrito.Client.ProductoClient;
 import com.gestion.tienda.tcg.carrito.dto.CarritoItemRequest;
 import com.gestion.tienda.tcg.carrito.dto.CarritoItemResponse;
 import com.gestion.tienda.tcg.carrito.dto.ProductoDto;
+import com.gestion.tienda.tcg.carrito.enums.EstadoCarrito;
 import com.gestion.tienda.tcg.carrito.exception.BadRequestException;
 import com.gestion.tienda.tcg.carrito.exception.CarritoNotFoundException;
 import com.gestion.tienda.tcg.carrito.exception.ItemNotFoundException;
@@ -26,126 +27,215 @@ import lombok.extern.slf4j.Slf4j;
 @RequiredArgsConstructor
 public class CarritoItemService {
 
-    private final CarritoItemRepository itemRepository;
-    private final CarritoRepository carritoRepository;
-    private final CarritoItemMapper itemMapper;
-    private final ProductoClient productoClient;
+        private final CarritoItemRepository itemRepository;
+        private final CarritoRepository carritoRepository;
+        private final CarritoItemMapper itemMapper;
+        private final ProductoClient productoClient;
+        private final CarritoHistorialService historialService;
 
-    // Crear items en el carrito
-    @Transactional
-    public CarritoItemResponse agregarItem(Long idCarrito, CarritoItemRequest request) {
+        // Agregar item al carrito
+        @Transactional
+        public CarritoItemResponse agregarItem(
+                        Long idCarrito,
+                        CarritoItemRequest request) {
 
-        log.info("Agregando item al carrito {}", idCarrito);
+                log.info("Agregando item al carrito {}", idCarrito);
 
-        Carrito carrito = carritoRepository.findById(idCarrito)
-                .orElseThrow(() -> new CarritoNotFoundException("Carrito no encontrado"));
+                Carrito carrito = carritoRepository.findById(idCarrito)
+                                .orElseThrow(() -> new CarritoNotFoundException(
+                                                "Carrito no encontrado"));
 
-        // LLAMADA AL MICROSERVICIO PRODUCTO
-        ProductoDto producto;
-        try {
-            producto = productoClient.obtenerProductoPorId(request.getProductoId());
-        } catch (Exception e) {
-            log.error("Error al consultar producto: {}", e.getMessage());
-            throw new BadRequestException("No se pudo obtener el producto");
+                // Validar estado carrito
+                if (carrito.getEstadoCarrito() == EstadoCarrito.PAGADO) {
+
+                        throw new BadRequestException(
+                                        "No se puede modificar un carrito pagado");
+                }
+
+                // Validar item duplicado
+                boolean existe = itemRepository
+                                .findByCarritoIdCarritoAndProductoId(
+                                                idCarrito,
+                                                request.getProductoId())
+                                .isPresent();
+
+                if (existe) {
+
+                        throw new BadRequestException(
+                                        "El producto ya existe en el carrito");
+                }
+
+                // Consultar microservicio producto
+                ProductoDto producto;
+
+                try {
+
+                        producto = productoClient
+                                        .obtenerProductoPorId(
+                                                        request.getProductoId());
+
+                } catch (Exception e) {
+
+                        log.error(
+                                        "Error al consultar producto: {}",
+                                        e.getMessage());
+
+                        throw new BadRequestException(
+                                        "No se pudo obtener el producto");
+                }
+
+                if (producto == null) {
+
+                        throw new BadRequestException(
+                                        "Producto no existe");
+                }
+
+                // Crear item
+                CarritoItem item = new CarritoItem();
+
+                item.setProductoId(request.getProductoId());
+                item.setCantidad(request.getCantidad());
+                item.setPrecioUnitario(producto.getPrecio());
+                item.setCarrito(carrito);
+
+                double totalItem = producto.getPrecio() * request.getCantidad();
+
+                item.setPrecioTotalItem(totalItem);
+
+                CarritoItem guardado = itemRepository.save(item);
+
+                recalcularTotal(carrito);
+
+                // Registrar historial
+                historialService.registrarHistorial(
+                                carrito,
+                                carrito.getEstadoCarrito(),
+                                "Producto agregado al carrito");
+
+                return itemMapper.toResponse(guardado);
         }
 
-        if (producto == null) {
-            throw new BadRequestException("Producto no existe");
+        // Listar items del carrito
+        public List<CarritoItemResponse> listarPorCarrito(
+                        Long idCarrito) {
+
+                log.info("Listando items del carrito {}", idCarrito);
+
+                carritoRepository.findById(idCarrito)
+                                .orElseThrow(() -> new CarritoNotFoundException(
+                                                "Carrito no encontrado"));
+
+                return itemRepository.findByCarritoIdCarrito(idCarrito)
+                                .stream()
+                                .map(itemMapper::toResponse)
+                                .toList();
         }
 
-        // CREAR ITEM
-        CarritoItem item = new CarritoItem();
-        item.setCantidad(request.getCantidad());
-        item.setPrecioUnitario(producto.getPrecio()); // 🔥 viene del otro microservicio
-        item.setCarrito(carrito);
+        // Buscar item por ID
+        public CarritoItemResponse buscarPorId(Long idItem) {
 
-        double totalItem = producto.getPrecio() * request.getCantidad();
-        item.setPrecioTotalItem(totalItem);
+                log.info("Buscando item {}", idItem);
 
-        CarritoItem guardado = itemRepository.save(item);
+                CarritoItem item = itemRepository.findById(idItem)
+                                .orElseThrow(() -> new ItemNotFoundException(
+                                                "Item no encontrado"));
 
-        recalcularTotal(carrito);
-
-        return itemMapper.toResponse(guardado);
-    }
-
-    // Listar items por carrito
-    public List<CarritoItemResponse> listarPorCarrito(Long idCarrito) {
-
-        log.info("Listando items del carrito {}", idCarrito);
-
-        Carrito carrito = carritoRepository.findById(idCarrito)
-                .orElseThrow(() -> new CarritoNotFoundException("Carrito no encontrado"));
-
-        return carrito.getItems()
-                .stream()
-                .map(itemMapper::toResponse)
-                .toList();
-    }
-
-    // Obtener item por ID
-    public CarritoItemResponse buscarPorId(Long idItem) {
-
-        log.info("Buscando item {}", idItem);
-
-        CarritoItem item = itemRepository.findById(idItem)
-                .orElseThrow(() -> new ItemNotFoundException("Item no encontrado"));
-
-        return itemMapper.toResponse(item);
-    }
-
-    // Actualizar carrito
-    @Transactional
-    public CarritoItemResponse actualizarCantidad(Long idItem, Integer cantidad) {
-
-        log.info("Actualizando cantidad del item {}", idItem);
-
-        if (cantidad <= 0) {
-            throw new BadRequestException("La cantidad debe ser mayor a 0");
+                return itemMapper.toResponse(item);
         }
 
-        CarritoItem item = itemRepository.findById(idItem)
-                .orElseThrow(() -> new ItemNotFoundException("Item no encontrado"));
+        // Actualizar cantidad
+        @Transactional
+        public CarritoItemResponse actualizarCantidad(
+                        Long idItem,
+                        Integer cantidad) {
 
-        item.setCantidad(cantidad);
+                log.info("Actualizando cantidad del item {}", idItem);
 
-        double totalItem = item.getPrecioUnitario() * cantidad;
-        item.setPrecioTotalItem(totalItem);
+                if (cantidad <= 0) {
 
-        recalcularTotal(item.getCarrito());
+                        throw new BadRequestException(
+                                        "La cantidad debe ser mayor a 0");
+                }
 
-        return itemMapper.toResponse(item);
-    }
+                CarritoItem item = itemRepository.findById(idItem)
+                                .orElseThrow(() -> new ItemNotFoundException(
+                                                "Item no encontrado"));
 
-    // Eliminar item del carrito
-    @Transactional
-    public void eliminarItem(Long idItem) {
+                // Validar carrito pagado
+                if (item.getCarrito().getEstadoCarrito() == EstadoCarrito.PAGADO) {
 
-        log.warn("Eliminando item {}", idItem);
+                        throw new BadRequestException(
+                                        "No se puede modificar un carrito pagado");
+                }
 
-        CarritoItem item = itemRepository.findById(idItem)
-                .orElseThrow(() -> new ItemNotFoundException("Item no encontrado"));
+                item.setCantidad(cantidad);
 
-        Carrito carrito = item.getCarrito();
+                double totalItem = item.getPrecioUnitario() * cantidad;
 
-        itemRepository.delete(item);
+                item.setPrecioTotalItem(totalItem);
 
-        recalcularTotal(carrito);
-    }
+                recalcularTotal(item.getCarrito());
 
-    // Metodo recalcular
-    private void recalcularTotal(Carrito carrito) {
+                // Registrar historial
+                historialService.registrarHistorial(
+                                item.getCarrito(),
+                                item.getCarrito().getEstadoCarrito(),
+                                "Cantidad actualizada del producto");
 
-        if (carrito.getItems() == null) {
-            carrito.setTotalCarrito(0.0);
-            return;
+                return itemMapper.toResponse(item);
         }
 
-        double total = carrito.getItems()
-                .stream()
-                .mapToDouble(CarritoItem::getPrecioTotalItem)
-                .sum();
+        // Eliminar item
+        @Transactional
+        public void eliminarItem(Long idItem) {
 
-        carrito.setTotalCarrito(total);
-    }
+                log.warn("Eliminando item {}", idItem);
+
+                CarritoItem item = itemRepository.findById(idItem)
+                                .orElseThrow(() -> new ItemNotFoundException(
+                                                "Item no encontrado"));
+
+                // Validar carrito pagado
+                if (item.getCarrito().getEstadoCarrito() == EstadoCarrito.PAGADO) {
+
+                        throw new BadRequestException(
+                                        "No se puede modificar un carrito pagado");
+                }
+
+                Carrito carrito = item.getCarrito();
+
+                itemRepository.delete(item);
+
+                recalcularTotal(carrito);
+
+                // Registrar historial
+                historialService.registrarHistorial(
+                                carrito,
+                                carrito.getEstadoCarrito(),
+                                "Producto eliminado del carrito");
+        }
+
+        // Recalcular total carrito
+        private void recalcularTotal(Carrito carrito) {
+
+                List<CarritoItem> items = itemRepository.findByCarritoIdCarrito(
+                                carrito.getIdCarrito());
+
+                if (items.isEmpty()) {
+
+                        carrito.setTotalCarrito(0.0);
+
+                        carritoRepository.save(carrito);
+
+                        return;
+                }
+
+                double total = items.stream()
+                                .mapToDouble(CarritoItem::getPrecioTotalItem)
+                                .sum();
+
+                carrito.setTotalCarrito(total);
+
+                carritoRepository.save(carrito);
+        }
 }

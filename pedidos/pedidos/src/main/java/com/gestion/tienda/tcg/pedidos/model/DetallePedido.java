@@ -24,11 +24,14 @@ public class DetallePedido {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long idBoleta;
+    private Long idDetalle;
 
     // FK lógica a microservicio productos
     @Column(nullable = false)
     private Long productoId;
+
+    @Column(nullable = false)
+    private String nombreProducto;
 
     @Column(nullable = false)
     private Integer cantidad;
@@ -41,7 +44,7 @@ public class DetallePedido {
 
     // RELACION M:1 CON PEDIDO
     @ManyToOne
-    @JoinColumn(name = "pedido_id")
+    @JoinColumn(name = "pedido_id", nullable = false)
     @JsonBackReference
     private Pedido pedido;
 }

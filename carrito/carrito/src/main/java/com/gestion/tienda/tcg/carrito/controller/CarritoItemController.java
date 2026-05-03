@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.gestion.tienda.tcg.carrito.dto.ActualizarCantidadRequest;
 import com.gestion.tienda.tcg.carrito.dto.CarritoItemRequest;
 import com.gestion.tienda.tcg.carrito.dto.CarritoItemResponse;
 import com.gestion.tienda.tcg.carrito.service.CarritoItemService;
@@ -22,13 +23,14 @@ import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 @RestController
-@RequestMapping("/api/carritos/items")
+@RequestMapping("/api/v1/carritos")
 @RequiredArgsConstructor
 public class CarritoItemController {
+
     private final CarritoItemService itemService;
 
     // Agregar item al carrito
-    @PostMapping("/{idCarrito}")
+    @PostMapping("/{idCarrito}/items")
     public ResponseEntity<CarritoItemResponse> agregarItem(
             @PathVariable Long idCarrito,
             @Valid @RequestBody CarritoItemRequest request) {
@@ -39,7 +41,7 @@ public class CarritoItemController {
     }
 
     // Listar items del carrito
-    @GetMapping("/carrito/{idCarrito}")
+    @GetMapping("/{idCarrito}/items")
     public ResponseEntity<List<CarritoItemResponse>> listarItems(
             @PathVariable Long idCarrito) {
 
@@ -48,8 +50,8 @@ public class CarritoItemController {
         return ResponseEntity.ok(itemService.listarPorCarrito(idCarrito));
     }
 
-    // Buscar item por Id
-    @GetMapping("/{idItem}")
+    // Buscar item por id
+    @GetMapping("/items/{idItem}")
     public ResponseEntity<CarritoItemResponse> obtenerItem(
             @PathVariable Long idItem) {
 
@@ -59,19 +61,21 @@ public class CarritoItemController {
     }
 
     // Actualizar cantidad de item
-    @PatchMapping("/{idItem}/cantidad/{cantidad}")
+    @PatchMapping("/items/{idItem}")
     public ResponseEntity<CarritoItemResponse> actualizarCantidad(
             @PathVariable Long idItem,
-            @PathVariable Integer cantidad) {
+            @Valid @RequestBody ActualizarCantidadRequest request) {
 
         log.info("Actualizando cantidad del item {}", idItem);
 
-        return ResponseEntity.ok(itemService.actualizarCantidad(idItem, cantidad));
+        return ResponseEntity.ok(
+                itemService.actualizarCantidad(idItem, request.getCantidad()));
     }
 
     // Eliminar item
-    @DeleteMapping("/{idItem}")
-    public ResponseEntity<Void> eliminarItem(@PathVariable Long idItem) {
+    @DeleteMapping("/items/{idItem}")
+    public ResponseEntity<Void> eliminarItem(
+            @PathVariable Long idItem) {
 
         log.warn("Eliminando item {}", idItem);
 

@@ -22,8 +22,9 @@ public class DetallePedidoMapper {
     public DetallePedidoResponse toResponse(DetallePedido detalle) {
 
         return new DetallePedidoResponse(
-                detalle.getIdBoleta(),
+                detalle.getIdDetalle(),
                 detalle.getProductoId(),
+                detalle.getNombreProducto(),
                 detalle.getCantidad(),
                 detalle.getPrecioUnitario(),
                 detalle.getPrecioTotal());

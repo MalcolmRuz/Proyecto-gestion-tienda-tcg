@@ -7,6 +7,7 @@ import org.springframework.stereotype.Component;
 
 import com.gestion.tienda.tcg.pedidos.dto.DetallePedidoResponse;
 import com.gestion.tienda.tcg.pedidos.dto.EnvioResponse;
+import com.gestion.tienda.tcg.pedidos.dto.HistorialPedidoResponse;
 import com.gestion.tienda.tcg.pedidos.dto.PedidoRequest;
 import com.gestion.tienda.tcg.pedidos.dto.PedidoResponse;
 import com.gestion.tienda.tcg.pedidos.model.Pedido;
@@ -19,12 +20,14 @@ public class PedidoMapper {
 
     private final DetallePedidoMapper detalleMapper;
     private final EnvioMapper envioMapper;
+    private final HistorialPedidoMapper historialMapper;
 
     public Pedido toEntity(PedidoRequest request) {
 
         Pedido pedido = new Pedido();
 
         pedido.setUsuarioId(request.getUsuarioId());
+        pedido.setCarritoId(request.getCarritoId());
 
         return pedido;
     }
@@ -41,6 +44,16 @@ public class PedidoMapper {
                     .collect(Collectors.toList());
         }
 
+        List<HistorialPedidoResponse> historial = null;
+
+        if (pedido.getHistorial() != null) {
+
+            historial = pedido.getHistorial()
+                    .stream()
+                    .map(historialMapper::toResponse)
+                    .collect(Collectors.toList());
+        }
+
         EnvioResponse envio = null;
 
         if (pedido.getEnvio() != null) {
@@ -51,10 +64,12 @@ public class PedidoMapper {
         return new PedidoResponse(
                 pedido.getIdPedido(),
                 pedido.getUsuarioId(),
+                pedido.getCarritoId(),
                 pedido.getFecha(),
                 pedido.getEstado(),
-                pedido.getTotal(),
+                pedido.getTotalPedido(),
                 detalles,
+                historial,
                 envio);
     }
 }

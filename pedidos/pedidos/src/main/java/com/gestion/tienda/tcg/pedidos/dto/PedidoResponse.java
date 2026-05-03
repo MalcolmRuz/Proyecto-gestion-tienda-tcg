@@ -7,23 +7,28 @@ import com.gestion.tienda.tcg.pedidos.enums.EstadoPedido;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Data
 @AllArgsConstructor
+@NoArgsConstructor
 public class PedidoResponse {
 
     private Long idPedido;
 
     private Long usuarioId;
 
+    private Long carritoId;
+
     private LocalDateTime fecha;
 
     private EstadoPedido estado;
 
-    private Double total;
+    private Double totalPedido;
 
     private List<DetallePedidoResponse> detalles;
 
-    private EnvioResponse envio;
+    private List<HistorialPedidoResponse> historial;
 
+    private EnvioResponse envio;
 }

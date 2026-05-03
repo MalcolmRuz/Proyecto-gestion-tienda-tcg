@@ -35,9 +35,12 @@ public class Pedido {
     private Long idPedido;
 
     // FK lógica a microservicio usuarios
-
     @Column(nullable = false)
     private Long usuarioId;
+
+    // FK lógica a carrito-service
+    @Column(nullable = false)
+    private Long carritoId;
 
     @Column(nullable = false)
     private LocalDateTime fecha;
@@ -47,20 +50,20 @@ public class Pedido {
     private EstadoPedido estado;
 
     @Column(nullable = false)
-    private Double total;
+    private Double totalPedido;
 
     // RELACION 1:M CON DETALLEPEDIDO
-    @OneToMany(mappedBy = "pedido", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "pedido", cascade = CascadeType.ALL, orphanRemoval = true)
     @JsonManagedReference
     private List<DetallePedido> detalles;
 
     // RELACION 1:M CON HISTORIAL
-    @OneToMany(mappedBy = "pedido", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "pedido", cascade = CascadeType.ALL, orphanRemoval = true)
     @JsonManagedReference
     private List<HistorialPedido> historial;
 
     // RELACION 1:1 CON ENVIO
-    @OneToOne(mappedBy = "pedido", cascade = CascadeType.ALL)
+    @OneToOne(mappedBy = "pedido", cascade = CascadeType.ALL, orphanRemoval = true)
     @JsonManagedReference
     private Envio envio;
 
@@ -73,8 +76,8 @@ public class Pedido {
             estado = EstadoPedido.PENDIENTE;
         }
 
-        if (total == null) {
-            total = 0.0;
+        if (totalPedido == null) {
+            totalPedido = 0.0;
         }
     }
 }

@@ -9,6 +9,7 @@ import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -39,15 +40,21 @@ public class CarritoHistorial {
     @Column(nullable = false)
     private LocalDateTime fecha;
 
+    @Column(nullable = false)
+    private String descripcion;
+
     // Relacion M:1 con Carrito
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "carrito_id", nullable = false)
     @JsonBackReference
     private Carrito carrito;
 
-    // Fechas automaticas
+    // Fecha automática
     @PrePersist
     public void prePersist() {
-        this.fecha = LocalDateTime.now();
+
+        if (this.fecha == null) {
+            this.fecha = LocalDateTime.now();
+        }
     }
 }

@@ -8,4 +8,7 @@ import com.gestion.tienda.tcg.carrito.model.CarritoHistorial;
 
 public interface CarritoHistorialRepository extends JpaRepository<CarritoHistorial, Long> {
     List<CarritoHistorial> findByCarrito_idCarrito(Long idCarrito);
+
+    // Obtener historial del carrito ordenado
+    List<CarritoHistorial> findByCarritoIdCarritoOrderByFechaDesc(Long idCarrito);
 }
