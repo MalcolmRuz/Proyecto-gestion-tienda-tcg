@@ -34,13 +34,12 @@ public class ProductoCategoriaService {
     public ProductoCategoriaResponse asignarCategoriaAProducto(ProductoCategoriaRequest request) {
         log.info("Asociando producto ID: {} con categoría ID: {}", request.getIdProducto(), request.getIdCategoria());
 
-        // Validar que ambos existan en la base de datos Oracle
+
         var producto = productoRepository.findById(request.getIdProducto())
                 .orElseThrow(() -> new RuntimeException("Producto no encontrado"));
         var categoria = categoriaRepository.findById(request.getIdCategoria())
                 .orElseThrow(() -> new RuntimeException("Categoría no encontrada"));
 
-        // Mapear y guardar la relación
         var nuevaRelacion = productoCategoriaMapper.toEntity(request);
         var guardado = productoCategoriaRepository.save(nuevaRelacion);
 
@@ -61,7 +60,7 @@ public class ProductoCategoriaService {
                 .map(productoCategoriaMapper::toResponse)
                 .toList();
     }
-    // 4. Listar todas las asociaciones
+
     public List<ProductoCategoriaResponse> listarCategorias() {
         log.info("Listando todas las asociaciones Producto-Categoría");
         return productoCategoriaRepository.findAll()
