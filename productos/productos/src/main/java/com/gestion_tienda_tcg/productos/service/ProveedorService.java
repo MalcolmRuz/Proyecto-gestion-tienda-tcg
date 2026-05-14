@@ -20,13 +20,34 @@ public class ProveedorService {
         this.proveedorMapper = proveedorMapper;
     }
 
-//public ProveedorResponse registrarProveedor(ProveedorRequest request){}
+    public ProveedorResponse registrarProveedor(ProveedorRequest request) {
+        log.info("Iniciando registro de proveedor: {}", request.getNombre());
+        var proveedorParaGuardar = proveedorMapper.toEntity(request);
+        var proveedorGuardado = proveedorRepository.save(proveedorParaGuardar);
+        log.info("Proveedor guardado exitosamente con ID: {}", proveedorGuardado.getIdProveedor());
+        return proveedorMapper.toResponse(proveedorGuardado);
+    }
 
+    public List<ProveedorResponse> listarProveedores() {
+        log.info("Obteniendo lista de todos los proveedores");
 
-// public List<ProveedorResponse> listarProveedores (){}
+        return proveedorRepository.findAll()
+                .stream()
+                .map(proveedorMapper::toResponse)
+                .toList();
+    }
 
+    public ProveedorResponse actualizarContacto(Long idProveedor, String nuevoContacto) {
+        log.info("Actualizando contacto para el proveedor ID: {}", idProveedor);
+        var proveedorExistente = proveedorRepository.findById(idProveedor)
+                .orElseThrow(() -> new RuntimeException("Proveedor no encontrado con ID: " + idProveedor));
+        proveedorExistente.setContactoProveedor(nuevoContacto);
 
-// public ProveedorResponse actualizarContacto(Long idProveedor, String contacto){}
+        // Guardamos los cambios (esto ejecuta un UPDATE en la BD)
+        var proveedorActualizado = proveedorRepository.save(proveedorExistente);
 
+        log.info("Contacto actualizado para: {}", proveedorActualizado.getNombreProveedor());
 
+        return proveedorMapper.toResponse(proveedorActualizado);
+    }
 }

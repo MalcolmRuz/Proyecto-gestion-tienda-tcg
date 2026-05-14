@@ -1,7 +1,10 @@
 package com.gestion_tienda_tcg.productos.service;
 
 
+import com.gestion_tienda_tcg.productos.dto.CategoriaRequest;
+import com.gestion_tienda_tcg.productos.dto.CategoriaResponse;
 import com.gestion_tienda_tcg.productos.mapper.CategoriaMapper;
+import com.gestion_tienda_tcg.productos.model.Categoria;
 import com.gestion_tienda_tcg.productos.repository.CategoriaRepository;
 import lombok.extern.slf4j.Slf4j;
 
@@ -22,11 +25,42 @@ public class CategoriaService {
 
 
     }
+    public CategoriaResponse crearCategoria(CategoriaRequest request) {
+        log.info("Creando nueva categoría: {}", request.getNombre());
 
-    //public CategoriaResponse crearCategoria(CategoriaRequest request){}
-    //public List<CategoriaResponse> listarCategorias(){};
-    //public CategoriaResponse editarCategoria(CategoriaRequest request){};
+        var categoria = categoriaMapper.toEntity(request);
+
+        var categoriaGuardada = categoriaRepository.save(categoria);
+
+        return categoriaMapper.toResponse(categoriaGuardada);
+    }
+    public List<CategoriaResponse> listarCategorias() {
+        log.info("Listando todas las categorías");
+        return categoriaRepository.findAll()
+                .stream()
+                .map(categoriaMapper::toResponse)
+                .toList();
+    }
+
+
+    public CategoriaResponse editarCategoria(Long id, CategoriaRequest request) {
+        log.info("Editando categoría con ID: {}", id);
+
+        // 1. Verificar si existe
+        return categoriaRepository.findById(id)
+                .map(categoriaExistente -> {
+
+                    categoriaExistente.setNombreTcg(request.getNombre());
 
 
 
+                    var actualizada = categoriaRepository.save(categoriaExistente);
+                    return categoriaMapper.toResponse(actualizada);
+                })
+                .orElseThrow(() -> new RuntimeException("Categoría no encontrada con ID: " + id));
+    }
 }
+
+
+
+

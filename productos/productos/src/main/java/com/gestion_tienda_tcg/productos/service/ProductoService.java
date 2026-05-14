@@ -1,6 +1,7 @@
 package com.gestion_tienda_tcg.productos.service;
 
 
+import com.gestion_tienda_tcg.productos.dto.ProductoRequest;
 import com.gestion_tienda_tcg.productos.dto.ProductoResponse;
 import com.gestion_tienda_tcg.productos.exception.ProductoInvalidoException;
 import com.gestion_tienda_tcg.productos.mapper.ProductoMapper;
@@ -22,8 +23,38 @@ public class ProductoService {
         this.productoRepository = productoRepository;
         this.productoMapper = productoMapper;
     }
-    //public ProductoResponse guardarProducto(ProductoRequest request){}
-    //public ProductoResponse modificarProducto(ProductoRequest request){}
+    public ProductoResponse guardarProducto(ProductoRequest request) {
+        log.info("Recibiendo solicitud para guardar nuevo producto: {}", request.getNombre());
+
+        Producto producto = productoMapper.toEntity(request);
+
+        Producto productoGuardado = productoRepository.save(producto);
+        log.info("Producto guardado exitosamente con ID: {}", productoGuardado.getIdProducto());
+
+        return productoMapper.toResponse(productoGuardado);
+    }
+    @Transactional
+    public ProductoResponse modificarProducto(Long id, ProductoRequest request) {
+        log.info("Iniciando actualización para el producto ID: {}", id);
+
+        return productoRepository.findById(id)
+                .map(productoExistente -> {
+
+                    productoExistente.setNombreProducto(request.getNombre());
+                    productoExistente.setDescripcion(request.getDescripcion());
+                    productoExistente.setEstadoActivo(request.getEstado());
+
+
+
+                    Producto actualizado = productoRepository.save(productoExistente);
+                    log.info("Producto ID: {} actualizado correctamente", id);
+                    return productoMapper.toResponse(actualizado);
+                })
+                .orElseThrow(() -> {
+                    log.error("Error al modificar: Producto ID {} no encontrado", id);
+                    return new ProductoInvalidoException("No se puede editar un producto inexistente");
+                });
+    }
 
     public ProductoResponse obtenerDetalle(Long id) {
         Producto producto = productoRepository.findById(id)

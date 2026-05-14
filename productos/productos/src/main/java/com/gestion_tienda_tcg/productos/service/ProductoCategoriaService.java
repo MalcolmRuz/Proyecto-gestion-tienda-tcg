@@ -2,6 +2,8 @@ package com.gestion_tienda_tcg.productos.service;
 
 
 
+import com.gestion_tienda_tcg.productos.dto.ProductoCategoriaRequest;
+import com.gestion_tienda_tcg.productos.dto.ProductoCategoriaResponse;
 import com.gestion_tienda_tcg.productos.mapper.ProductoCategoriaMapper;
 
 import com.gestion_tienda_tcg.productos.repository.CategoriaRepository;
@@ -29,11 +31,43 @@ public class ProductoCategoriaService {
 
     }
 
-    //METODO PARA asignarCategoriaAProducto
+    public ProductoCategoriaResponse asignarCategoriaAProducto(ProductoCategoriaRequest request) {
+        log.info("Asociando producto ID: {} con categoría ID: {}", request.getIdProducto(), request.getIdCategoria());
 
-    //METODO PARA quitarCategoriaDeProducto
-    //public List<ProductoCategoriaResponse> listarProductosPorCategoria(long idCategoria){}
+        // Validar que ambos existan en la base de datos Oracle
+        var producto = productoRepository.findById(request.getIdProducto())
+                .orElseThrow(() -> new RuntimeException("Producto no encontrado"));
+        var categoria = categoriaRepository.findById(request.getIdCategoria())
+                .orElseThrow(() -> new RuntimeException("Categoría no encontrada"));
 
-    //public List<ProductoCategoriaResponse> listarCategorias(){}
+        // Mapear y guardar la relación
+        var nuevaRelacion = productoCategoriaMapper.toEntity(request);
+        var guardado = productoCategoriaRepository.save(nuevaRelacion);
 
+        return productoCategoriaMapper.toResponse(guardado);
+    }
+
+    public void quitarCategoriaDeProducto(Long idRelacion) {
+        log.info("Eliminando asociación con ID: {}", idRelacion);
+        if (!productoCategoriaRepository.existsById(idRelacion)) {
+            throw new RuntimeException("La asociación no existe");
+        }
+        productoCategoriaRepository.deleteById(idRelacion);
+    }
+    public List<ProductoCategoriaResponse> listarProductosPorCategoria(long idCategoria) {
+        log.info("Buscando productos de la categoría ID: {}", idCategoria);
+        return productoCategoriaRepository.findByCategoriaId(idCategoria)
+                .stream()
+                .map(productoCategoriaMapper::toResponse)
+                .toList();
+    }
+    // 4. Listar todas las asociaciones
+    public List<ProductoCategoriaResponse> listarCategorias() {
+        log.info("Listando todas las asociaciones Producto-Categoría");
+        return productoCategoriaRepository.findAll()
+                .stream()
+                .map(productoCategoriaMapper::toResponse)
+                .toList();
+    }
 }
+
