@@ -11,7 +11,6 @@ public class InventarioMapper {
 
         Inventario inventario = new Inventario();
         inventario.setStockActual(request.getStockActual());
-        inventario.setFechaInventario(request.getFechaInventario());
         inventario.setIdProducto(request.getIdProducto());
         return inventario;
 

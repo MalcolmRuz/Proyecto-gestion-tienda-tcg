@@ -129,10 +129,6 @@ public class InventarioService {
         Inventario inventario = inventarioRepository.findByIdProducto(request.getIdProducto())
                 .orElseThrow(() -> new InventarioInvalidoException("No existe registro para ajustar"));
 
-
-        int stockAnterior = inventario.getStockActual();
-
-
         inventario.setStockActual(request.getStockActual());
         inventarioRepository.save(inventario);
 

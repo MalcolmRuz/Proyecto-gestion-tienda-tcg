@@ -1,7 +1,8 @@
 package com.gestion_tienda_tcg.inventario.model;
 
-import java.time.LocalDate;
+
 import java.time.LocalDateTime;
+
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -22,12 +23,12 @@ public class Inventario {
    @Column(name = "stock_actual", nullable = false)
    private int stockActual;
    @Column(name = "fecha_inventario")
-    private LocalDate fechaInventario;
+    private LocalDateTime fechaInventario;
 
    //inicializa fecha
     @PrePersist
     protected  void onCreate(){
-        fechaInventario = LocalDate.now();
+        fechaInventario = LocalDateTime.now();
    }
 
 }
