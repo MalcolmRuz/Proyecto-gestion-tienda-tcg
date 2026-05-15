@@ -14,7 +14,7 @@ import java.util.List;
 @Slf4j
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/api/v1/producto")
+@RequestMapping("/api/v1/productos")
 public class ProductoController {
     private final ProductoService productoService;
         @PostMapping
