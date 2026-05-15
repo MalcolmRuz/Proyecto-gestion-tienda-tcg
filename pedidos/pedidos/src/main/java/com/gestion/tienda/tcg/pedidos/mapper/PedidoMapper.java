@@ -27,7 +27,6 @@ public class PedidoMapper {
         Pedido pedido = new Pedido();
 
         pedido.setUsuarioId(request.getUsuarioId());
-        pedido.setCarritoId(request.getCarritoId());
 
         return pedido;
     }
