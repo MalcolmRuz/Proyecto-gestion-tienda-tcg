@@ -6,10 +6,12 @@ import com.gestion_tienda_tcg.productos.dto.ProductoCategoriaRequest;
 import com.gestion_tienda_tcg.productos.dto.ProductoCategoriaResponse;
 import com.gestion_tienda_tcg.productos.mapper.ProductoCategoriaMapper;
 
+import com.gestion_tienda_tcg.productos.model.ProductoCategoria;
 import com.gestion_tienda_tcg.productos.repository.CategoriaRepository;
 import com.gestion_tienda_tcg.productos.repository.ProductoCategoriaRepository;
 import com.gestion_tienda_tcg.productos.repository.ProductoRepository;
 
+import jakarta.transaction.Transactional;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
@@ -31,17 +33,30 @@ public class ProductoCategoriaService {
 
     }
 
+    @Transactional
     public ProductoCategoriaResponse asignarCategoriaAProducto(ProductoCategoriaRequest request) {
         log.info("Asociando producto ID: {} con categoría ID: {}", request.getIdProducto(), request.getIdCategoria());
 
 
         var producto = productoRepository.findById(request.getIdProducto())
                 .orElseThrow(() -> new RuntimeException("Producto no encontrado"));
+
         var categoria = categoriaRepository.findById(request.getIdCategoria())
                 .orElseThrow(() -> new RuntimeException("Categoría no encontrada"));
 
-        var nuevaRelacion = productoCategoriaMapper.toEntity(request);
+        var nuevaRelacion = new ProductoCategoria();
+
+
+        nuevaRelacion.setProducto(producto);
+        nuevaRelacion.setCategoria(categoria);
+
+
+        nuevaRelacion.setNombreProducto(producto.getNombreProducto());
+        nuevaRelacion.setNombreCategoria(categoria.getNombreTcg());
+
+
         var guardado = productoCategoriaRepository.save(nuevaRelacion);
+
 
         return productoCategoriaMapper.toResponse(guardado);
     }

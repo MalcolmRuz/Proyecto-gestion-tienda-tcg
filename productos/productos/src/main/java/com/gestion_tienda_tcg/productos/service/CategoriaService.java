@@ -6,6 +6,7 @@ import com.gestion_tienda_tcg.productos.dto.CategoriaResponse;
 import com.gestion_tienda_tcg.productos.mapper.CategoriaMapper;
 import com.gestion_tienda_tcg.productos.model.Categoria;
 import com.gestion_tienda_tcg.productos.repository.CategoriaRepository;
+import jakarta.transaction.Transactional;
 import lombok.extern.slf4j.Slf4j;
 
 import org.springframework.stereotype.Service;
@@ -43,6 +44,7 @@ public class CategoriaService {
     }
 
 
+    @Transactional
     public CategoriaResponse editarCategoria(Long id, CategoriaRequest request) {
         log.info("Editando categoría con ID: {}", id);
 
@@ -51,10 +53,11 @@ public class CategoriaService {
                 .map(categoriaExistente -> {
 
                     categoriaExistente.setNombreTcg(request.getNombre());
+                    categoriaExistente.setTipoProducto(request.getTipoProducto());
 
 
-
-                    var actualizada = categoriaRepository.save(categoriaExistente);
+                    Categoria actualizada = categoriaRepository.save(categoriaExistente);
+                    log.info("Categoria ID: {} actualizada exitosamente en la base de datos",id);
                     return categoriaMapper.toResponse(actualizada);
                 })
                 .orElseThrow(() -> new RuntimeException("Categoría no encontrada con ID: " + id));
