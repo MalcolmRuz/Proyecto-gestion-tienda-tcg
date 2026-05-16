@@ -83,7 +83,7 @@ public class MovimientoStockService {
         }
 
 
-        List<MovimientoStock> movimientos = movimientoStockRepository.findByFechaBetween(inicio, fin);
+        List<MovimientoStock> movimientos = movimientoStockRepository.findByFechaMovimientoBetween(inicio, fin);
 
 
         return movimientos.stream()

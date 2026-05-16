@@ -8,8 +8,8 @@ import java.util.List;
 
 @Repository
 public interface ProductoCategoriaRepository extends JpaRepository<ProductoCategoria,Long> {
-    List<ProductoCategoria> findByCategoriaId(Long idCategoria);
+    List<ProductoCategoria> findByCategoriaIdCategoria(Long idCategoria);
 
 
-    List<ProductoCategoria> findByProductoId(Long idProducto);
+    List<ProductoCategoria> findByProductoIdProducto(Long idProducto);
 }

@@ -22,7 +22,8 @@ public class ProductoService {
     private final ProductoRepository productoRepository;
     private final ProductoMapper productoMapper;
     private final InventarioClient inventarioClient;
-    private ProductoService(ProductoRepository productoRepository, ProductoMapper productoMapper,InventarioClient inventarioClient) {
+
+    public ProductoService(ProductoRepository productoRepository, ProductoMapper productoMapper,InventarioClient inventarioClient) {
         this.productoRepository = productoRepository;
         this.productoMapper = productoMapper;
         this.inventarioClient = inventarioClient;

@@ -15,7 +15,7 @@ public class ProveedorService {
     private final ProveedorRepository proveedorRepository;
     private final ProveedorMapper proveedorMapper;
 
-    private ProveedorService(ProveedorRepository proveedorRepository, ProveedorMapper proveedorMapper) {
+    public ProveedorService(ProveedorRepository proveedorRepository, ProveedorMapper proveedorMapper) {
         this.proveedorRepository = proveedorRepository;
         this.proveedorMapper = proveedorMapper;
     }

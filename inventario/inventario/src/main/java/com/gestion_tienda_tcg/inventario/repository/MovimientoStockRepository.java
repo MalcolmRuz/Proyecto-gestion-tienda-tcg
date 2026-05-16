@@ -14,5 +14,5 @@ import java.util.List;
 public interface MovimientoStockRepository extends JpaRepository <MovimientoStock,Long> {
     List<MovimientoStock> findByInventario_IdInventario(Long idInventario);
     List<MovimientoStock> findByTipo(TipoMovimiento tipo);
-    List<MovimientoStock> findByFechaBetween(LocalDateTime fechaInicio, LocalDateTime fechaFin);
+    List<MovimientoStock> findByFechaMovimientoBetween(LocalDateTime fechaInicio, LocalDateTime fechaFin);
 }

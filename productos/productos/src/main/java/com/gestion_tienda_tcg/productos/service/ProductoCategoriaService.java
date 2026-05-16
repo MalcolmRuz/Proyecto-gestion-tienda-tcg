@@ -23,7 +23,7 @@ public class ProductoCategoriaService {
     private final ProductoRepository productoRepository;
     private final CategoriaRepository categoriaRepository;
 
-    private ProductoCategoriaService(ProductoCategoriaRepository productoCategoriaRepository, ProductoCategoriaMapper productoCategoriaMapper,ProductoRepository productoRepository,CategoriaRepository categoriaRepository){
+    public ProductoCategoriaService(ProductoCategoriaRepository productoCategoriaRepository, ProductoCategoriaMapper productoCategoriaMapper,ProductoRepository productoRepository,CategoriaRepository categoriaRepository){
         this.productoCategoriaRepository = productoCategoriaRepository;
         this.productoCategoriaMapper = productoCategoriaMapper;
         this.productoRepository = productoRepository;
@@ -55,7 +55,7 @@ public class ProductoCategoriaService {
     }
     public List<ProductoCategoriaResponse> listarProductosPorCategoria(long idCategoria) {
         log.info("Buscando productos de la categoría ID: {}", idCategoria);
-        return productoCategoriaRepository.findByCategoriaId(idCategoria)
+        return productoCategoriaRepository.findByCategoriaIdCategoria(idCategoria)
                 .stream()
                 .map(productoCategoriaMapper::toResponse)
                 .toList();
