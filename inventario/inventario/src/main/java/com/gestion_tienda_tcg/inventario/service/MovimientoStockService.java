@@ -31,7 +31,7 @@ public class MovimientoStockService {
         this.inventarioRepository =  inventarioRepository;
     }
 
-    @Transactional //(propagation = Propagation.REQUIRED)
+    @Transactional
     public void generarRegistro(Inventario inventario, Integer cantidad, TipoMovimiento tipo){
 
         MovimientoStock movimiento = new MovimientoStock();
