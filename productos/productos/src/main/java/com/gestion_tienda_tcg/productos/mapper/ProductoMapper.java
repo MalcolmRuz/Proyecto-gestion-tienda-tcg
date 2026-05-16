@@ -15,12 +15,14 @@ public class ProductoMapper {
         return producto;
     }
     public ProductoResponse toResponse(Producto producto){
+        Long idProv = (producto.getProveedor() != null) ? producto.getProveedor().getIdProveedor() : null;
+
         return new ProductoResponse(
                 producto.getIdProducto(),
                 producto.getNombreProducto(),
                 producto.getDescripcion(),
                 producto.isEstadoActivo(),
-                producto.getProveedor().getIdProveedor());
+                idProv);
 
     }
 }

@@ -16,4 +16,6 @@ public class ProductoRequest {
     private String descripcion;
     @NotNull
     private Boolean estado;
+
+    private Long idProveedor;
 }

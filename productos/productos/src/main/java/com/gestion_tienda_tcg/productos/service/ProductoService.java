@@ -8,7 +8,9 @@ import com.gestion_tienda_tcg.productos.dto.ProductoResponse;
 import com.gestion_tienda_tcg.productos.exception.ProductoInvalidoException;
 import com.gestion_tienda_tcg.productos.mapper.ProductoMapper;
 import com.gestion_tienda_tcg.productos.model.Producto;
+import com.gestion_tienda_tcg.productos.model.Proveedor;
 import com.gestion_tienda_tcg.productos.repository.ProductoRepository;
+import com.gestion_tienda_tcg.productos.repository.ProveedorRepository;
 import jakarta.transaction.Transactional;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -22,20 +24,33 @@ public class ProductoService {
     private final ProductoRepository productoRepository;
     private final ProductoMapper productoMapper;
     private final InventarioClient inventarioClient;
+    private final ProveedorRepository proveedorRepository;
 
-    public ProductoService(ProductoRepository productoRepository, ProductoMapper productoMapper,InventarioClient inventarioClient) {
+    public ProductoService(ProductoRepository productoRepository, ProductoMapper productoMapper,InventarioClient inventarioClient, ProveedorRepository proveedorRepository) {
         this.productoRepository = productoRepository;
         this.productoMapper = productoMapper;
         this.inventarioClient = inventarioClient;
+        this.proveedorRepository = proveedorRepository;
     }
     @Transactional
     public ProductoResponse guardarProducto(ProductoRequest request) {
         log.info("Recibiendo solicitud para guardar nuevo producto: {}", request.getNombre());
 
+
         Producto producto = productoMapper.toEntity(request);
 
-        Producto productoGuardado = productoRepository.save(producto);
+
+        Proveedor proveedor = proveedorRepository.findById(request.getIdProveedor())
+                .orElseThrow(() -> new RuntimeException("Error: El proveedor no existe."));
+
+
+        producto.setProveedor(proveedor);
+
+
+        Producto productoGuardado = productoRepository.saveAndFlush(producto);
         log.info("Producto guardado exitosamente con ID: {}", productoGuardado.getIdProducto());
+
+
         InventarioRequest invRequest = InventarioRequest.builder()
                 .idProducto(productoGuardado.getIdProducto())
                 .stockActual(0)
@@ -44,10 +59,10 @@ public class ProductoService {
             inventarioClient.inicializarInventario(invRequest);
             log.info("Inventario inicializado correctamente para el producto {}", productoGuardado.getIdProducto());
         } catch (Exception e) {
-            log.error("Fallo la interconexión con Inventario: {}", e.getMessage());
-            // Lanzamos una excepción para que el @Transactional haga Rollback en Producto
+            log.error("--- ERROR REAL DE CAPA DE COMUNICACIÓN ---", e);
             throw new RuntimeException("Error al crear el inventario. El producto no será guardado.");
         }
+
 
         return productoMapper.toResponse(productoGuardado);
     }
@@ -62,7 +77,10 @@ public class ProductoService {
                     productoExistente.setDescripcion(request.getDescripcion());
                     productoExistente.setEstadoActivo(request.getEstado());
 
+                    Proveedor proveedor = proveedorRepository.findById(request.getIdProveedor())
+                            .orElseThrow(() -> new RuntimeException("Error al modificar: El proveedor con ID " + request.getIdProveedor() + " no existe."));
 
+                    productoExistente.setProveedor(proveedor);
 
                     Producto actualizado = productoRepository.save(productoExistente);
                     log.info("Producto ID: {} actualizado correctamente", id);

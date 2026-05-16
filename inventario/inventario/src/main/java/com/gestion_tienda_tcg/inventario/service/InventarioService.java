@@ -37,22 +37,6 @@ public class InventarioService {
             throw new InventarioInvalidoException("El stock inicial no puede ser inferior a 0");
         }
         try {
-            log.info("Consultando al microservicio de productos por el ID: {}", request.getIdProducto());
-
-
-            var producto = productoClient.obtenerProductoPorId(request.getIdProducto());
-
-            if (producto == null) {
-                throw new InventarioInvalidoException("El producto no existe en el catálogo");
-            }
-        } catch (Exception e) {
-            log.error("Error de interconexión o producto no encontrado: {}", e.getMessage());
-            throw new InventarioInvalidoException("No se pudo validar el producto. Asegúrese de que el ID sea correcto.");
-        }
-
-
-
-        try {
 
             Inventario inventarioCreado = inventarioMapper.toEntity(request);
             Inventario inventarioGuardado = inventarioRepository.save(inventarioCreado);
