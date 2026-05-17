@@ -11,7 +11,7 @@
 
 	<!-- INFO -->
 	<groupId>com.gestion.tienda.tcg</groupId>
-	<artifactId>carrito</artifactId>
+	<artifactId>inventario</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 
 	<!-- PROPIEDADES -->
