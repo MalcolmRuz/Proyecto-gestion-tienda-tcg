@@ -37,7 +37,7 @@ public class CarritoController {
 
         log.info("Creando nuevo carrito");
 
-        CarritoResponse response = carritoService.crear(request);
+        CarritoResponse response = carritoService.crearCarrito(request);
 
         return ResponseEntity
                 .status(HttpStatus.CREATED)
@@ -87,3 +87,4 @@ public class CarritoController {
         return ResponseEntity.noContent().build();
     }
 }
+

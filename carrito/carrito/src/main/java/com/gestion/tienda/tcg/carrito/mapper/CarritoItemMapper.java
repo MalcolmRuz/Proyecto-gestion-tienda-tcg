@@ -1,18 +1,16 @@
 package com.gestion.tienda.tcg.carrito.mapper;
 
-import org.springframework.stereotype.Component;
-
 import com.gestion.tienda.tcg.carrito.dto.CarritoItemRequest;
 import com.gestion.tienda.tcg.carrito.dto.CarritoItemResponse;
 import com.gestion.tienda.tcg.carrito.model.CarritoItem;
+import org.springframework.stereotype.Component;
 
 @Component
 public class CarritoItemMapper {
-
-    // Request -> Entity
-    public CarritoItem toEntity(
-            CarritoItemRequest request) {
-
+    //=========================
+    //Modifica variables traidas de la entidad CarritoItem
+    //=========================
+    public CarritoItem toEntity(CarritoItemRequest request){
         CarritoItem item = new CarritoItem();
 
         item.setCantidad(request.getCantidad());
@@ -21,16 +19,17 @@ public class CarritoItemMapper {
         return item;
     }
 
-    // Entity -> Response
-    public CarritoItemResponse toResponse(
-            CarritoItem item) {
+    //=========================
+    //Solicitar variables de la entidad CarritoItem
+    //=========================
 
+    public CarritoItemResponse toResponse(CarritoItem item){
         return new CarritoItemResponse(
-
                 item.getIdItem(),
                 item.getProductoId(),
                 item.getCantidad(),
                 item.getPrecioUnitario(),
-                item.getPrecioTotalItem());
+                item.getPrecioTotalItem()
+        );
     }
 }

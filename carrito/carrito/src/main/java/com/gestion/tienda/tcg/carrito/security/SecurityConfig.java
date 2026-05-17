@@ -1,56 +1,47 @@
 package com.gestion.tienda.tcg.carrito.security;
 
+import com.gestion.tienda.tcg.carrito.security.jwt.JwtAuthenticationFilter;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.security.config.Customizer;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
-import org.springframework.security.config.http.SessionCreationPolicy;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 @Configuration
+@EnableWebSecurity
 public class SecurityConfig {
 
-    @Bean
-    public SecurityFilterChain securityFilterChain(
-            HttpSecurity http) throws Exception {
+    private final JwtAuthenticationFilter jwtAuthenticationFilter;
 
-        http
 
-                .csrf(csrf -> csrf.disable())
-
-                // Stateless para JWT
-                .sessionManagement(session -> session
-                        .sessionCreationPolicy(
-                                SessionCreationPolicy.STATELESS))
-
-                .authorizeHttpRequests(auth -> auth
-
-                        // ADMIN
-                        .requestMatchers(
-                                "/api/v1/carritos/admin/**")
-                        .hasRole("ADMIN")
-
-                        // ADMIN y CLIENTE
-                        .requestMatchers(
-                                "/api/v1/carritos/**")
-                        .hasAnyRole(
-                                "ADMIN",
-                                "CLIENTE")
-
-                        .anyRequest()
-                        .authenticated())
-
-                // TEMPORAL
-                .httpBasic(Customizer.withDefaults());
-
-        return http.build();
+    public SecurityConfig(JwtAuthenticationFilter jwtAuthenticationFilter) {
+        this.jwtAuthenticationFilter = jwtAuthenticationFilter;
     }
 
     @Bean
-    public PasswordEncoder passwordEncoder() {
+    public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
+        return http
 
-        return new BCryptPasswordEncoder();
+                .csrf(csrf -> csrf.disable())
+
+                .authorizeHttpRequests(auth -> auth
+
+                        // CAMBIAR MATCHERS
+
+                        .requestMatchers("/api/v1/movimientosStock/**").hasRole("ADMIN")
+                        .requestMatchers(HttpMethod.GET, "/api/v1/carrito/*").permitAll()
+
+                        .requestMatchers(HttpMethod.POST, "/api/v1/carrito").hasRole("ADMIN")
+                        .requestMatchers(HttpMethod.PUT, "/api/v1/carrito").hasRole("ADMIN")
+
+                        .requestMatchers("/api/v1/carrito/*/aumentar/*").hasRole("ADMIN")
+                        .requestMatchers("/api/v1/carrito/*/reducir/*").authenticated()
+
+                        .anyRequest().authenticated()
+                )
+                .addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class)
+                .build();
     }
 }

@@ -8,8 +8,6 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class ProductoDto {
-
     private Long idProducto;
-
     private Double precio;
 }

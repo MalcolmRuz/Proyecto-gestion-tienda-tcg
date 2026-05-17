@@ -1,9 +1,5 @@
 package com.gestion.tienda.tcg.carrito.service;
 
-import java.util.List;
-
-import org.springframework.stereotype.Service;
-
 import com.gestion.tienda.tcg.carrito.dto.CarritoHistorialResponse;
 import com.gestion.tienda.tcg.carrito.enums.EstadoCarrito;
 import com.gestion.tienda.tcg.carrito.exception.CarritoNotFoundException;
@@ -12,10 +8,12 @@ import com.gestion.tienda.tcg.carrito.model.Carrito;
 import com.gestion.tienda.tcg.carrito.model.CarritoHistorial;
 import com.gestion.tienda.tcg.carrito.repository.CarritoHistorialRepository;
 import com.gestion.tienda.tcg.carrito.repository.CarritoRepository;
-
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 @Slf4j
 @Service
@@ -26,38 +24,38 @@ public class CarritoHistorialService {
     private final CarritoRepository carritoRepository;
     private final CarritoHistorialMapper historialMapper;
 
-    // Registrar historial
+    //=========================
+    //Metodo para guardar los carritos creados en el historial
+    //=========================
+
     @Transactional
     public void registrarHistorial(
             Carrito carrito,
-            EstadoCarrito estado,
-            String descripcion) {
+            EstadoCarrito estadoCarrito,
+            String descripcion){
 
-        log.info("Registrando historial carrito {}",
-                carrito.getIdCarrito());
+        log.info("Guardando datos del carrito en el historial {}",
+                carrito.getIdCarrito()); //Trae los datos solicitados, para luego almacenarlos en un nuevo historial
 
         CarritoHistorial historial = new CarritoHistorial();
-
         historial.setCarrito(carrito);
-        historial.setEstado(estado);
+        historial.setEstado(estadoCarrito);
         historial.setDescripcion(descripcion);
 
         historialRepository.save(historial);
     }
+    //=========================
+    //Metodo para Listar carritos guardados en el historial
+    //=========================
 
-    // Listar historial carrito
-    public List<CarritoHistorialResponse> obtenerHistorial(Long idCarrito) {
+    public List<CarritoHistorialResponse> obtenerHistorial(Long idCarrito){
+        log.info("Obteniendo el historial de carritos {}",
+                idCarrito); //A traves del id del carrito, trae la informacion de cada uno para mostrar en historial
 
-        log.info("Obteniendo historial carrito {}",
-                idCarrito);
-
-        carritoRepository.findById(idCarrito)
-                .orElseThrow(() -> new CarritoNotFoundException(
-                        "Carrito no encontrado"));
+        carritoRepository.findById(idCarrito).orElseThrow(()->new CarritoNotFoundException("Carrito no encontrado"));
 
         return historialRepository
-                .findByCarritoIdCarritoOrderByFechaDesc(
-                        idCarrito)
+                .findByCarrito_idCarritoOrderByFechaDesc(idCarrito)
                 .stream()
                 .map(historialMapper::toResponse)
                 .toList();

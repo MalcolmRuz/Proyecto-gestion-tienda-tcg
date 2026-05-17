@@ -1,16 +1,7 @@
 package com.gestion.tienda.tcg.carrito.model;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
-
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.FetchType;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -36,13 +27,17 @@ public class CarritoItem {
     @Column(nullable = false)
     private Double precioTotalItem;
 
-    // Relacion M:1 con Carrito
+        //=========================
+        //Relacion 1:M con Carrito
+        //=========================
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "carrito_id", nullable = false)
     @JsonBackReference
     private Carrito carrito;
 
-    // FK lógica al microservicio producto
+    //=========================
+    //FK lógica al microservicio producto
+    //=========================
     @Column(name = "producto_id", nullable = false)
     private Long productoId;
 }

@@ -1,5 +1,6 @@
 package com.gestion.tienda.tcg.carrito.exception;
 
+
 import java.time.LocalDateTime;
 import java.util.HashMap;
 import java.util.Map;
@@ -17,7 +18,10 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public class GlobalExceptionHandler {
 
-    // Carrito no encontrado
+    //=========================
+    //Excepcion en caso de que el carrito no se encuentre
+    //=========================
+
     @ExceptionHandler(CarritoNotFoundException.class)
     public ResponseEntity<Map<String, Object>> handleCarritoNotFound(
             CarritoNotFoundException ex) {
@@ -27,7 +31,9 @@ public class GlobalExceptionHandler {
         return buildResponse(ex.getMessage(), HttpStatus.NOT_FOUND);
     }
 
-    // Item no encontrado
+    //=========================
+    //Excepcion en caso de que un item no se encuentre
+    //=========================
     @ExceptionHandler(ItemNotFoundException.class)
     public ResponseEntity<Map<String, Object>> handleItemNotFound(
             ItemNotFoundException ex) {
@@ -36,8 +42,9 @@ public class GlobalExceptionHandler {
 
         return buildResponse(ex.getMessage(), HttpStatus.NOT_FOUND);
     }
-
-    // Errores de negocio
+    //=========================
+    //Error de negocio
+    //=========================
     @ExceptionHandler(BadRequestException.class)
     public ResponseEntity<Map<String, Object>> handleBadRequest(
             BadRequestException ex) {
@@ -47,7 +54,9 @@ public class GlobalExceptionHandler {
         return buildResponse(ex.getMessage(), HttpStatus.BAD_REQUEST);
     }
 
-    // Validaciones DTO
+    //=========================
+    //Validaciones DTO
+    //=========================
     @ExceptionHandler(MethodArgumentNotValidException.class)
     public ResponseEntity<Map<String, Object>> handleValidationErrors(
             MethodArgumentNotValidException ex) {
@@ -74,7 +83,9 @@ public class GlobalExceptionHandler {
         return new ResponseEntity<>(body, HttpStatus.BAD_REQUEST);
     }
 
-    // Error general
+    //=========================
+    //Error general
+    //=========================
     @ExceptionHandler(Exception.class)
     public ResponseEntity<Map<String, Object>> handleGeneral(
             Exception ex) {
@@ -86,7 +97,9 @@ public class GlobalExceptionHandler {
                 HttpStatus.INTERNAL_SERVER_ERROR);
     }
 
-    // Método reutilizable
+    //=========================
+    //Metodo reutilizable
+    //=========================
     private ResponseEntity<Map<String, Object>> buildResponse(
             String mensaje,
             HttpStatus status) {
