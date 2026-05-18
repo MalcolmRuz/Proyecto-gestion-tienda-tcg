@@ -34,13 +34,13 @@ public class InventarioController {
 
     }
 
-    @PatchMapping("/{idProducto}/aumentar/{cantidad}")
+    @PutMapping ("/{idProducto}/aumentar/{cantidad}")
     public ResponseEntity<InventarioResponse> aumentarStock(@PathVariable Long idProducto, @PathVariable Integer cantidad){
         InventarioResponse response = inventarioService.aumentarStock(idProducto,cantidad);
         return ResponseEntity.ok(response);
     }
 
-    @PatchMapping("/{idProducto}/reducir/{cantidad}")
+    @PutMapping("/{idProducto}/reducir/{cantidad}")
     public ResponseEntity<InventarioResponse> disminuirStock(@PathVariable Long idProducto, @PathVariable Integer cantidad){
         InventarioResponse response = inventarioService.disminuirStock(idProducto,cantidad);
         return ResponseEntity.ok(response);
