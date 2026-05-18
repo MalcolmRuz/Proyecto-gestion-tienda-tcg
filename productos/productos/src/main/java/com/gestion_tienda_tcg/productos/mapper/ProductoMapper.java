@@ -12,6 +12,7 @@ public class ProductoMapper {
         producto.setNombreProducto(request.getNombre());
         producto.setDescripcion(request.getDescripcion());
         producto.setEstadoActivo(request.getEstado());
+        producto.setPrecioUnitario(request.getPrecioUnitario());
         return producto;
     }
     public ProductoResponse toResponse(Producto producto){
@@ -22,7 +23,8 @@ public class ProductoMapper {
                 producto.getNombreProducto(),
                 producto.getDescripcion(),
                 producto.isEstadoActivo(),
-                idProv);
+                idProv,
+                producto.getPrecioUnitario());
 
     }
 }

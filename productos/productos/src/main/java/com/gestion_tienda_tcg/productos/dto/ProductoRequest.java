@@ -18,4 +18,6 @@ public class ProductoRequest {
     private Boolean estado;
 
     private Long idProveedor;
+
+    private Double precioUnitario;
 }

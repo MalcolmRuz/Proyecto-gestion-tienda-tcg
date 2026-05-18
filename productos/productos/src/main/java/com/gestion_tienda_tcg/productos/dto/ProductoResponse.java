@@ -13,4 +13,5 @@ public class ProductoResponse {
     private final String descripcion;
     private final Boolean estadoActivo;
     private final Long idProveedor;
+    private final Double precioUnitario;
 }
