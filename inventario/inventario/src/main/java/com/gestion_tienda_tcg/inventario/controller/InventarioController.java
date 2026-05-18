@@ -26,7 +26,7 @@ public class InventarioController {
 
 
 
-    @GetMapping ("/{idProducto}")
+    @GetMapping ("/producto/{idProducto}")
     public ResponseEntity<InventarioResponse> stockPorProducto(@Valid @PathVariable Long idProducto){
         InventarioResponse response = inventarioService.obtenerStockPorProducto(idProducto);
         return ResponseEntity.ok(response);
