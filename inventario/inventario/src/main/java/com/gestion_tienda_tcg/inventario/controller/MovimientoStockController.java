@@ -30,7 +30,16 @@ public ResponseEntity<List<MovimientoStockResponse>> listarPorId(@PathVariable L
     return  ResponseEntity.ok(movimientoStockService.listarMovimientosPorInventario(idInventario));
 }
 
-
+    /**
+     * Obtiene los movimientos de inventario filtrados por una fecha de inicio Y DE termino.
+     *
+     * @param inicio
+     *
+     * Fecha y hora inicial en formato ISO DATE_TIME.
+     * @param fin
+     * Fecha y hora final en formato ISO DATE_TIME.
+     *               Ejemplo de formato: '2026-05-18T21:15:30' (AAAA-MM-DDTHH:mm:ss)
+     */
 
     @GetMapping("/reportePorfecha")
     public ResponseEntity<List<MovimientoStockResponse>> obtenerReporte(

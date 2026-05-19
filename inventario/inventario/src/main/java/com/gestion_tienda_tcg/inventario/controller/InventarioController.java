@@ -32,6 +32,7 @@ public class InventarioController {
         return ResponseEntity.ok(detalles);
     }
 
+    //SE CREA AUTOMATICO AL HACER UN PRODUCTO.
     @PostMapping
     public ResponseEntity<InventarioResponse> crearInventario(@Valid @RequestBody InventarioRequest request){
         InventarioResponse response = inventarioService.agregar(request);
@@ -48,13 +49,13 @@ public class InventarioController {
 
 
     }
-
+    //REQUIERE PERMISO DE ADMIN
     @PutMapping ("/{idProducto}/aumentar/{cantidad}")
     public ResponseEntity<InventarioResponse> aumentarStock(@PathVariable Long idProducto, @PathVariable Integer cantidad){
         InventarioResponse response = inventarioService.aumentarStock(idProducto,cantidad);
         return ResponseEntity.ok(response);
     }
-
+    //SOLO USUARIO AUTENTICADO
     @PutMapping("/{idProducto}/reducir/{cantidad}")
     public ResponseEntity<InventarioResponse> disminuirStock(@PathVariable Long idProducto, @PathVariable Integer cantidad){
         InventarioResponse response = inventarioService.disminuirStock(idProducto,cantidad);
