@@ -1,5 +1,6 @@
 package com.gestion_tienda_tcg.inventario.mapper;
 
+import com.gestion_tienda_tcg.inventario.dto.InventarioDetalleResponse;
 import com.gestion_tienda_tcg.inventario.dto.InventarioRequest;
 import com.gestion_tienda_tcg.inventario.dto.InventarioResponse;
 import com.gestion_tienda_tcg.inventario.model.Inventario;
@@ -22,4 +23,15 @@ public class InventarioMapper {
                 inventario.getStockActual(),
                 inventario.getFechaInventario());
     }
+    public InventarioDetalleResponse toDetalleResponse(Inventario inventario, String nombreProducto) {
+        return new InventarioDetalleResponse(
+                inventario.getIdInventario(),
+                inventario.getIdProducto(),
+                nombreProducto,
+                inventario.getStockActual(),
+                inventario.getFechaInventario()
+        );
+    }
 }
+
+

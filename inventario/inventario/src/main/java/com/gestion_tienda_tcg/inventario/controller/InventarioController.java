@@ -1,5 +1,6 @@
 package com.gestion_tienda_tcg.inventario.controller;
 
+import com.gestion_tienda_tcg.inventario.dto.InventarioDetalleResponse;
 import com.gestion_tienda_tcg.inventario.dto.InventarioRequest;
 import com.gestion_tienda_tcg.inventario.dto.InventarioResponse;
 import com.gestion_tienda_tcg.inventario.service.InventarioService;
@@ -10,12 +11,26 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @Slf4j
 @RestController
 @RequestMapping("/api/v1/inventarios")
 @RequiredArgsConstructor
 public class InventarioController {
     private final InventarioService inventarioService;
+
+    @GetMapping("/simple")
+    public ResponseEntity<List<InventarioDetalleResponse>> listarInventariosConProductos() {
+        List<InventarioDetalleResponse> detalles = inventarioService.listarInventariosConProducto();
+
+
+        if (detalles.isEmpty()) {
+            return ResponseEntity.noContent().build();
+        }
+
+        return ResponseEntity.ok(detalles);
+    }
 
     @PostMapping
     public ResponseEntity<InventarioResponse> crearInventario(@Valid @RequestBody InventarioRequest request){
@@ -51,4 +66,7 @@ public class InventarioController {
         InventarioResponse response = inventarioService.ajustarStockFisico(request);
         return ResponseEntity.ok(response);
     }
+
+
+
 }

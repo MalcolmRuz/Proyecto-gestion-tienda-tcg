@@ -1,8 +1,10 @@
 package com.gestion_tienda_tcg.inventario.service;
 
 import com.gestion_tienda_tcg.inventario.client.ProductoClient;
+import com.gestion_tienda_tcg.inventario.dto.InventarioDetalleResponse;
 import com.gestion_tienda_tcg.inventario.dto.InventarioRequest;
 import com.gestion_tienda_tcg.inventario.dto.InventarioResponse;
+import com.gestion_tienda_tcg.inventario.dto.ProductoDto;
 import com.gestion_tienda_tcg.inventario.enums.TipoMovimiento;
 import com.gestion_tienda_tcg.inventario.exception.ErrorInternoException;
 import com.gestion_tienda_tcg.inventario.exception.InventarioInvalidoException;
@@ -13,6 +15,9 @@ import jakarta.transaction.Transactional;
 import lombok.extern.slf4j.Slf4j;
 
 import org.springframework.stereotype.Service;
+
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Slf4j
 @Service
@@ -28,7 +33,34 @@ public class InventarioService {
     this.productoClient = productoClient;
     this.movimientoStockService = movimientoStockService;
 
+
+
     }
+
+    public List<InventarioDetalleResponse> listarInventariosConProducto() {
+        List<Inventario> inventarios = inventarioRepository.findAll();
+
+        return inventarios.stream().map(inventario -> {
+            String nombreProducto;
+
+            try {
+                ProductoDto producto = productoClient.obtenerProductoPorId(inventario.getIdProducto());
+
+                nombreProducto = (producto != null && producto.getNombreProducto() != null)
+                        ? producto.getNombreProducto()
+                        : "Producto sin nombre";
+
+            } catch (Exception e) {
+                nombreProducto = "Producto no disponible (Error API)";
+            }
+
+            return inventarioMapper.toDetalleResponse(inventario, nombreProducto);
+        }).collect(Collectors.toList());
+    }
+
+
+
+
     @Transactional
     public InventarioResponse agregar(InventarioRequest request) {
         log.info("Iniciando proceso de agregar nuevo inventario. Datos recibidos : {}", request);
