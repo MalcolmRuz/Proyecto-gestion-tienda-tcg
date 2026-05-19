@@ -112,7 +112,7 @@ public class InventarioService {
 
     @Transactional
     public InventarioResponse disminuirStock(Long idProducto, Integer cantidad) {
-        log.info("Disminuyendo stock para el producto {}: +{}", idProducto, cantidad);
+        log.info("Disminuyendo stock para el producto {}: {}", idProducto, cantidad);
 
         Inventario inventario = inventarioRepository.findByIdProducto(idProducto)
                 .orElseThrow(() -> new InventarioInvalidoException("No se puede aumentar stock de un producto no registrado"));

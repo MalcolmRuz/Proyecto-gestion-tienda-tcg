@@ -18,6 +18,7 @@ public class Inventario {
    @Id
    @GeneratedValue(strategy =  GenerationType.IDENTITY)
     private Long idInventario;
+
    @Column(name = "id_producto")
    private Long idProducto;
    @Column(name = "stock_actual", nullable = false)

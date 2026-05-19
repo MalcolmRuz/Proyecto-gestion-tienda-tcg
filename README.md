@@ -12,7 +12,7 @@ U /"___|uU |  _"\ uU |"|u| |U|  _"\ u  \/"_ \/              \/"_ \/U|' \/ '|uU /
  (__)__)  (__)  (__)   (__) (__)__)     (__)                 (__)   (./  \.)  (__)__)  
   API - [Productos]
 
-Este módulo se encarga de manera independiente de toda la lógica relacionada con el manejo de stock y registro de movimientos en el sistema.
+Este módulo se encarga de manera independiente de toda la lógica relacionada con el registro de productos, categorias y provedores.
 
 ## 🛠️ Tecnologías Utilizadas
 * **Lenguaje:** Java 17

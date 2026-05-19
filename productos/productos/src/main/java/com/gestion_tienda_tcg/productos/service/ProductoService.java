@@ -41,7 +41,7 @@ public class ProductoService {
 
 
         Proveedor proveedor = proveedorRepository.findById(request.getIdProveedor())
-                .orElseThrow(() -> new RuntimeException("Error: El proveedor no existe."));
+                .orElseThrow(() -> new ProductoInvalidoException("Error: El proveedor no existe."));
 
 
         producto.setProveedor(proveedor);
@@ -60,7 +60,7 @@ public class ProductoService {
             log.info("Inventario inicializado correctamente para el producto {}", productoGuardado.getIdProducto());
         } catch (Exception e) {
             log.error("--- ERROR REAL DE CAPA DE COMUNICACIÓN ---", e);
-            throw new RuntimeException("Error al crear el inventario. El producto no será guardado.");
+            throw new ProductoInvalidoException("Error al crear el inventario. El producto no será guardado.");
         }
 
 

@@ -15,13 +15,13 @@ public class Producto {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long idProducto;
 
-    @Column(name = "NOMBRE PRODUCTO")
+    @Column(name = "NOMBRE_PRODUCTO")
     private String nombreProducto;
 
     @Column(name = "DESCRIPCION")
     private String descripcion;
 
-    @Column(name = "ESTADO ACTIVO")
+    @Column(name = "ESTADO_ACTIVO")
     private boolean estadoActivo;
 
     @ManyToOne

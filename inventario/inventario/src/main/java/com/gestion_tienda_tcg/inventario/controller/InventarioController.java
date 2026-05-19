@@ -63,7 +63,7 @@ public class InventarioController {
     }
 
     @PutMapping
-    public ResponseEntity<InventarioResponse> ajustarStock(@RequestBody InventarioRequest request){
+    public ResponseEntity<InventarioResponse> ajustarStock(@RequestBody @Valid InventarioRequest request){
         InventarioResponse response = inventarioService.ajustarStockFisico(request);
         return ResponseEntity.ok(response);
     }
