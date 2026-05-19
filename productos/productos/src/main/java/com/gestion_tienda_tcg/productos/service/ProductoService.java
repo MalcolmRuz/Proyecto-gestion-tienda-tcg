@@ -78,7 +78,7 @@ public class ProductoService {
                     productoExistente.setEstadoActivo(request.getEstado());
 
                     Proveedor proveedor = proveedorRepository.findById(request.getIdProveedor())
-                            .orElseThrow(() -> new RuntimeException("Error al modificar: El proveedor con ID " + request.getIdProveedor() + " no existe."));
+                            .orElseThrow(() -> new ProductoInvalidoException("Error al modificar: El proveedor con ID " + request.getIdProveedor() + " no existe."));
 
                     productoExistente.setProveedor(proveedor);
 

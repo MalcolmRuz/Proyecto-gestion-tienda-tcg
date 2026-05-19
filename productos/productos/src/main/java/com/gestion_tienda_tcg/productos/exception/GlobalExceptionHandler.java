@@ -27,7 +27,7 @@ public class GlobalExceptionHandler {
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(error);
     }
     @ExceptionHandler(CategoriaInvalidaException.class)
-    public ResponseEntity<ErrorResponse> manejarCategoriaInvalida(ProductoInvalidoException ex) {
+    public ResponseEntity<ErrorResponse> manejarCategoriaInvalida(CategoriaInvalidaException ex) {
         log.error("Respondiendo con 400 Bad Request: {}", ex.getMessage());
 
         ErrorResponse error = new ErrorResponse(
