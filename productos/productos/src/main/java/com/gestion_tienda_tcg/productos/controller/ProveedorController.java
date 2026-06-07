@@ -19,7 +19,7 @@ public class ProveedorController {
     private final ProveedorService proveedorService;
     @PostMapping
     public ResponseEntity<ProveedorResponse> registrarProveedor(@RequestBody ProveedorRequest request) {
-        log.info("REST request para registrar proveedor: {}", request.getNombre());
+        log.info("REST request para registrar proveedor: {}", request.getNombreProveedor());
         var response = proveedorService.registrarProveedor(request);
         return new ResponseEntity<>(response, HttpStatus.CREATED);
     }

@@ -21,7 +21,7 @@ public class ProveedorService {
     }
 
     public ProveedorResponse registrarProveedor(ProveedorRequest request) {
-        log.info("Iniciando registro de proveedor: {}", request.getNombre());
+        log.info("Iniciando registro de proveedor: {}", request.getNombreProveedor());
         var proveedorParaGuardar = proveedorMapper.toEntity(request);
         var proveedorGuardado = proveedorRepository.save(proveedorParaGuardar);
         log.info("Proveedor guardado exitosamente con ID: {}", proveedorGuardado.getIdProveedor());

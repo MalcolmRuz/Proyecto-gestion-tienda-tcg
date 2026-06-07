@@ -11,7 +11,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class ProveedorRequest {
 @NotBlank
-    private String nombre;
+    private String nombreProveedor;
 @NotBlank
     private String contacto;
 

@@ -9,7 +9,7 @@ import org.springframework.stereotype.Component;
 public class ProveedorMapper {
 public Proveedor toEntity(ProveedorRequest request){
     Proveedor proveedor = new Proveedor();
-    proveedor.setNombreProveedor(request.getNombre());
+    proveedor.setNombreProveedor(request.getNombreProveedor());
     proveedor.setContactoProveedor(request.getContacto());
 
     return proveedor;
