@@ -9,7 +9,7 @@ import org.springframework.stereotype.Component;
 public class ProductoMapper {
     public Producto toEntity(ProductoRequest request){
         Producto producto = new Producto();
-        producto.setNombreProducto(request.getNombre());
+        producto.setNombreProducto(request.getNombreProducto());
         producto.setDescripcion(request.getDescripcion());
         producto.setEstadoActivo(request.getEstado());
         producto.setPrecioUnitario(request.getPrecioUnitario());

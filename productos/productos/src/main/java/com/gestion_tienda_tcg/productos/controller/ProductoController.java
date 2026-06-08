@@ -19,7 +19,7 @@ public class ProductoController {
     private final ProductoService productoService;
         @PostMapping
         public ResponseEntity<ProductoResponse> guardarProducto(@RequestBody ProductoRequest request) {
-            log.info("REST request para guardar producto: {}", request.getNombre());
+            log.info("REST request para guardar producto: {}", request.getNombreProducto());
             var response = productoService.guardarProducto(request);
             return new ResponseEntity<>(response, HttpStatus.CREATED);
         }

@@ -12,7 +12,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class ProductoRequest {
     @NotBlank
-    private String nombre;
+    private String nombreProducto;
     @NotBlank
     private String descripcion;
     @NotNull

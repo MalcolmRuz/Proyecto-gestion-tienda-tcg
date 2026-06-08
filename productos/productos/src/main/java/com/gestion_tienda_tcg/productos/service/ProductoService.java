@@ -34,7 +34,7 @@ public class ProductoService {
     }
     @Transactional
     public ProductoResponse guardarProducto(ProductoRequest request) {
-        log.info("Recibiendo solicitud para guardar nuevo producto: {}", request.getNombre());
+        log.info("Recibiendo solicitud para guardar nuevo producto: {}", request.getNombreProducto());
 
 
         Producto producto = productoMapper.toEntity(request);
@@ -73,7 +73,7 @@ public class ProductoService {
         return productoRepository.findById(id)
                 .map(productoExistente -> {
 
-                    productoExistente.setNombreProducto(request.getNombre());
+                    productoExistente.setNombreProducto(request.getNombreProducto());
                     productoExistente.setDescripcion(request.getDescripcion());
                     productoExistente.setEstadoActivo(request.getEstado());
 
