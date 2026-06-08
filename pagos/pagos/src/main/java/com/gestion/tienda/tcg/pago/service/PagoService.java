@@ -1,12 +1,15 @@
 package com.gestion.tienda.tcg.pago.service;
 
 import java.time.LocalDateTime;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.gestion.tienda.tcg.pago.client.CarritoClient;
+import com.gestion.tienda.tcg.pago.client.PedidoClient;
 import com.gestion.tienda.tcg.pago.dto.CarritoResponse;
 import com.gestion.tienda.tcg.pago.dto.ConfirmarPagoRequest;
 import com.gestion.tienda.tcg.pago.dto.PagoRequest;
@@ -26,13 +29,16 @@ public class PagoService {
     private final PagoRepository pagoRepository;
     private final PagoMapper pagoMapper;
     private final CarritoClient carritoClient;
+    private final PedidoClient pedidoClient;
 
     public PagoService(PagoRepository pagoRepository,
             PagoMapper pagoMapper,
-            CarritoClient carritoClient) {
+            CarritoClient carritoClient,
+            PedidoClient pedidoClient) {
         this.pagoRepository = pagoRepository;
         this.pagoMapper = pagoMapper;
         this.carritoClient = carritoClient;
+        this.pedidoClient = pedidoClient;
     }
 
     @Transactional
@@ -60,8 +66,6 @@ public class PagoService {
 
         // 3. Comparar monto enviado por el cliente contra el total del carrito
         if (montoPago < totalCarrito) {
-            // Pago rechazado: monto insuficiente
-            // El carrito vuelve a PENDIENTE para que el cliente pueda reintentar
             log.warn("Pago rechazado para carrito {}: monto {} insuficiente, total {}",
                     request.getIdCarrito(), montoPago, totalCarrito);
 
@@ -78,18 +82,36 @@ public class PagoService {
             return pagoMapper.toResponse(pagoRepository.save(pagoRechazado));
         }
 
-        // 4. Pago aprobado: notificar a Carrito para descontar stock, marcar PAGADO y
-        // crear pedido
+        // =========================================================================
+        // 4. Pago aprobado: Orquestación Automática hacia Carrito y Pedido
+        // =========================================================================
         log.info("Pago aprobado para carrito {}: monto {}, total {}",
                 request.getIdCarrito(), montoPago, totalCarrito);
 
         Double vuelto = montoPago > totalCarrito ? montoPago - totalCarrito : 0.0;
 
-        // Actualizado con Opción B: Se eliminó request.getDireccionEnvio()
+        // ACCIÓN A: Cambiar el estado del carrito a "PAGADO" (para descontar stock)
         carritoClient.confirmarPago(
                 request.getIdCarrito(),
                 new ConfirmarPagoRequest(request.getUsuarioId()));
 
+        // ACCIÓN B: Crear de forma automática el pedido en ms-pedido
+        try {
+            Map<String, Object> crearPedidoBody = new HashMap<>();
+            crearPedidoBody.put("usuarioId", request.getUsuarioId());
+            crearPedidoBody.put("envio", carrito.getDireccionEnvio());
+
+            log.info("Gatillando la creación automática del pedido para el carrito {}", request.getIdCarrito());
+            pedidoClient.crearPedidoDesdePago(request.getIdCarrito(), crearPedidoBody);
+
+        } catch (Exception e) {
+            log.error("Error al automatizar la creación del pedido: {}", e.getMessage());
+            // Nota: Aquí se podría lanzar una excepción si se quiere hacer rollback
+            // completo,
+            // o manejar de forma asíncrona un reintento.
+        }
+
+        // Guardar registro de la transacción exitosa
         Pago pagoAprobado = new Pago();
         pagoAprobado.setIdCarrito(request.getIdCarrito());
         pagoAprobado.setMonto(montoPago);
