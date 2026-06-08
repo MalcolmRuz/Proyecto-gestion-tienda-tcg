@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import com.gestion.tienda.tcg.pedido.dto.CarritoDto;
 
 // Definimos explícitamente el nombre del servicio y la URL donde correrá en tu Laragon
-@FeignClient(name = "CARRITO-SERVICE")
+@FeignClient(name = "CARRITO")
 public interface CarritoClient {
 
         @GetMapping("/api/v1/carritos/{id}")

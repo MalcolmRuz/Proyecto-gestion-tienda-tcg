@@ -16,6 +16,6 @@ public class PedidoResponse {
     private Double totalPedido;
     private String direccionEnvio;
     private EstadoPedido estado;
-    private EstadoEnvio estadoEnvio;
+    //private EstadoEnvio estadoEnvio;
     private List<DetallePedidoResponse> detalles;
 }

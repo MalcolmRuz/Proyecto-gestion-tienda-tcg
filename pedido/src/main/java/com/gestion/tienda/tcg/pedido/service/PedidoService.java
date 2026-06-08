@@ -46,8 +46,7 @@ public class PedidoService {
                 pedido.setIdCarrito(idCarrito);
                 pedido.setEstado(EstadoPedido.PAGADO);
                 pedido.setTotalPedido(carrito.getTotalCarrito());
-                pedido.setDireccionEnvio(direccionEnvio);
-                pedido.setEstadoEnvio(EstadoEnvio.PREPARANDO);
+                //pedido.setDireccionEnvio(direccionEnvio);
 
                 Pedido guardado = pedidoRepository.save(pedido);
 
@@ -63,6 +62,8 @@ public class PedidoService {
                 }).collect(Collectors.toList());
 
                 detallePedidoRepository.saveAll(detalles);
+
+                guardado.setDetalles(detalles);
 
                 HistorialPedido h = new HistorialPedido();
                 h.setPedido(guardado);

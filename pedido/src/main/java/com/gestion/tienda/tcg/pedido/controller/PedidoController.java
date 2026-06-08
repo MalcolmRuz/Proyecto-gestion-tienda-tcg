@@ -42,7 +42,7 @@ public class PedidoController {
                 return ResponseEntity.ok(pedidoService.buscarPorId(id));
         }
 
-        @PutMapping("/{id}/estado")
+        @PutMapping("/{id}/{EstadoPedido}")
         public ResponseEntity<PedidoResponse> actualizarEstado(@PathVariable Long id,
                         @RequestParam EstadoPedido nuevoEstado) {
                 return ResponseEntity.ok(pedidoService.actualizarEstadoPedido(id, nuevoEstado));

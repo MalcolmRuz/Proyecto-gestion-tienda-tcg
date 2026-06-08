@@ -21,7 +21,7 @@ public class PedidoMapper {
                 .totalPedido(pedido.getTotalPedido())
                 .direccionEnvio(pedido.getDireccionEnvio())
                 .estado(pedido.getEstado())
-                .estadoEnvio(pedido.getEstadoEnvio()) // Ya no requiere buscar un objeto Envio
+                //.estadoEnvio(pedido.getEstadoEnvio()) // Ya no requiere buscar un objeto Envio
                 .detalles(pedido.getDetalles().stream()
                         .map(d -> DetallePedidoResponse.builder()
                                 .productoId(d.getProductoId())
