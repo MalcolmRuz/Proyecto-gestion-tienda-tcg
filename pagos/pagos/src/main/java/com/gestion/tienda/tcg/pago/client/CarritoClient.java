@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import com.gestion.tienda.tcg.pago.dto.CarritoResponse;
 import com.gestion.tienda.tcg.pago.dto.ConfirmarPagoRequest;
 
-@FeignClient(name = "CARRITO-SERVICE")
+@FeignClient(name = "carrito")
 public interface CarritoClient {
 
         @GetMapping("/api/v1/carritos/{id}")
