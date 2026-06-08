@@ -12,22 +12,16 @@ import com.gestion.tienda.tcg.pedido.dto.DetallePedidoResponse;
 import com.gestion.tienda.tcg.pedido.service.DetallePedidoService;
 
 import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
 
-@Slf4j
 @RestController
 @RequestMapping("/api/v1/detalles")
 @RequiredArgsConstructor
 public class DetallePedidoController {
 
-    private final DetallePedidoService service;
+    private final DetallePedidoService detalleService;
 
-    @GetMapping("/pedido/{idPedido}")
-    public ResponseEntity<List<DetallePedidoResponse>> listarPorPedido(
-            @PathVariable Long idPedido) {
-
-        log.info("Listando detalles del pedido {}", idPedido);
-
-        return ResponseEntity.ok(service.listarPorPedido(idPedido));
+    @GetMapping("/pedido/{pedidoId}")
+    public ResponseEntity<List<DetallePedidoResponse>> listarPorPedido(@PathVariable Long pedidoId) {
+        return ResponseEntity.ok(detalleService.listarPorPedido(pedidoId));
     }
 }

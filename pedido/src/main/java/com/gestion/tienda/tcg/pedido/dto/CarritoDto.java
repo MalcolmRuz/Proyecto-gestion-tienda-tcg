@@ -6,9 +6,16 @@ import lombok.Data;
 
 @Data
 public class CarritoDto {
-
-    private Long idCarrito;
+    private Long id;
     private String estadoCarrito;
     private Double totalCarrito;
-    private List<CarritoItemDto> items;
+    private List<ItemDto> items;
+
+    @Data
+    public static class ItemDto {
+        private Long productoId;
+        private String descripcionProducto;
+        private Integer cantidad;
+        private Double precioUnitario;
+    }
 }

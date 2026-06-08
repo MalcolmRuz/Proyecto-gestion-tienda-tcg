@@ -9,11 +9,13 @@ import com.gestion.tienda.tcg.pedido.model.HistorialPedido;
 public class HistorialPedidoMapper {
 
     public HistorialPedidoResponse toResponse(HistorialPedido historial) {
+        if (historial == null)
+            return null;
 
-        return new HistorialPedidoResponse(
-                historial.getIdHistorial(),
-                historial.getEstadoPedido(),
-                historial.getDescripcion(),
-                historial.getFecha());
+        return HistorialPedidoResponse.builder()
+                .estadoPedido(historial.getEstadoPedido())
+                .descripcion(historial.getDescripcion())
+                .fechaCambio(historial.getFechaCambio())
+                .build();
     }
 }

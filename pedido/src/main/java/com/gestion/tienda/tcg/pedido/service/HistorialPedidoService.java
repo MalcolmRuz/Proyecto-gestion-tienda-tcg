@@ -1,6 +1,7 @@
 package com.gestion.tienda.tcg.pedido.service;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.springframework.stereotype.Service;
 
@@ -17,11 +18,9 @@ public class HistorialPedidoService {
     private final HistorialPedidoRepository repository;
     private final HistorialPedidoMapper mapper;
 
-    public List<HistorialPedidoResponse> listarPorPedido(Long idPedido) {
-
-        return repository.findByPedidoIdPedido(idPedido)
-                .stream()
+    public List<HistorialPedidoResponse> obtenerHistorial(Long pedidoId) {
+        return repository.findByPedidoId(pedidoId).stream()
                 .map(mapper::toResponse)
-                .toList();
+                .collect(Collectors.toList());
     }
 }

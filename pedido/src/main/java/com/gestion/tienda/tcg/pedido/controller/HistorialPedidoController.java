@@ -12,22 +12,16 @@ import com.gestion.tienda.tcg.pedido.dto.HistorialPedidoResponse;
 import com.gestion.tienda.tcg.pedido.service.HistorialPedidoService;
 
 import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
 
-@Slf4j
 @RestController
 @RequestMapping("/api/v1/historial")
 @RequiredArgsConstructor
 public class HistorialPedidoController {
 
-    private final HistorialPedidoService service;
+    private final HistorialPedidoService historialService;
 
-    @GetMapping("/pedido/{idPedido}")
-    public ResponseEntity<List<HistorialPedidoResponse>> listarPorPedido(
-            @PathVariable Long idPedido) {
-
-        log.info("Listando historial del pedido {}", idPedido);
-
-        return ResponseEntity.ok(service.listarPorPedido(idPedido));
+    @GetMapping("/pedido/{pedidoId}")
+    public ResponseEntity<List<HistorialPedidoResponse>> obtenerHistorial(@PathVariable Long pedidoId) {
+        return ResponseEntity.ok(historialService.obtenerHistorial(pedidoId));
     }
 }

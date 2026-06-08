@@ -1,10 +1,10 @@
 package com.gestion.tienda.tcg.pedido.enums;
 
 public enum EstadoPedido {
-    PENDIENTE,
     PAGADO,
-    PROCESANDO,
+    PREPARANDO,
+    ENVIADO,
+    ENTREGADO,
     FINALIZADO,
-    CANCELADO,
-    PENDIENTE_PAGO
+    CANCELADO
 }

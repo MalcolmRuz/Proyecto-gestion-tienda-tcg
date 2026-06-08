@@ -9,15 +9,15 @@ import org.springframework.web.bind.annotation.RequestParam;
 import com.gestion.tienda.tcg.pedido.dto.CarritoDto;
 
 // Definimos explícitamente el nombre del servicio y la URL donde correrá en tu Laragon
-@FeignClient(name = "ms-carrito", url = "http://localhost:8081")
+@FeignClient(name = "CARRITO-SERVICE")
 public interface CarritoClient {
 
         @GetMapping("/api/v1/carritos/{id}")
         CarritoDto obtenerCarrito(
-                @PathVariable("id") Long id);
+                        @PathVariable("id") Long id);
 
         @PatchMapping("/api/v1/carritos/{id}/estado")
         void actualizarEstado(
-                @PathVariable("id") Long id,
-                @RequestParam("nuevoEstado") String nuevoEstado);
+                        @PathVariable("id") Long id,
+                        @RequestParam("nuevoEstado") String nuevoEstado);
 }

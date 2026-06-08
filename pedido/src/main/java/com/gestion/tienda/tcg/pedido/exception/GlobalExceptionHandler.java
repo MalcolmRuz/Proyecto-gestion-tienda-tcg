@@ -1,124 +1,33 @@
 package com.gestion.tienda.tcg.pedido.exception;
 
 import java.time.LocalDateTime;
-import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.Map;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.MethodArgumentNotValidException;
+import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
-import org.springframework.web.bind.annotation.RestControllerAdvice;
 
-import lombok.extern.slf4j.Slf4j;
-
-@RestControllerAdvice
-@Slf4j
+@ControllerAdvice
 public class GlobalExceptionHandler {
 
-        // ================================
-        // PEDIDO NO ENCONTRADO
-        // ================================
         @ExceptionHandler(PedidoNotFoundException.class)
-        public ResponseEntity<Map<String, Object>> handlePedidoNotFound(
-                        PedidoNotFoundException ex) {
-
-                return buildResponse(
-                                ex.getMessage(),
-                                HttpStatus.NOT_FOUND);
+        public ResponseEntity<Object> handleNotFound(PedidoNotFoundException ex) {
+                return buildResponse(HttpStatus.NOT_FOUND, ex.getMessage());
         }
 
-        // ================================
-        // DETALLE NO ENCONTRADO
-        // ================================
-        @ExceptionHandler(DetallePedidoNotFoundException.class)
-        public ResponseEntity<Map<String, Object>> handleDetalleNotFound(
-                        DetallePedidoNotFoundException ex) {
-
-                return buildResponse(
-                                ex.getMessage(),
-                                HttpStatus.NOT_FOUND);
-        }
-
-        // ================================
-        // ENVIO NO ENCONTRADO
-        // ================================
-        @ExceptionHandler(EnvioNotFoundException.class)
-        public ResponseEntity<Map<String, Object>> handleEnvioNotFound(
-                        EnvioNotFoundException ex) {
-
-                return buildResponse(
-                                ex.getMessage(),
-                                HttpStatus.NOT_FOUND);
-        }
-
-        // ================================
-        // BAD REQUEST
-        // ================================
         @ExceptionHandler(BadRequestException.class)
-        public ResponseEntity<Map<String, Object>> handleBadRequest(
-                        BadRequestException ex) {
-
-                return buildResponse(
-                                ex.getMessage(),
-                                HttpStatus.BAD_REQUEST);
+        public ResponseEntity<Object> handleBadRequest(BadRequestException ex) {
+                return buildResponse(HttpStatus.BAD_REQUEST, ex.getMessage());
         }
 
-        // ================================
-        // VALIDACION DTO
-        // ================================
-        @ExceptionHandler(MethodArgumentNotValidException.class)
-        public ResponseEntity<Map<String, Object>> handleValidation(
-                        MethodArgumentNotValidException ex) {
-
-                Map<String, Object> body = new HashMap<>();
-
-                Map<String, String> errores = new HashMap<>();
-
-                ex.getBindingResult()
-                                .getFieldErrors()
-                                .forEach(error -> errores.put(
-                                                error.getField(),
-                                                error.getDefaultMessage()));
-
-                body.put("timestamp", LocalDateTime.now());
-                body.put("status", HttpStatus.BAD_REQUEST.value());
-                body.put("error", "Validation Error");
-                body.put("messages", errores);
-
-                return new ResponseEntity<>(
-                                body,
-                                HttpStatus.BAD_REQUEST);
-        }
-
-        // ================================
-        // ERROR GENERAL
-        // ================================
-        @ExceptionHandler(Exception.class)
-        public ResponseEntity<Map<String, Object>> handleGeneral(
-                        Exception ex) {
-
-                log.error("Error interno", ex);
-
-                return buildResponse(
-                                "Error interno del servidor",
-                                HttpStatus.INTERNAL_SERVER_ERROR);
-        }
-
-        // ================================
-        // METODO GENERAL
-        // ================================
-        private ResponseEntity<Map<String, Object>> buildResponse(
-                        String mensaje,
-                        HttpStatus status) {
-
-                Map<String, Object> body = new HashMap<>();
-
+        private ResponseEntity<Object> buildResponse(HttpStatus status, String message) {
+                Map<String, Object> body = new LinkedHashMap<>();
                 body.put("timestamp", LocalDateTime.now());
                 body.put("status", status.value());
                 body.put("error", status.getReasonPhrase());
-                body.put("message", mensaje);
-
+                body.put("message", message);
                 return new ResponseEntity<>(body, status);
         }
 }
