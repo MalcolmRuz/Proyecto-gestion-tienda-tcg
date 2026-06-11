@@ -4,13 +4,14 @@ import com.gestion_tienda_tcg.inventario.enums.TipoMovimiento;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
+import org.springframework.hateoas.RepresentationModel;
 
 
 import java.time.LocalDateTime;
 
 @Getter
 @AllArgsConstructor
-public class MovimientoStockResponse {
+public class MovimientoStockResponse extends RepresentationModel<MovimientoStockResponse> {
     private final Long idMovimiento;
     private final Integer cantidad;
     private final Long  idInventario;

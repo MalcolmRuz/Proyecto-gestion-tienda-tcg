@@ -1,10 +1,12 @@
 package com.gestion_tienda_tcg.inventario.dto;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
+import org.springframework.hateoas.RepresentationModel;
+
 import java.time.LocalDateTime;
 @Getter
 @AllArgsConstructor
-public class InventarioDetalleResponse {
+public class InventarioDetalleResponse extends RepresentationModel<InventarioDetalleResponse> {
     private final Long idInventario;
     private final Long idProducto;
     private final String nombreProducto;
