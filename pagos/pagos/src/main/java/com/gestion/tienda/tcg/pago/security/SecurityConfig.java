@@ -39,6 +39,14 @@ public class SecurityConfig {
                 )
                 .authorizeHttpRequests(auth -> auth
 
+                        // Swagger
+                        .requestMatchers(
+                                "/swagger-ui/**",
+                                "/v3/api-docs/**",
+                                "/doc/swagger-ui.html"
+                        )
+                        .permitAll()
+
                         //Lista Pagos
                         .requestMatchers(
                                 HttpMethod.GET,
