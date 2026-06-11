@@ -28,10 +28,14 @@ public class SecurityConfig {
 
                 .authorizeHttpRequests(auth -> auth
 
-
+                        .requestMatchers(
+                                "/swagger-ui/**",
+                                "/v3/api-docs/**",
+                                "/swagger-ui.html"
+                        ).permitAll()
 
                         .requestMatchers("/api/v1/movimientosStock/**").hasRole("ADMIN")
-                        .requestMatchers(HttpMethod.GET, "/api/v1/inventarios/*").permitAll()
+                        .requestMatchers(HttpMethod.GET, "/api/v1/inventarios/**").permitAll()
 
                         .requestMatchers(HttpMethod.POST, "/api/v1/inventarios").hasRole("ADMIN")
                         .requestMatchers(HttpMethod.PUT, "/api/v1/inventarios").hasRole("ADMIN")
