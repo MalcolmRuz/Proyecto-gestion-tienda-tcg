@@ -6,7 +6,7 @@ import org.springframework.hateoas.RepresentationModel;
 import java.time.LocalDateTime;
 @Getter
 @AllArgsConstructor
-public class InventarioDetalleResponse extends RepresentationModel<InventarioDetalleResponse> {
+public class InventarioDetalleResponse  {
     private final Long idInventario;
     private final Long idProducto;
     private final String nombreProducto;

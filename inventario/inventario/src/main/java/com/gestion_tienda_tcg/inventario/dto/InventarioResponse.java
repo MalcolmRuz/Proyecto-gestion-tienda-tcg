@@ -10,7 +10,7 @@ import java.time.LocalDateTime;
 
 @Getter
 @AllArgsConstructor
-public class InventarioResponse extends RepresentationModel<InventarioResponse> {
+public class InventarioResponse {
     private final Long idInventario;
     private final Long idProducto;
     private final int stockActual;

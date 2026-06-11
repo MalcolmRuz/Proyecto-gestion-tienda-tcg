@@ -11,7 +11,7 @@ import java.time.LocalDateTime;
 
 @Getter
 @AllArgsConstructor
-public class MovimientoStockResponse extends RepresentationModel<MovimientoStockResponse> {
+public class MovimientoStockResponse  {
     private final Long idMovimiento;
     private final Integer cantidad;
     private final Long  idInventario;

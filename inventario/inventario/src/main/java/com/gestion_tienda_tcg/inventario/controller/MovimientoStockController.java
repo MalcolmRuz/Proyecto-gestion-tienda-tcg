@@ -34,10 +34,7 @@ public ResponseEntity<List<MovimientoStockResponse>> listarHistorial(){
         if (historial.isEmpty()) {
             return ResponseEntity.noContent().build();
         }
-        for (MovimientoStockResponse movimiento : historial) {
-            Link selfLink = linkTo(methodOn(MovimientoStockController.class).listarPorId(movimiento.getIdInventario())).withSelfRel();
-            movimiento.add(selfLink);
-        }
+
         return ResponseEntity.ok(historial);
 }
     @Operation(summary = "Detalles de un Movimiento de stock", description = "Retorna un movimiento de stock buscado segun ID")
@@ -46,14 +43,6 @@ public ResponseEntity<List<MovimientoStockResponse>> listarPorId(@PathVariable L
         List<MovimientoStockResponse> movimientos = movimientoStockService.listarMovimientosPorInventario(idInventario);
         if (movimientos.isEmpty()) {
             return ResponseEntity.noContent().build();
-        }
-
-        for (MovimientoStockResponse movimiento : movimientos) {
-            Link selfLink = linkTo(methodOn(MovimientoStockController.class).listarPorId(idInventario)).withSelfRel();
-            movimiento.add(selfLink);
-
-            Link historialLink = linkTo(methodOn(MovimientoStockController.class).listarHistorial()).withRel("historial-completo");
-            movimiento.add(historialLink);
         }
         return  ResponseEntity.ok(movimientos);
 }
@@ -68,11 +57,6 @@ public ResponseEntity<List<MovimientoStockResponse>> listarPorId(@PathVariable L
         if (reporte.isEmpty()) {
             return ResponseEntity.noContent().build();
         }
-
-        for (MovimientoStockResponse movimiento : reporte) {
-            Link detLink = linkTo(methodOn(MovimientoStockController.class).listarPorId(movimiento.getIdInventario())).withRel("detalle-inventario");
-            movimiento.add(detLink);
-        }
         return ResponseEntity.ok(reporte);
 }
     @Operation(summary = "Genera Reporte segun tipo Movimiento", description = "Retorna una lista de movimientos de inventario filtrados  según tipo de Movimiento")
@@ -84,15 +68,6 @@ public ResponseEntity<List<MovimientoStockResponse>> listarPorId(@PathVariable L
         if (movimientosPorTipo.isEmpty()) {
             return ResponseEntity.noContent().build();
         }
-
-        for (MovimientoStockResponse movimiento : movimientosPorTipo) {
-            Link selfLink = linkTo(methodOn(MovimientoStockController.class).listarPorTipo(tipo)).withSelfRel();
-            movimiento.add(selfLink);
-
-            Link detLink = linkTo(methodOn(MovimientoStockController.class).listarPorId(movimiento.getIdInventario())).withRel("detalle-inventario");
-            movimiento.add(detLink);
-        }
         return  ResponseEntity.ok(movimientosPorTipo);
-
 }
 }
