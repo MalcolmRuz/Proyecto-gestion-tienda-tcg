@@ -37,6 +37,13 @@ public class SecurityConfig {
                                                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                                 .authorizeHttpRequests(auth -> auth
 
+                                                // Swagger
+                                                .requestMatchers(
+                                                                "/swagger-ui/**",
+                                                                "/v3/api-docs/**",
+                                                                "/doc/swagger-ui.html")
+                                                .permitAll()
+
                                                 // =========================================================================
                                                 // REGLAS PARA PEDIDOS
                                                 // =========================================================================

@@ -18,6 +18,8 @@ import com.gestion.tienda.tcg.carrito.dto.CarritoItemRequest;
 import com.gestion.tienda.tcg.carrito.dto.CarritoItemResponse;
 import com.gestion.tienda.tcg.carrito.service.CarritoItemService;
 
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -26,6 +28,7 @@ import lombok.extern.slf4j.Slf4j;
 @RestController
 @RequestMapping("/api/v1/carritos")
 @RequiredArgsConstructor
+@Tag(name = "CarritoItemController", description = "Controlador para gestionar los items dentro de los carritos de compras")
 public class CarritoItemController {
 
     private final CarritoItemService itemService;
@@ -33,6 +36,7 @@ public class CarritoItemController {
     // =========================
     // Agregar item al carrito
     // =========================
+    @Operation(summary = "Agregar un item a un carrito de compras", description = "Agrega un nuevo item a un carrito de compras específico utilizando el ID del carrito")
     @PostMapping("/{idCarrito}/items")
     public ResponseEntity<CarritoItemResponse> agregarItem(
             @PathVariable @NonNull Long idCarrito,
@@ -45,6 +49,7 @@ public class CarritoItemController {
     // =========================
     // Listar items de un carrito
     // =========================
+    @Operation(summary = "Listar items de un carrito de compras", description = "Obtiene la lista de items de un carrito de compras específico utilizando su ID")
     @GetMapping("/{idCarrito}/items")
     public ResponseEntity<List<CarritoItemResponse>> listarItems(
             @PathVariable @NonNull Long idCarrito) {
@@ -56,6 +61,7 @@ public class CarritoItemController {
     // =========================
     // Buscar item específico dentro de un carrito
     // =========================
+    @Operation(summary = "Obtener un item específico de un carrito de compras", description = "Obtiene los detalles de un item específico dentro de un carrito de compras utilizando el ID del carrito y el ID del item")
     @GetMapping("/{idCarrito}/items/{idItem}")
     public ResponseEntity<CarritoItemResponse> obtenerItemDeCarrito(
             @PathVariable @NonNull Long idCarrito,
@@ -68,6 +74,7 @@ public class CarritoItemController {
     // =========================
     // Actualizar cantidad de un item
     // =========================
+    @Operation(summary = "Actualizar la cantidad de un item en un carrito de compras", description = "Actualiza la cantidad de un item específico dentro de un carrito de compras utilizando el ID del item")
     @PatchMapping("/items/{idItem}")
     public ResponseEntity<CarritoItemResponse> actualizarCantidad(
             @PathVariable @NonNull Long idItem,
@@ -80,6 +87,7 @@ public class CarritoItemController {
     // =========================
     // Eliminar item del carrito
     // =========================
+    @Operation(summary = "Eliminar un item de un carrito de compras", description = "Elimina un item específico de un carrito de compras utilizando el ID del item")
     @DeleteMapping("/items/{idItem}")
     public ResponseEntity<Void> eliminarItem(@PathVariable @NonNull Long idItem) {
         log.warn("Eliminando item {}", idItem);

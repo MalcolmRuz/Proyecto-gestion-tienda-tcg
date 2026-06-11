@@ -20,6 +20,8 @@ import com.gestion.tienda.tcg.carrito.dto.CarritoResponse;
 import com.gestion.tienda.tcg.carrito.dto.PagarCarritoRequest;
 import com.gestion.tienda.tcg.carrito.service.CarritoService;
 
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -28,11 +30,13 @@ import lombok.extern.slf4j.Slf4j;
 @RestController
 @RequestMapping("/api/v1/carritos")
 @RequiredArgsConstructor
+@Tag(name = "CarritoController", description = "Controlador para gestionar carritos de compras")
 public class CarritoController {
 
         private final CarritoService carritoService;
 
         // Crear carrito
+        @Operation(summary = "Crear un nuevo carrito de compras", description = "Crea un nuevo carrito de compras para un usuario específico")
         @PostMapping
         public ResponseEntity<CarritoResponse> crearCarrito(
                         @Valid @RequestBody CarritoRequest request) {
@@ -42,6 +46,7 @@ public class CarritoController {
         }
 
         // Listar carritos
+        @Operation(summary = "Listar todos los carritos de compras", description = "Obtiene una lista de todos los carritos de compras disponibles")
         @GetMapping
         public ResponseEntity<List<CarritoResponse>> listar() {
                 log.info("Listando todos los carritos");
@@ -49,6 +54,7 @@ public class CarritoController {
         }
 
         // Buscar por ID
+        @Operation(summary = "Buscar un carrito por ID", description = "Obtiene los detalles de un carrito de compras específico utilizando su ID")
         @GetMapping("/{id}")
         public ResponseEntity<CarritoResponse> buscarPorId(@PathVariable @NonNull Long id) {
                 log.info("Buscando carrito con ID: {}", id);
@@ -57,6 +63,7 @@ public class CarritoController {
 
         // SOLICITAR PAGO: Recibe el RequestBody para poder capturar la segunda
         // dirección
+        @Operation(summary = "Solicitar pago de un carrito", description = "Inicia el proceso de pago para un carrito de compras específico")
         @PostMapping("/{id}/pagar")
         public ResponseEntity<CarritoResponse> pagarCarrito(
                         @PathVariable @NonNull Long id,
@@ -66,6 +73,7 @@ public class CarritoController {
         }
 
         // Actualizar estado de forma remota (Llamado por el orquestador de Pedidos)
+        @Operation(summary = "Actualizar estado de un carrito", description = "Actualiza el estado de un carrito de compras de forma remota, utilizado por el orquestador de Pedidos")
         @PutMapping("/{id}/estado")
         public ResponseEntity<Void> actualizarEstado(
                         @PathVariable @NonNull Long id,
@@ -75,7 +83,7 @@ public class CarritoController {
                 return ResponseEntity.noContent().build();
         }
 
-        // Confirmar pago aprobado (Invocado remotamente por el microservicio de Pago)
+        @Operation(summary = "Confirmar pago aprobado", description = "Confirma el pago aprobado para un carrito de compras específico")
         @PutMapping("/{id}/confirmar-pago")
         public ResponseEntity<CarritoResponse> confirmarPago(
                         @PathVariable @NonNull Long id,
@@ -87,6 +95,7 @@ public class CarritoController {
         }
 
         // Rechazar pago (Invocado remotamente por el microservicio de Pago)
+        @Operation(summary = "Rechazar pago de un carrito", description = "Rechaza el pago de un carrito de compras específico, con opción de cancelar el carrito")
         @PutMapping("/{id}/rechazar-pago")
         public ResponseEntity<CarritoResponse> rechazarPago(
                         @PathVariable @NonNull Long id,
@@ -96,6 +105,7 @@ public class CarritoController {
         }
 
         // Cancelar carrito
+        @Operation(summary = "Cancelar un carrito de compras", description = "Cancela un carrito de compras específico, marcándolo como cancelado sin eliminarlo físicamente de la base de datos")
         @PostMapping("/{id}/cancelar")
         public ResponseEntity<CarritoResponse> cancelarCarrito(@PathVariable @NonNull Long id) {
                 log.warn("Cancelando carrito con ID: {}", id);
@@ -103,6 +113,7 @@ public class CarritoController {
         }
 
         // Reactivar carrito
+        @Operation(summary = "Reactivar un carrito de compras", description = "Reactiva un carrito de compras previamente cancelado, marcándolo como activo nuevamente")
         @PostMapping("/{id}/reactivar")
         public ResponseEntity<CarritoResponse> reactivarCarrito(@PathVariable @NonNull Long id) {
                 log.info("Reactivando carrito con ID: {}", id);
@@ -110,6 +121,7 @@ public class CarritoController {
         }
 
         // Eliminar carrito (borrado físico de la base de datos)
+        @Operation(summary = "Eliminar un carrito de compras", description = "Elimina físicamente un carrito de compras específico de la base de datos, esta acción es irreversible")
         @DeleteMapping("/{id}")
         public ResponseEntity<Void> eliminar(@PathVariable @NonNull Long id) {
                 log.warn("Eliminando físicamente el carrito con ID: {}", id);
