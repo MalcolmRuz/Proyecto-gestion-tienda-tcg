@@ -42,7 +42,7 @@ public class SecurityConfig {
 
                         .requestMatchers("/api/v1/inventarios/*/aumentar/*").hasRole("ADMIN")
                         .requestMatchers("/api/v1/inventarios/*/reducir/*").authenticated()
-
+                        .requestMatchers("api/v2/inventarios/**").permitAll()
                         .anyRequest().authenticated()
                 )
 

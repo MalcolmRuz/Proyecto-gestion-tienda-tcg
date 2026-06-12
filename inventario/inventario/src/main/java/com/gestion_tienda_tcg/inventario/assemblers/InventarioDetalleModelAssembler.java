@@ -1,6 +1,6 @@
 package com.gestion_tienda_tcg.inventario.assemblers;
 
-import com.gestion_tienda_tcg.inventario.controller.InventarioController;
+import com.gestion_tienda_tcg.inventario.controller.InventarioControllerV2;
 import com.gestion_tienda_tcg.inventario.dto.InventarioDetalleResponse;
 import org.springframework.hateoas.EntityModel;
 import org.springframework.hateoas.server.RepresentationModelAssembler;
@@ -15,7 +15,7 @@ public class InventarioDetalleModelAssembler implements RepresentationModelAssem
     @Override
     public EntityModel<InventarioDetalleResponse> toModel(InventarioDetalleResponse detalle) {
         return EntityModel.of(detalle,
-                linkTo(methodOn(InventarioController.class).stockPorProducto(detalle.getIdProducto())).withSelfRel()
+                linkTo(methodOn(InventarioControllerV2.class).stockPorProducto(detalle.getIdProducto())).withSelfRel()
         );
     }
 }
