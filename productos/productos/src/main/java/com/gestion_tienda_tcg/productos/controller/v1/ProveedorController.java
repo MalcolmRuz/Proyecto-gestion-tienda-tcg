@@ -1,4 +1,4 @@
-package com.gestion_tienda_tcg.productos.controller;
+package com.gestion_tienda_tcg.productos.controller.v1;
 
 import com.gestion_tienda_tcg.productos.dto.ProveedorRequest;
 import com.gestion_tienda_tcg.productos.dto.ProveedorResponse;

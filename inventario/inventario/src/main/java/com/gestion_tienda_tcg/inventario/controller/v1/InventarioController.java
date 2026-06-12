@@ -1,4 +1,4 @@
-package com.gestion_tienda_tcg.inventario.controller;
+package com.gestion_tienda_tcg.inventario.controller.v1;
 
 import com.gestion_tienda_tcg.inventario.assemblers.InventarioDetalleModelAssembler;
 import com.gestion_tienda_tcg.inventario.assemblers.InventarioModelAssembler;
@@ -7,7 +7,6 @@ import com.gestion_tienda_tcg.inventario.dto.InventarioRequest;
 import com.gestion_tienda_tcg.inventario.dto.InventarioResponse;
 import com.gestion_tienda_tcg.inventario.service.InventarioService;
 import io.swagger.v3.oas.annotations.Operation;
-import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;

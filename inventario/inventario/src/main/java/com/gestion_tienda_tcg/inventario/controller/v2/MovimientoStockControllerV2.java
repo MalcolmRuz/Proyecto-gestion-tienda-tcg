@@ -1,4 +1,4 @@
-package com.gestion_tienda_tcg.inventario.controller;
+package com.gestion_tienda_tcg.inventario.controller.v2;
 
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;

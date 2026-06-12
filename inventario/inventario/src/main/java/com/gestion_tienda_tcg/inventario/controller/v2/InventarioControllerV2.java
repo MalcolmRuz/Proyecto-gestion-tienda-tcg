@@ -1,4 +1,4 @@
-package com.gestion_tienda_tcg.inventario.controller;
+package com.gestion_tienda_tcg.inventario.controller.v2;
 
 import com.gestion_tienda_tcg.inventario.assemblers.InventarioDetalleModelAssembler;
 import com.gestion_tienda_tcg.inventario.assemblers.InventarioModelAssembler;

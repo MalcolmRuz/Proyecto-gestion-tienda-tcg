@@ -1,6 +1,6 @@
 package com.gestion_tienda_tcg.inventario.assemblers;
 
-import com.gestion_tienda_tcg.inventario.controller.InventarioControllerV2; // 👈 Cambiado a la V2
+import com.gestion_tienda_tcg.inventario.controller.v2.InventarioControllerV2; // 👈 Cambiado a la V2
 import com.gestion_tienda_tcg.inventario.dto.InventarioResponse;
 import org.springframework.hateoas.EntityModel;
 import org.springframework.hateoas.server.RepresentationModelAssembler;
