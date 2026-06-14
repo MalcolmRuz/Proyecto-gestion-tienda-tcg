@@ -1,4 +1,4 @@
-package com.gestion.tienda.tcg.pedido.controller;
+package com.gestion.tienda.tcg.pedido.controller.V2;
 
 import java.util.List;
 import java.util.stream.Collectors;

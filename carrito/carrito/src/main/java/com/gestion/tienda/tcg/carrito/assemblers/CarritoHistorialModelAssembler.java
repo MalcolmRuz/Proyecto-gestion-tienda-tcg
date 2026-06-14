@@ -5,7 +5,7 @@ import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
 import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
 import org.springframework.stereotype.Component;
 
-import com.gestion.tienda.tcg.carrito.controller.CarritoHistorialControllerV2;
+import com.gestion.tienda.tcg.carrito.controller.V2.CarritoHistorialControllerV2;
 import com.gestion.tienda.tcg.carrito.dto.CarritoHistorialResponse;
 
 @Component

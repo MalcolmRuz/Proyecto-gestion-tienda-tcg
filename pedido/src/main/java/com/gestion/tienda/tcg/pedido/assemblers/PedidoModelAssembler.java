@@ -7,7 +7,7 @@ import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
 import org.springframework.lang.NonNull;
 import org.springframework.stereotype.Component;
 
-import com.gestion.tienda.tcg.pedido.controller.PedidoControllerV2;
+import com.gestion.tienda.tcg.pedido.controller.V2.PedidoControllerV2;
 import com.gestion.tienda.tcg.pedido.dto.PedidoResponse;
 
 @Component

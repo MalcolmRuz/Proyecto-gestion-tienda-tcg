@@ -1,4 +1,4 @@
-package com.gestion.tienda.tcg.carrito.controller;
+package com.gestion.tienda.tcg.carrito.controller.V1;
 
 import java.util.List;
 
