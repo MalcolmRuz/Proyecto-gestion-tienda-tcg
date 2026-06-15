@@ -3,6 +3,7 @@ package com.gestion_tienda_tcg.productos.service;
 
 import com.gestion_tienda_tcg.productos.dto.CategoriaRequest;
 import com.gestion_tienda_tcg.productos.dto.CategoriaResponse;
+import com.gestion_tienda_tcg.productos.exception.CategoriaInvalidaException;
 import com.gestion_tienda_tcg.productos.mapper.CategoriaMapper;
 import com.gestion_tienda_tcg.productos.model.Categoria;
 import com.gestion_tienda_tcg.productos.repository.CategoriaRepository;
@@ -61,6 +62,12 @@ public class CategoriaService {
                     return categoriaMapper.toResponse(actualizada);
                 })
                 .orElseThrow(() -> new RuntimeException("Categoría no encontrada con ID: " + id));
+    }
+    public CategoriaResponse obtenerCategoriaPorID(Long idCategoria) {
+        log.info("Obteniendo informacion para categoria con ID: {}",idCategoria);
+        Categoria categoria = categoriaRepository.findById(idCategoria)
+                .orElseThrow (() -> new CategoriaInvalidaException("No se encontró categoria con ID : " + idCategoria));
+        return categoriaMapper.toResponse(categoria);
     }
 }
 

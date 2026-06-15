@@ -1,8 +1,13 @@
 package com.gestion_tienda_tcg.productos.service;
 
+import com.gestion_tienda_tcg.productos.dto.CategoriaResponse;
 import com.gestion_tienda_tcg.productos.dto.ProveedorRequest;
 import com.gestion_tienda_tcg.productos.dto.ProveedorResponse;
+import com.gestion_tienda_tcg.productos.exception.CategoriaInvalidaException;
+import com.gestion_tienda_tcg.productos.exception.ProveedorNoEncontradoException;
 import com.gestion_tienda_tcg.productos.mapper.ProveedorMapper;
+import com.gestion_tienda_tcg.productos.model.Categoria;
+import com.gestion_tienda_tcg.productos.model.Proveedor;
 import com.gestion_tienda_tcg.productos.repository.ProveedorRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -49,5 +54,12 @@ public class ProveedorService {
         log.info("Contacto actualizado para: {}", proveedorActualizado.getNombreProveedor());
 
         return proveedorMapper.toResponse(proveedorActualizado);
+    }
+
+    public ProveedorResponse obtenerProveedorPorID(Long idProveedor) {
+        log.info("Obteniendo informacion para proveedor con ID: {}", idProveedor);
+        Proveedor proveedor = proveedorRepository.findById(idProveedor)
+                .orElseThrow(() -> new ProveedorNoEncontradoException("No se encontró categoria con ID : " + idProveedor));
+        return proveedorMapper.toResponse(proveedor);
     }
 }

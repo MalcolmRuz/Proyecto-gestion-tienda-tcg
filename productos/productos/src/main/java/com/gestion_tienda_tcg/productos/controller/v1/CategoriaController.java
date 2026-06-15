@@ -5,6 +5,7 @@ import com.gestion_tienda_tcg.productos.dto.CategoriaResponse;
 import com.gestion_tienda_tcg.productos.service.CategoriaService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
@@ -43,5 +44,13 @@ public class CategoriaController {
         var response = categoriaService.editarCategoria(id, request);
         return ResponseEntity.ok(response);
     }
+
+    @Operation(summary = "Busqueda de Categoria segun ID", description = "Retorna Categoria segun ID, individual")
+    @GetMapping ("/{idCategoria}")
+    public ResponseEntity<CategoriaResponse> buscarCategoriaID(@Valid @PathVariable Long idCategoria){
+        CategoriaResponse response = categoriaService.obtenerCategoriaPorID(idCategoria);
+        return ResponseEntity.ok(response);
+    }
+
 }
 

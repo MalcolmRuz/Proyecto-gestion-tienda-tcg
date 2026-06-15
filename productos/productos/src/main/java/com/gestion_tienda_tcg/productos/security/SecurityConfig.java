@@ -48,6 +48,7 @@ public class SecurityConfig {
                         .requestMatchers(HttpMethod.PUT, "/api/v1/productos/**").hasRole("ADMIN")
                         .requestMatchers(HttpMethod.PATCH, "/api/v1/productos/**").hasRole("ADMIN")
 
+                        .requestMatchers(HttpMethod.PATCH, "/api/v2/**").permitAll()
 
                         .anyRequest().authenticated()
                 )

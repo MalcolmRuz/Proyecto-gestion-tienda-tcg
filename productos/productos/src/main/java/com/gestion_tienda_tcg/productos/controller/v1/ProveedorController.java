@@ -7,6 +7,7 @@ import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.hateoas.EntityModel;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -41,6 +42,14 @@ public class ProveedorController {
             @RequestParam String nuevoContacto) {
         log.info("REST request para actualizar contacto del proveedor ID: {}", id);
         var response = proveedorService.actualizarContacto(id, nuevoContacto);
+        return ResponseEntity.ok(response);
+    }
+    @Operation(summary = "Obtener proveedor por ID", description = "Retorna un proveedor individual buscado según su ID")
+    @GetMapping("/{id}")
+    public ResponseEntity<ProveedorResponse> obtenerProveedorPorId(@PathVariable Long id) {
+        log.info("REST request  para obtener proveedor ID: {}", id);
+
+        var response = proveedorService.obtenerProveedorPorID(id);
         return ResponseEntity.ok(response);
     }
 }
