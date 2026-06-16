@@ -16,7 +16,7 @@ import jakarta.validation.Valid;
 
 @RestController
 @RequestMapping("/api/v1/pagos")
-@Tag(name = "Pagos", description = "Crea un pago tipo boleta luego de un pedido aprobado")
+@Tag(name = "Pagos", description = "Gestión de pagos asociados a los pedidos")
 public class PagoController {
 
     private final PagoService pagoService;
@@ -26,13 +26,13 @@ public class PagoController {
     }
 
     @PostMapping
-    @Operation(summary = "Creación de Boleta", description = "Creación de una boleta luego de que un pedido haya sido aprobado")
+    @Operation(summary = "Realizar Pago", description = "Registro de pago para carrito pendiente de validación")
     public ResponseEntity<PagoResponse> crearPago(@Valid @RequestBody PagoRequest request) {
         return ResponseEntity.ok(pagoService.realizarPago(request));
     }
 
     @GetMapping
-    @Operation(summary = "Lista Boletas", description = "Listado de boletas de todos los pagos ya aprobados")
+    @Operation(summary = "Lista pagos", description = "Listado de todos los pagos registrados")
     public ResponseEntity<List<PagoResponse>> listarPagos() {
 
         return ResponseEntity.ok(pagoService.listarPagos());
@@ -52,7 +52,7 @@ public class PagoController {
 
     @GetMapping("/estado/{estado}")
     @Operation(
-            summary = "Listar pagos por estado", description = "Obtiene todos los pagos según su estado")
+            summary = "Listar pagos por estado", description = "Muestra todos los pagos según su estado de pago")
     public ResponseEntity<List<PagoResponse>> listarPagosPorEstado(
             @PathVariable EstadoPago estado){
 

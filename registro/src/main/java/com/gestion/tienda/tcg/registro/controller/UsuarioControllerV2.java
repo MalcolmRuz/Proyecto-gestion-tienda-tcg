@@ -4,6 +4,8 @@ import com.gestion.tienda.tcg.registro.assemblers.UsuarioModelAssembler;
 import com.gestion.tienda.tcg.registro.dto.UsuarioRequest;
 import com.gestion.tienda.tcg.registro.dto.UsuarioResponse;
 import com.gestion.tienda.tcg.registro.service.UsuarioService;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import org.springframework.hateoas.CollectionModel;
 import org.springframework.hateoas.EntityModel;
@@ -19,6 +21,7 @@ import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
 
 @RestController
 @RequestMapping("/api/v2/usuarios")
+@Tag(name = "Usuarios HATEOAS", description = "Gestión de usuarios utilizando Spring HATEOAS")
 public class UsuarioControllerV2 {
 
     private final UsuarioService usuarioService;
@@ -33,6 +36,7 @@ public class UsuarioControllerV2 {
     }
 
     @GetMapping("/{id}")
+    @Operation(summary = "Buscar usuario por ID", description = "Búsqueda de un usuario mediante su ID con enlaces HATEOAS")
     public EntityModel <UsuarioResponse> buscarPorId(@PathVariable Long id){
 
         UsuarioResponse response = usuarioService.buscarPorId(id);
@@ -42,6 +46,7 @@ public class UsuarioControllerV2 {
     }
 
     @GetMapping
+    @Operation(summary = "Listar usuarios", description = "Obtiene un listado de usuarios con enlaces HATEOAS")
     public CollectionModel<EntityModel<UsuarioResponse>> listar(){
 
         List<EntityModel<UsuarioResponse>> lista = usuarioService.listarUsuarios().stream()
@@ -54,6 +59,7 @@ public class UsuarioControllerV2 {
     }
 
     @PostMapping
+    @Operation(summary = "Registrar usuario", description = "Registra un nuevo usuario y retorna con enlaces HATEOAS")
     public ResponseEntity<EntityModel<UsuarioResponse>>registrar(@Valid @RequestBody UsuarioRequest request){
 
         UsuarioResponse response = usuarioService.registrarUsuario(request);
@@ -63,6 +69,7 @@ public class UsuarioControllerV2 {
     }
 
     @PutMapping("/{id}/actualizar")
+    @Operation(summary = "Actualizar usuario", description = "Actualiza la información de un usuario y retorna con enlaces HATEOAS")
     public EntityModel<UsuarioResponse>actualizar(@PathVariable Long id, @Valid @RequestBody UsuarioRequest request){
 
         UsuarioResponse response = usuarioService.actualizarUsuario(id,request);
@@ -72,6 +79,7 @@ public class UsuarioControllerV2 {
     }
 
     @DeleteMapping("/{id}")
+    @Operation(summary = "Eliminar usuario", description = "Elimina un usuario existente mediante su ID")
     public ResponseEntity<Void> eliminar(@PathVariable Long id){
 
         usuarioService.eliminarPorId(id);
@@ -81,6 +89,7 @@ public class UsuarioControllerV2 {
     }
 
     @PutMapping("/{id}/admin")
+    @Operation(summary = "Asignar rol administrador", description = "Convierte un usuario con rol CLIENTE en ADMIN y retorna con enlaces HATEOAS")
     public EntityModel<UsuarioResponse>convertirUsuarioAdmin(@PathVariable Long id){
 
         UsuarioResponse response = usuarioService.asignarRolAdminPorIdUsuario(id);

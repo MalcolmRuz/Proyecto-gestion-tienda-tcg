@@ -5,6 +5,8 @@ import com.gestion.tienda.tcg.pago.dto.PagoRequest;
 import com.gestion.tienda.tcg.pago.dto.PagoResponse;
 import com.gestion.tienda.tcg.pago.enums.EstadoPago;
 import com.gestion.tienda.tcg.pago.service.PagoService;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import org.springframework.hateoas.CollectionModel;
 import org.springframework.hateoas.EntityModel;
@@ -20,6 +22,7 @@ import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
 
 @RestController
 @RequestMapping("/api/v2/pagos")
+@Tag(name = "Pagos HATEOAS", description = "Gestión de pagos utilizando Spring HATEOAS")
 public class PagoControllerV2 {
 
     private final PagoService pagoService;
@@ -33,6 +36,7 @@ public class PagoControllerV2 {
     }
 
     @PostMapping
+    @Operation(summary = "Crear pago", description = "Realiza un pago y retorna con enlaces HATEOAS")
     public ResponseEntity<EntityModel<PagoResponse>>realizarPago(@Valid @RequestBody PagoRequest request){
 
         PagoResponse response = pagoService.realizarPago(request);
@@ -43,6 +47,7 @@ public class PagoControllerV2 {
     }
 
     @GetMapping
+    @Operation(summary = "Listar pagos", description = "Obtiene todos los pagos registrados con enlaces HATEOAS")
     public CollectionModel<EntityModel<PagoResponse>>listadoPagos(){
 
         List<EntityModel<PagoResponse>> lista = pagoService.listarPagos()
@@ -58,8 +63,8 @@ public class PagoControllerV2 {
     }
 
     @GetMapping("/{id}")
-    public EntityModel<PagoResponse> buscarPagoPorId(
-            @PathVariable Long id){
+    @Operation(summary = "Buscar pago por ID", description = "Obtiene un pago específico mediante su ID con enlaces HATEOAS")
+    public EntityModel<PagoResponse> buscarPagoPorId(@PathVariable Long id){
 
         PagoResponse response = pagoService.buscarPagoPorId(id);
 
@@ -67,8 +72,8 @@ public class PagoControllerV2 {
     }
 
     @GetMapping("/estado/{estado}")
-    public CollectionModel<EntityModel<PagoResponse>> listarPagosPorEstado(
-            @PathVariable EstadoPago estado){
+    @Operation(summary = "Listar pagos por estado", description = "Obtiene todos los pagos filtrados por estado con enlaces HATEOAS")
+    public CollectionModel<EntityModel<PagoResponse>> listarPagosPorEstado(@PathVariable EstadoPago estado){
 
         List<EntityModel<PagoResponse>> lista =
                 pagoService.listarPagosPorEstado(estado)
@@ -83,5 +88,4 @@ public class PagoControllerV2 {
                         .withSelfRel()
         );
     }
-
 }

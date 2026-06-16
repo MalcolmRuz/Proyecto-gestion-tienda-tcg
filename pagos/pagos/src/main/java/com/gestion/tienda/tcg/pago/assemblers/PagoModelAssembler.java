@@ -22,6 +22,10 @@ public class PagoModelAssembler implements RepresentationModelAssembler <PagoRes
                         .withSelfRel(),
 
                 linkTo(methodOn(PagoControllerV2.class)
+                        .listarPagosPorEstado(response.getEstado()))
+                        .withRel("pagos-por-estado"),
+
+                linkTo(methodOn(PagoControllerV2.class)
                         .realizarPago(null))
                         .withRel("realizar-pago"),
 
