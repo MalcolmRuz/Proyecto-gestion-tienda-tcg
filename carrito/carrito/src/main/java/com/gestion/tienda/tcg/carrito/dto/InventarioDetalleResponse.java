@@ -3,9 +3,9 @@ package com.gestion.tienda.tcg.carrito.dto;
 import java.time.LocalDateTime;
 
 import lombok.AllArgsConstructor;
-import lombok.Getter;
+import lombok.Data;
 
-@Getter
+@Data
 @AllArgsConstructor
 public class InventarioDetalleResponse {
     private final Long idInventario;

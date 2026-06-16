@@ -1,0 +1,634 @@
+Picked up JAVA_TOOL_OPTIONS: -Dstdout.encoding=UTF-8 -Dstderr.encoding=UTF-8
+[INFO] Scanning for projects...
+[INFO] 
+[INFO] -------------------< com.gestion.tienda.tcg:carrito >-------------------
+[INFO] Building carrito 0.0.1-SNAPSHOT
+[INFO]   from pom.xml
+[INFO] --------------------------------[ jar ]---------------------------------
+[INFO] 
+[INFO] --- resources:3.3.1:resources (default-resources) @ carrito ---
+[INFO] Copying 1 resource from src\main\resources to target\classes
+[INFO] Copying 0 resource from src\main\resources to target\classes
+[INFO] 
+[INFO] --- compiler:3.14.1:compile (default-compile) @ carrito ---
+[INFO] Recompiling the module because of changed source code.
+[INFO] Compiling 45 source files with javac [debug parameters release 17] to target\classes
+[INFO] -------------------------------------------------------------
+[ERROR] COMPILATION ERROR : 
+[INFO] -------------------------------------------------------------
+[ERROR] /c:/Proyectos/Branch Malcolm/Proyecto-gestion-tienda-tcg/carrito/carrito/src/main/java/com/gestion/tienda/tcg/carrito/assemblers/CarritoItemModelAssembler.java:[21,79] cannot find symbol
+  symbol:   method getIdCarrito()
+  location: variable response of type com.gestion.tienda.tcg.carrito.dto.CarritoItemResponse
+[ERROR] /c:/Proyectos/Branch Malcolm/Proyecto-gestion-tienda-tcg/carrito/carrito/src/main/java/com/gestion/tienda/tcg/carrito/assemblers/CarritoItemModelAssembler.java:[21,104] cannot find symbol
+  symbol:   method getIdItem()
+  location: variable response of type com.gestion.tienda.tcg.carrito.dto.CarritoItemResponse
+[ERROR] /c:/Proyectos/Branch Malcolm/Proyecto-gestion-tienda-tcg/carrito/carrito/src/main/java/com/gestion/tienda/tcg/carrito/assemblers/CarritoItemModelAssembler.java:[24,70] cannot find symbol
+  symbol:   method getIdCarrito()
+  location: variable response of type com.gestion.tienda.tcg.carrito.dto.CarritoItemResponse
+[ERROR] /c:/Proyectos/Branch Malcolm/Proyecto-gestion-tienda-tcg/carrito/carrito/src/main/java/com/gestion/tienda/tcg/carrito/assemblers/CarritoItemModelAssembler.java:[27,77] cannot find symbol
+  symbol:   method getIdItem()
+  location: variable response of type com.gestion.tienda.tcg.carrito.dto.CarritoItemResponse
+[ERROR] /c:/Proyectos/Branch Malcolm/Proyecto-gestion-tienda-tcg/carrito/carrito/src/main/java/com/gestion/tienda/tcg/carrito/assemblers/CarritoItemModelAssembler.java:[30,71] cannot find symbol
+  symbol:   method getIdItem()
+  location: variable response of type com.gestion.tienda.tcg.carrito.dto.CarritoItemResponse
+[ERROR] /c:/Proyectos/Branch Malcolm/Proyecto-gestion-tienda-tcg/carrito/carrito/src/main/java/com/gestion/tienda/tcg/carrito/assemblers/CarritoModelAssembler.java:[20,96] cannot find symbol
+  symbol:   method getIdCarrito()
+  location: variable response of type com.gestion.tienda.tcg.carrito.dto.CarritoResponse
+[ERROR] /c:/Proyectos/Branch Malcolm/Proyecto-gestion-tienda-tcg/carrito/carrito/src/main/java/com/gestion/tienda/tcg/carrito/assemblers/CarritoModelAssembler.java:[23,97] cannot find symbol
+  symbol:   method getIdCarrito()
+  location: variable response of type com.gestion.tienda.tcg.carrito.dto.CarritoResponse
+[ERROR] /c:/Proyectos/Branch Malcolm/Proyecto-gestion-tienda-tcg/carrito/carrito/src/main/java/com/gestion/tienda/tcg/carrito/assemblers/CarritoModelAssembler.java:[25,100] cannot find symbol
+  symbol:   method getIdCarrito()
+  location: variable response of type com.gestion.tienda.tcg.carrito.dto.CarritoResponse
+[ERROR] /c:/Proyectos/Branch Malcolm/Proyecto-gestion-tienda-tcg/carrito/carrito/src/main/java/com/gestion/tienda/tcg/carrito/assemblers/CarritoModelAssembler.java:[27,101] cannot find symbol
+  symbol:   method getIdCarrito()
+  location: variable response of type com.gestion.tienda.tcg.carrito.dto.CarritoResponse
+[ERROR] /c:/Proyectos/Branch Malcolm/Proyecto-gestion-tienda-tcg/carrito/carrito/src/main/java/com/gestion/tienda/tcg/carrito/controller/V1/CarritoController.java:[43,17] cannot find symbol
+  symbol:   variable log
+  location: class com.gestion.tienda.tcg.carrito.controller.V1.CarritoController
+[ERROR] /c:/Proyectos/Branch Malcolm/Proyecto-gestion-tienda-tcg/carrito/carrito/src/main/java/com/gestion/tienda/tcg/carrito/controller/V1/CarritoController.java:[52,17] cannot find symbol
+  symbol:   variable log
+  location: class com.gestion.tienda.tcg.carrito.controller.V1.CarritoController
+[ERROR] /c:/Proyectos/Branch Malcolm/Proyecto-gestion-tienda-tcg/carrito/carrito/src/main/java/com/gestion/tienda/tcg/carrito/controller/V1/CarritoController.java:[60,17] cannot find symbol
+  symbol:   variable log
+  location: class com.gestion.tienda.tcg.carrito.controller.V1.CarritoController
+[ERROR] /c:/Proyectos/Branch Malcolm/Proyecto-gestion-tienda-tcg/carrito/carrito/src/main/java/com/gestion/tienda/tcg/carrito/controller/V1/CarritoController.java:[71,17] cannot find symbol
+  symbol:   variable log
+  location: class com.gestion.tienda.tcg.carrito.controller.V1.CarritoController
+[ERROR] /c:/Proyectos/Branch Malcolm/Proyecto-gestion-tienda-tcg/carrito/carrito/src/main/java/com/gestion/tienda/tcg/carrito/controller/V1/CarritoController.java:[71,99] cannot find symbol
+  symbol:   method getUsuarioId()
+  location: variable request of type com.gestion.tienda.tcg.carrito.dto.PagarCarritoRequest
+[ERROR] /c:/Proyectos/Branch Malcolm/Proyecto-gestion-tienda-tcg/carrito/carrito/src/main/java/com/gestion/tienda/tcg/carrito/controller/V1/CarritoController.java:[81,17] cannot find symbol
+  symbol:   variable log
+  location: class com.gestion.tienda.tcg.carrito.controller.V1.CarritoController
+[ERROR] /c:/Proyectos/Branch Malcolm/Proyecto-gestion-tienda-tcg/carrito/carrito/src/main/java/com/gestion/tienda/tcg/carrito/controller/V1/CarritoController.java:[91,17] cannot find symbol
+  symbol:   variable log
+  location: class com.gestion.tienda.tcg.carrito.controller.V1.CarritoController
+[ERROR] /c:/Proyectos/Branch Malcolm/Proyecto-gestion-tienda-tcg/carrito/carrito/src/main/java/com/gestion/tienda/tcg/carrito/controller/V1/CarritoController.java:[94,73] cannot find symbol
+  symbol:   method getUsuarioId()
+  location: variable request of type com.gestion.tienda.tcg.carrito.dto.PagarCarritoRequest
+[ERROR] /c:/Proyectos/Branch Malcolm/Proyecto-gestion-tienda-tcg/carrito/carrito/src/main/java/com/gestion/tienda/tcg/carrito/controller/V1/CarritoController.java:[103,17] cannot find symbol
+  symbol:   variable log
+  location: class com.gestion.tienda.tcg.carrito.controller.V1.CarritoController
+[ERROR] /c:/Proyectos/Branch Malcolm/Proyecto-gestion-tienda-tcg/carrito/carrito/src/main/java/com/gestion/tienda/tcg/carrito/controller/V1/CarritoController.java:[111,17] cannot find symbol
+  symbol:   variable log
+  location: class com.gestion.tienda.tcg.carrito.controller.V1.CarritoController
+[ERROR] /c:/Proyectos/Branch Malcolm/Proyecto-gestion-tienda-tcg/carrito/carrito/src/main/java/com/gestion/tienda/tcg/carrito/controller/V1/CarritoController.java:[119,17] cannot find symbol
+  symbol:   variable log
+  location: class com.gestion.tienda.tcg.carrito.controller.V1.CarritoController
+[ERROR] /c:/Proyectos/Branch Malcolm/Proyecto-gestion-tienda-tcg/carrito/carrito/src/main/java/com/gestion/tienda/tcg/carrito/controller/V1/CarritoController.java:[127,17] cannot find symbol
+  symbol:   variable log
+  location: class com.gestion.tienda.tcg.carrito.controller.V1.CarritoController
+[ERROR] /c:/Proyectos/Branch Malcolm/Proyecto-gestion-tienda-tcg/carrito/carrito/src/main/java/com/gestion/tienda/tcg/carrito/service/CarritoService.java:[36,17] cannot find symbol
+  symbol:   variable log
+  location: class com.gestion.tienda.tcg.carrito.service.CarritoService
+[ERROR] /c:/Proyectos/Branch Malcolm/Proyecto-gestion-tienda-tcg/carrito/carrito/src/main/java/com/gestion/tienda/tcg/carrito/service/CarritoService.java:[38,24] cannot find symbol
+  symbol:   method setEstadoCarrito(com.gestion.tienda.tcg.carrito.enums.EstadoCarrito)
+  location: variable carrito of type com.gestion.tienda.tcg.carrito.model.Carrito
+[ERROR] /c:/Proyectos/Branch Malcolm/Proyecto-gestion-tienda-tcg/carrito/carrito/src/main/java/com/gestion/tienda/tcg/carrito/service/CarritoService.java:[39,24] cannot find symbol
+  symbol:   method setTotalCarrito(double)
+  location: variable carrito of type com.gestion.tienda.tcg.carrito.model.Carrito
+[ERROR] /c:/Proyectos/Branch Malcolm/Proyecto-gestion-tienda-tcg/carrito/carrito/src/main/java/com/gestion/tienda/tcg/carrito/service/CarritoService.java:[65,17] cannot find symbol
+  symbol:   variable log
+  location: class com.gestion.tienda.tcg.carrito.service.CarritoService
+[ERROR] /c:/Proyectos/Branch Malcolm/Proyecto-gestion-tienda-tcg/carrito/carrito/src/main/java/com/gestion/tienda/tcg/carrito/service/CarritoService.java:[70,28] cannot find symbol
+  symbol:   method getEstadoCarrito()
+  location: variable carrito of type com.gestion.tienda.tcg.carrito.model.Carrito
+[ERROR] /c:/Proyectos/Branch Malcolm/Proyecto-gestion-tienda-tcg/carrito/carrito/src/main/java/com/gestion/tienda/tcg/carrito/service/CarritoService.java:[71,43] cannot find symbol
+  symbol:   method getEstadoCarrito()
+  location: variable carrito of type com.gestion.tienda.tcg.carrito.model.Carrito
+[ERROR] /c:/Proyectos/Branch Malcolm/Proyecto-gestion-tienda-tcg/carrito/carrito/src/main/java/com/gestion/tienda/tcg/carrito/service/CarritoService.java:[76,28] cannot find symbol
+  symbol:   method getItems()
+  location: variable carrito of type com.gestion.tienda.tcg.carrito.model.Carrito
+[ERROR] /c:/Proyectos/Branch Malcolm/Proyecto-gestion-tienda-tcg/carrito/carrito/src/main/java/com/gestion/tienda/tcg/carrito/service/CarritoService.java:[76,58] cannot find symbol
+  symbol:   method getItems()
+  location: variable carrito of type com.gestion.tienda.tcg.carrito.model.Carrito
+[ERROR] /c:/Proyectos/Branch Malcolm/Proyecto-gestion-tienda-tcg/carrito/carrito/src/main/java/com/gestion/tienda/tcg/carrito/service/CarritoService.java:[81,40] cannot find symbol
+  symbol:   method getItems()
+  location: variable carrito of type com.gestion.tienda.tcg.carrito.model.Carrito
+[ERROR] /c:/Proyectos/Branch Malcolm/Proyecto-gestion-tienda-tcg/carrito/carrito/src/main/java/com/gestion/tienda/tcg/carrito/service/CarritoService.java:[86,40] cannot find symbol
+  symbol:   method setEstadoCarrito(com.gestion.tienda.tcg.carrito.enums.EstadoCarrito)
+  location: variable carrito of type com.gestion.tienda.tcg.carrito.model.Carrito
+[ERROR] /c:/Proyectos/Branch Malcolm/Proyecto-gestion-tienda-tcg/carrito/carrito/src/main/java/com/gestion/tienda/tcg/carrito/service/CarritoService.java:[93,39] cannot find symbol
+  symbol:   method getStockActual()
+  location: variable inventario of type com.gestion.tienda.tcg.carrito.dto.InventarioResponse
+[ERROR] /c:/Proyectos/Branch Malcolm/Proyecto-gestion-tienda-tcg/carrito/carrito/src/main/java/com/gestion/tienda/tcg/carrito/service/CarritoService.java:[94,40] cannot find symbol
+  symbol:   method setEstadoCarrito(com.gestion.tienda.tcg.carrito.enums.EstadoCarrito)
+  location: variable carrito of type com.gestion.tienda.tcg.carrito.model.Carrito
+[ERROR] /c:/Proyectos/Branch Malcolm/Proyecto-gestion-tienda-tcg/carrito/carrito/src/main/java/com/gestion/tienda/tcg/carrito/service/CarritoService.java:[99,95] cannot find symbol
+  symbol:   method getStockActual()
+  location: variable inventario of type com.gestion.tienda.tcg.carrito.dto.InventarioResponse
+[ERROR] /c:/Proyectos/Branch Malcolm/Proyecto-gestion-tienda-tcg/carrito/carrito/src/main/java/com/gestion/tienda/tcg/carrito/service/CarritoService.java:[106,28] cannot find symbol
+  symbol:   method getDireccionEnvio()
+  location: variable request of type com.gestion.tienda.tcg.carrito.dto.PagarCarritoRequest
+[ERROR] /c:/Proyectos/Branch Malcolm/Proyecto-gestion-tienda-tcg/carrito/carrito/src/main/java/com/gestion/tienda/tcg/carrito/service/CarritoService.java:[106,68] cannot find symbol
+  symbol:   method getDireccionEnvio()
+  location: variable request of type com.gestion.tienda.tcg.carrito.dto.PagarCarritoRequest
+[ERROR] /c:/Proyectos/Branch Malcolm/Proyecto-gestion-tienda-tcg/carrito/carrito/src/main/java/com/gestion/tienda/tcg/carrito/service/CarritoService.java:[107,58] cannot find symbol
+  symbol:   method getDireccionEnvio()
+  location: variable request of type com.gestion.tienda.tcg.carrito.dto.PagarCarritoRequest
+[ERROR] /c:/Proyectos/Branch Malcolm/Proyecto-gestion-tienda-tcg/carrito/carrito/src/main/java/com/gestion/tienda/tcg/carrito/service/CarritoService.java:[108,25] cannot find symbol
+  symbol:   variable log
+  location: class com.gestion.tienda.tcg.carrito.service.CarritoService
+[ERROR] /c:/Proyectos/Branch Malcolm/Proyecto-gestion-tienda-tcg/carrito/carrito/src/main/java/com/gestion/tienda/tcg/carrito/service/CarritoService.java:[109,48] cannot find symbol
+  symbol:   method getDireccionEnvio()
+  location: variable request of type com.gestion.tienda.tcg.carrito.dto.PagarCarritoRequest
+[ERROR] /c:/Proyectos/Branch Malcolm/Proyecto-gestion-tienda-tcg/carrito/carrito/src/main/java/com/gestion/tienda/tcg/carrito/service/CarritoService.java:[112,24] cannot find symbol
+  symbol:   method setEstadoCarrito(com.gestion.tienda.tcg.carrito.enums.EstadoCarrito)
+  location: variable carrito of type com.gestion.tienda.tcg.carrito.model.Carrito
+[ERROR] /c:/Proyectos/Branch Malcolm/Proyecto-gestion-tienda-tcg/carrito/carrito/src/main/java/com/gestion/tienda/tcg/carrito/service/CarritoService.java:[124,17] cannot find symbol
+  symbol:   variable log
+  location: class com.gestion.tienda.tcg.carrito.service.CarritoService
+[ERROR] /c:/Proyectos/Branch Malcolm/Proyecto-gestion-tienda-tcg/carrito/carrito/src/main/java/com/gestion/tienda/tcg/carrito/service/CarritoService.java:[129,28] cannot find symbol
+  symbol:   method getEstadoCarrito()
+  location: variable carrito of type com.gestion.tienda.tcg.carrito.model.Carrito
+[ERROR] /c:/Proyectos/Branch Malcolm/Proyecto-gestion-tienda-tcg/carrito/carrito/src/main/java/com/gestion/tienda/tcg/carrito/service/CarritoService.java:[135,40] cannot find symbol
+  symbol:   method getItems()
+  location: variable carrito of type com.gestion.tienda.tcg.carrito.model.Carrito
+[ERROR] /c:/Proyectos/Branch Malcolm/Proyecto-gestion-tienda-tcg/carrito/carrito/src/main/java/com/gestion/tienda/tcg/carrito/service/CarritoService.java:[138,33] cannot find symbol
+  symbol:   variable log
+  location: class com.gestion.tienda.tcg.carrito.service.CarritoService
+[ERROR] /c:/Proyectos/Branch Malcolm/Proyecto-gestion-tienda-tcg/carrito/carrito/src/main/java/com/gestion/tienda/tcg/carrito/service/CarritoService.java:[141,33] cannot find symbol
+  symbol:   variable log
+  location: class com.gestion.tienda.tcg.carrito.service.CarritoService
+[ERROR] /c:/Proyectos/Branch Malcolm/Proyecto-gestion-tienda-tcg/carrito/carrito/src/main/java/com/gestion/tienda/tcg/carrito/service/CarritoService.java:[148,24] cannot find symbol
+  symbol:   method setEstadoCarrito(com.gestion.tienda.tcg.carrito.enums.EstadoCarrito)
+  location: variable carrito of type com.gestion.tienda.tcg.carrito.model.Carrito
+[ERROR] /c:/Proyectos/Branch Malcolm/Proyecto-gestion-tienda-tcg/carrito/carrito/src/main/java/com/gestion/tienda/tcg/carrito/service/CarritoService.java:[163,32] cannot find symbol
+  symbol:   method setEstadoCarrito(com.gestion.tienda.tcg.carrito.enums.EstadoCarrito)
+  location: variable carrito of type com.gestion.tienda.tcg.carrito.model.Carrito
+[ERROR] /c:/Proyectos/Branch Malcolm/Proyecto-gestion-tienda-tcg/carrito/carrito/src/main/java/com/gestion/tienda/tcg/carrito/service/CarritoService.java:[167,25] cannot find symbol
+  symbol:   variable log
+  location: class com.gestion.tienda.tcg.carrito.service.CarritoService
+[ERROR] /c:/Proyectos/Branch Malcolm/Proyecto-gestion-tienda-tcg/carrito/carrito/src/main/java/com/gestion/tienda/tcg/carrito/service/CarritoService.java:[176,17] cannot find symbol
+  symbol:   variable log
+  location: class com.gestion.tienda.tcg.carrito.service.CarritoService
+[ERROR] /c:/Proyectos/Branch Malcolm/Proyecto-gestion-tienda-tcg/carrito/carrito/src/main/java/com/gestion/tienda/tcg/carrito/service/CarritoService.java:[181,28] cannot find symbol
+  symbol:   method getEstadoCarrito()
+  location: variable carrito of type com.gestion.tienda.tcg.carrito.model.Carrito
+[ERROR] /c:/Proyectos/Branch Malcolm/Proyecto-gestion-tienda-tcg/carrito/carrito/src/main/java/com/gestion/tienda/tcg/carrito/service/CarritoService.java:[190,24] cannot find symbol
+  symbol:   method setEstadoCarrito(com.gestion.tienda.tcg.carrito.enums.EstadoCarrito)
+  location: variable carrito of type com.gestion.tienda.tcg.carrito.model.Carrito
+[ERROR] /c:/Proyectos/Branch Malcolm/Proyecto-gestion-tienda-tcg/carrito/carrito/src/main/java/com/gestion/tienda/tcg/carrito/service/CarritoService.java:[203,28] cannot find symbol
+  symbol:   method getEstadoCarrito()
+  location: variable carrito of type com.gestion.tienda.tcg.carrito.model.Carrito
+[ERROR] /c:/Proyectos/Branch Malcolm/Proyecto-gestion-tienda-tcg/carrito/carrito/src/main/java/com/gestion/tienda/tcg/carrito/service/CarritoService.java:[207,24] cannot find symbol
+  symbol:   method setEstadoCarrito(com.gestion.tienda.tcg.carrito.enums.EstadoCarrito)
+  location: variable carrito of type com.gestion.tienda.tcg.carrito.model.Carrito
+[ERROR] /c:/Proyectos/Branch Malcolm/Proyecto-gestion-tienda-tcg/carrito/carrito/src/main/java/com/gestion/tienda/tcg/carrito/service/CarritoService.java:[219,28] cannot find symbol
+  symbol:   method getEstadoCarrito()
+  location: variable carrito of type com.gestion.tienda.tcg.carrito.model.Carrito
+[ERROR] /c:/Proyectos/Branch Malcolm/Proyecto-gestion-tienda-tcg/carrito/carrito/src/main/java/com/gestion/tienda/tcg/carrito/service/CarritoService.java:[223,24] cannot find symbol
+  symbol:   method setEstadoCarrito(com.gestion.tienda.tcg.carrito.enums.EstadoCarrito)
+  location: variable carrito of type com.gestion.tienda.tcg.carrito.model.Carrito
+[ERROR] /c:/Proyectos/Branch Malcolm/Proyecto-gestion-tienda-tcg/carrito/carrito/src/main/java/com/gestion/tienda/tcg/carrito/service/CarritoService.java:[235,28] cannot find symbol
+  symbol:   method getEstadoCarrito()
+  location: variable carrito of type com.gestion.tienda.tcg.carrito.model.Carrito
+[ERROR] /c:/Proyectos/Branch Malcolm/Proyecto-gestion-tienda-tcg/carrito/carrito/src/main/java/com/gestion/tienda/tcg/carrito/mapper/CarritoMapper.java:[29,20] cannot find symbol
+  symbol:   method getItems()
+  location: variable carrito of type com.gestion.tienda.tcg.carrito.model.Carrito
+[ERROR] /c:/Proyectos/Branch Malcolm/Proyecto-gestion-tienda-tcg/carrito/carrito/src/main/java/com/gestion/tienda/tcg/carrito/mapper/CarritoMapper.java:[31,28] cannot find symbol
+  symbol:   method getItems()
+  location: variable carrito of type com.gestion.tienda.tcg.carrito.model.Carrito
+[ERROR] /c:/Proyectos/Branch Malcolm/Proyecto-gestion-tienda-tcg/carrito/carrito/src/main/java/com/gestion/tienda/tcg/carrito/mapper/CarritoMapper.java:[40,24] cannot find symbol
+  symbol:   method getTotalCarrito()
+  location: variable carrito of type com.gestion.tienda.tcg.carrito.model.Carrito
+[ERROR] /c:/Proyectos/Branch Malcolm/Proyecto-gestion-tienda-tcg/carrito/carrito/src/main/java/com/gestion/tienda/tcg/carrito/mapper/CarritoMapper.java:[39,24] cannot find symbol
+  symbol:   method getEstadoCarrito()
+  location: variable carrito of type com.gestion.tienda.tcg.carrito.model.Carrito
+[ERROR] /c:/Proyectos/Branch Malcolm/Proyecto-gestion-tienda-tcg/carrito/carrito/src/main/java/com/gestion/tienda/tcg/carrito/mapper/CarritoMapper.java:[38,24] cannot find symbol
+  symbol:   method getIdCarrito()
+  location: variable carrito of type com.gestion.tienda.tcg.carrito.model.Carrito
+[ERROR] /c:/Proyectos/Branch Malcolm/Proyecto-gestion-tienda-tcg/carrito/carrito/src/main/java/com/gestion/tienda/tcg/carrito/service/CarritoHistorialService.java:[40,9] cannot find symbol
+  symbol:   variable log
+  location: class com.gestion.tienda.tcg.carrito.service.CarritoHistorialService
+[ERROR] /c:/Proyectos/Branch Malcolm/Proyecto-gestion-tienda-tcg/carrito/carrito/src/main/java/com/gestion/tienda/tcg/carrito/service/CarritoHistorialService.java:[41,24] cannot find symbol
+  symbol:   method getIdCarrito()
+  location: variable carrito of type com.gestion.tienda.tcg.carrito.model.Carrito
+[ERROR] /c:/Proyectos/Branch Malcolm/Proyecto-gestion-tienda-tcg/carrito/carrito/src/main/java/com/gestion/tienda/tcg/carrito/service/CarritoHistorialService.java:[44,18] cannot find symbol
+  symbol:   method setCarrito(com.gestion.tienda.tcg.carrito.model.Carrito)
+  location: variable historial of type com.gestion.tienda.tcg.carrito.model.CarritoHistorial
+[ERROR] /c:/Proyectos/Branch Malcolm/Proyecto-gestion-tienda-tcg/carrito/carrito/src/main/java/com/gestion/tienda/tcg/carrito/service/CarritoHistorialService.java:[45,18] cannot find symbol
+  symbol:   method setEstado(com.gestion.tienda.tcg.carrito.enums.EstadoCarrito)
+  location: variable historial of type com.gestion.tienda.tcg.carrito.model.CarritoHistorial
+[ERROR] /c:/Proyectos/Branch Malcolm/Proyecto-gestion-tienda-tcg/carrito/carrito/src/main/java/com/gestion/tienda/tcg/carrito/service/CarritoHistorialService.java:[46,18] cannot find symbol
+  symbol:   method setDescripcion(java.lang.String)
+  location: variable historial of type com.gestion.tienda.tcg.carrito.model.CarritoHistorial
+[ERROR] /c:/Proyectos/Branch Malcolm/Proyecto-gestion-tienda-tcg/carrito/carrito/src/main/java/com/gestion/tienda/tcg/carrito/service/CarritoHistorialService.java:[55,9] cannot find symbol
+  symbol:   variable log
+  location: class com.gestion.tienda.tcg.carrito.service.CarritoHistorialService
+[ERROR] /c:/Proyectos/Branch Malcolm/Proyecto-gestion-tienda-tcg/carrito/carrito/src/main/java/com/gestion/tienda/tcg/carrito/mapper/CarritoHistorialMapper.java:[13,42] cannot find symbol
+  symbol:   method getIdHistorial()
+  location: variable historial of type com.gestion.tienda.tcg.carrito.model.CarritoHistorial
+[ERROR] /c:/Proyectos/Branch Malcolm/Proyecto-gestion-tienda-tcg/carrito/carrito/src/main/java/com/gestion/tienda/tcg/carrito/mapper/CarritoHistorialMapper.java:[14,37] cannot find symbol
+  symbol:   method getEstado()
+  location: variable historial of type com.gestion.tienda.tcg.carrito.model.CarritoHistorial
+[ERROR] /c:/Proyectos/Branch Malcolm/Proyecto-gestion-tienda-tcg/carrito/carrito/src/main/java/com/gestion/tienda/tcg/carrito/mapper/CarritoHistorialMapper.java:[15,42] cannot find symbol
+  symbol:   method getDescripcion()
+  location: variable historial of type com.gestion.tienda.tcg.carrito.model.CarritoHistorial
+[ERROR] /c:/Proyectos/Branch Malcolm/Proyecto-gestion-tienda-tcg/carrito/carrito/src/main/java/com/gestion/tienda/tcg/carrito/mapper/CarritoHistorialMapper.java:[16,36] cannot find symbol
+  symbol:   method getFecha()
+  location: variable historial of type com.gestion.tienda.tcg.carrito.model.CarritoHistorial
+[ERROR] /c:/Proyectos/Branch Malcolm/Proyecto-gestion-tienda-tcg/carrito/carrito/src/main/java/com/gestion/tienda/tcg/carrito/mapper/CarritoItemMapper.java:[22,21] cannot find symbol
+  symbol:   method getCarrito()
+  location: variable item of type com.gestion.tienda.tcg.carrito.model.CarritoItem
+[ERROR] /c:/Proyectos/Branch Malcolm/Proyecto-gestion-tienda-tcg/carrito/carrito/src/main/java/com/gestion/tienda/tcg/carrito/mapper/CarritoItemMapper.java:[21,21] cannot find symbol
+  symbol:   method getPrecioTotalItem()
+  location: variable item of type com.gestion.tienda.tcg.carrito.model.CarritoItem
+[ERROR] /c:/Proyectos/Branch Malcolm/Proyecto-gestion-tienda-tcg/carrito/carrito/src/main/java/com/gestion/tienda/tcg/carrito/mapper/CarritoItemMapper.java:[20,21] cannot find symbol
+  symbol:   method getPrecioUnitario()
+  location: variable item of type com.gestion.tienda.tcg.carrito.model.CarritoItem
+[ERROR] /c:/Proyectos/Branch Malcolm/Proyecto-gestion-tienda-tcg/carrito/carrito/src/main/java/com/gestion/tienda/tcg/carrito/mapper/CarritoItemMapper.java:[19,21] cannot find symbol
+  symbol:   method getCantidad()
+  location: variable item of type com.gestion.tienda.tcg.carrito.model.CarritoItem
+[ERROR] /c:/Proyectos/Branch Malcolm/Proyecto-gestion-tienda-tcg/carrito/carrito/src/main/java/com/gestion/tienda/tcg/carrito/mapper/CarritoItemMapper.java:[18,21] cannot find symbol
+  symbol:   method getDescripcionProducto()
+  location: variable item of type com.gestion.tienda.tcg.carrito.model.CarritoItem
+[ERROR] /c:/Proyectos/Branch Malcolm/Proyecto-gestion-tienda-tcg/carrito/carrito/src/main/java/com/gestion/tienda/tcg/carrito/mapper/CarritoItemMapper.java:[17,21] cannot find symbol
+  symbol:   method getProductoId()
+  location: variable item of type com.gestion.tienda.tcg.carrito.model.CarritoItem
+[ERROR] /c:/Proyectos/Branch Malcolm/Proyecto-gestion-tienda-tcg/carrito/carrito/src/main/java/com/gestion/tienda/tcg/carrito/mapper/CarritoItemMapper.java:[16,21] cannot find symbol
+  symbol:   method getIdItem()
+  location: variable item of type com.gestion.tienda.tcg.carrito.model.CarritoItem
+[ERROR] /c:/Proyectos/Branch Malcolm/Proyecto-gestion-tienda-tcg/carrito/carrito/src/main/java/com/gestion/tienda/tcg/carrito/controller/V1/CarritoHistorialController.java:[35,17] cannot find symbol
+  symbol:   variable log
+  location: class com.gestion.tienda.tcg.carrito.controller.V1.CarritoHistorialController
+[ERROR] /c:/Proyectos/Branch Malcolm/Proyecto-gestion-tienda-tcg/carrito/carrito/src/main/java/com/gestion/tienda/tcg/carrito/controller/V1/CarritoItemController.java:[45,9] cannot find symbol
+  symbol:   variable log
+  location: class com.gestion.tienda.tcg.carrito.controller.V1.CarritoItemController
+[ERROR] /c:/Proyectos/Branch Malcolm/Proyecto-gestion-tienda-tcg/carrito/carrito/src/main/java/com/gestion/tienda/tcg/carrito/controller/V1/CarritoItemController.java:[57,9] cannot find symbol
+  symbol:   variable log
+  location: class com.gestion.tienda.tcg.carrito.controller.V1.CarritoItemController
+[ERROR] /c:/Proyectos/Branch Malcolm/Proyecto-gestion-tienda-tcg/carrito/carrito/src/main/java/com/gestion/tienda/tcg/carrito/controller/V1/CarritoItemController.java:[70,9] cannot find symbol
+  symbol:   variable log
+  location: class com.gestion.tienda.tcg.carrito.controller.V1.CarritoItemController
+[ERROR] /c:/Proyectos/Branch Malcolm/Proyecto-gestion-tienda-tcg/carrito/carrito/src/main/java/com/gestion/tienda/tcg/carrito/controller/V1/CarritoItemController.java:[83,9] cannot find symbol
+  symbol:   variable log
+  location: class com.gestion.tienda.tcg.carrito.controller.V1.CarritoItemController
+[ERROR] /c:/Proyectos/Branch Malcolm/Proyecto-gestion-tienda-tcg/carrito/carrito/src/main/java/com/gestion/tienda/tcg/carrito/controller/V1/CarritoItemController.java:[84,80] cannot find symbol
+  symbol:   method getCantidad()
+  location: variable request of type com.gestion.tienda.tcg.carrito.dto.ActualizarCantidadRequest
+[ERROR] /c:/Proyectos/Branch Malcolm/Proyecto-gestion-tienda-tcg/carrito/carrito/src/main/java/com/gestion/tienda/tcg/carrito/controller/V1/CarritoItemController.java:[93,9] cannot find symbol
+  symbol:   variable log
+  location: class com.gestion.tienda.tcg.carrito.controller.V1.CarritoItemController
+[ERROR] /c:/Proyectos/Branch Malcolm/Proyecto-gestion-tienda-tcg/carrito/carrito/src/main/java/com/gestion/tienda/tcg/carrito/service/CarritoItemService.java:[49,28] cannot find symbol
+  symbol:   method getEstadoCarrito()
+  location: variable carrito of type com.gestion.tienda.tcg.carrito.model.Carrito
+[ERROR] /c:/Proyectos/Branch Malcolm/Proyecto-gestion-tienda-tcg/carrito/carrito/src/main/java/com/gestion/tienda/tcg/carrito/service/CarritoItemService.java:[50,43] cannot find symbol
+  symbol:   method getEstadoCarrito()
+  location: variable carrito of type com.gestion.tienda.tcg.carrito.model.Carrito
+[ERROR] /c:/Proyectos/Branch Malcolm/Proyecto-gestion-tienda-tcg/carrito/carrito/src/main/java/com/gestion/tienda/tcg/carrito/service/CarritoItemService.java:[56,79] cannot find symbol
+  symbol:   method getProductoId()
+  location: variable request of type com.gestion.tienda.tcg.carrito.dto.CarritoItemRequest
+[ERROR] /c:/Proyectos/Branch Malcolm/Proyecto-gestion-tienda-tcg/carrito/carrito/src/main/java/com/gestion/tienda/tcg/carrito/service/CarritoItemService.java:[61,49] cannot find symbol
+  symbol:   method getPrecioUnitario()
+  location: variable producto of type com.gestion.tienda.tcg.carrito.dto.ProductoDto
+[ERROR] /c:/Proyectos/Branch Malcolm/Proyecto-gestion-tienda-tcg/carrito/carrito/src/main/java/com/gestion/tienda/tcg/carrito/service/CarritoItemService.java:[67,91] cannot find symbol
+  symbol:   method getProductoId()
+  location: variable request of type com.gestion.tienda.tcg.carrito.dto.CarritoItemRequest
+[ERROR] /c:/Proyectos/Branch Malcolm/Proyecto-gestion-tienda-tcg/carrito/carrito/src/main/java/com/gestion/tienda/tcg/carrito/service/CarritoItemService.java:[72,31] cannot find symbol
+  symbol:   method getStockActual()
+  location: variable inventario of type com.gestion.tienda.tcg.carrito.dto.InventarioResponse
+[ERROR] /c:/Proyectos/Branch Malcolm/Proyecto-gestion-tienda-tcg/carrito/carrito/src/main/java/com/gestion/tienda/tcg/carrito/service/CarritoItemService.java:[72,58] cannot find symbol
+  symbol:   method getCantidad()
+  location: variable request of type com.gestion.tienda.tcg.carrito.dto.CarritoItemRequest
+[ERROR] /c:/Proyectos/Branch Malcolm/Proyecto-gestion-tienda-tcg/carrito/carrito/src/main/java/com/gestion/tienda/tcg/carrito/service/CarritoItemService.java:[77,89] cannot find symbol
+  symbol:   method getProductoId()
+  location: variable request of type com.gestion.tienda.tcg.carrito.dto.CarritoItemRequest
+[ERROR] /c:/Proyectos/Branch Malcolm/Proyecto-gestion-tienda-tcg/carrito/carrito/src/main/java/com/gestion/tienda/tcg/carrito/service/CarritoItemService.java:[82,58] cannot find symbol
+  symbol:   method getCantidad()
+  location: variable itemExistente of type com.gestion.tienda.tcg.carrito.model.CarritoItem
+[ERROR] /c:/Proyectos/Branch Malcolm/Proyecto-gestion-tienda-tcg/carrito/carrito/src/main/java/com/gestion/tienda/tcg/carrito/service/CarritoItemService.java:[82,82] cannot find symbol
+  symbol:   method getCantidad()
+  location: variable request of type com.gestion.tienda.tcg.carrito.dto.CarritoItemRequest
+[ERROR] /c:/Proyectos/Branch Malcolm/Proyecto-gestion-tienda-tcg/carrito/carrito/src/main/java/com/gestion/tienda/tcg/carrito/service/CarritoItemService.java:[84,39] cannot find symbol
+  symbol:   method getStockActual()
+  location: variable inventario of type com.gestion.tienda.tcg.carrito.dto.InventarioResponse
+[ERROR] /c:/Proyectos/Branch Malcolm/Proyecto-gestion-tienda-tcg/carrito/carrito/src/main/java/com/gestion/tienda/tcg/carrito/service/CarritoItemService.java:[88,38] cannot find symbol
+  symbol:   method setCantidad(int)
+  location: variable itemExistente of type com.gestion.tienda.tcg.carrito.model.CarritoItem
+[ERROR] /c:/Proyectos/Branch Malcolm/Proyecto-gestion-tienda-tcg/carrito/carrito/src/main/java/com/gestion/tienda/tcg/carrito/service/CarritoItemService.java:[89,71] cannot find symbol
+  symbol:   method getPrecioUnitario()
+  location: variable itemExistente of type com.gestion.tienda.tcg.carrito.model.CarritoItem
+[ERROR] /c:/Proyectos/Branch Malcolm/Proyecto-gestion-tienda-tcg/carrito/carrito/src/main/java/com/gestion/tienda/tcg/carrito/service/CarritoItemService.java:[95,77] cannot find symbol
+  symbol:   method getEstadoCarrito()
+  location: variable carrito of type com.gestion.tienda.tcg.carrito.model.Carrito
+[ERROR] /c:/Proyectos/Branch Malcolm/Proyecto-gestion-tienda-tcg/carrito/carrito/src/main/java/com/gestion/tienda/tcg/carrito/service/CarritoItemService.java:[103,43] cannot find symbol
+  symbol:   method getProductoId()
+  location: variable request of type com.gestion.tienda.tcg.carrito.dto.CarritoItemRequest
+[INFO] 100 errors 
+[INFO] -------------------------------------------------------------
+[INFO] ------------------------------------------------------------------------
+[INFO] BUILD FAILURE
+[INFO] ------------------------------------------------------------------------
+[INFO] Total time:  2.517 s
+[INFO] Finished at: 2026-06-16T18:23:31-04:00
+[INFO] ------------------------------------------------------------------------
+[ERROR] Failed to execute goal org.apache.maven.plugins:maven-compiler-plugin:3.14.1:compile (default-compile) on project carrito: Compilation failure: Compilation failure: 
+[ERROR] /c:/Proyectos/Branch Malcolm/Proyecto-gestion-tienda-tcg/carrito/carrito/src/main/java/com/gestion/tienda/tcg/carrito/assemblers/CarritoItemModelAssembler.java:[21,79] cannot find symbol
+[ERROR]   symbol:   method getIdCarrito()
+[ERROR]   location: variable response of type com.gestion.tienda.tcg.carrito.dto.CarritoItemResponse
+[ERROR] /c:/Proyectos/Branch Malcolm/Proyecto-gestion-tienda-tcg/carrito/carrito/src/main/java/com/gestion/tienda/tcg/carrito/assemblers/CarritoItemModelAssembler.java:[21,104] cannot find symbol
+[ERROR]   symbol:   method getIdItem()
+[ERROR]   location: variable response of type com.gestion.tienda.tcg.carrito.dto.CarritoItemResponse
+[ERROR] /c:/Proyectos/Branch Malcolm/Proyecto-gestion-tienda-tcg/carrito/carrito/src/main/java/com/gestion/tienda/tcg/carrito/assemblers/CarritoItemModelAssembler.java:[24,70] cannot find symbol
+[ERROR]   symbol:   method getIdCarrito()
+[ERROR]   location: variable response of type com.gestion.tienda.tcg.carrito.dto.CarritoItemResponse
+[ERROR] /c:/Proyectos/Branch Malcolm/Proyecto-gestion-tienda-tcg/carrito/carrito/src/main/java/com/gestion/tienda/tcg/carrito/assemblers/CarritoItemModelAssembler.java:[27,77] cannot find symbol
+[ERROR]   symbol:   method getIdItem()
+[ERROR]   location: variable response of type com.gestion.tienda.tcg.carrito.dto.CarritoItemResponse
+[ERROR] /c:/Proyectos/Branch Malcolm/Proyecto-gestion-tienda-tcg/carrito/carrito/src/main/java/com/gestion/tienda/tcg/carrito/assemblers/CarritoItemModelAssembler.java:[30,71] cannot find symbol
+[ERROR]   symbol:   method getIdItem()
+[ERROR]   location: variable response of type com.gestion.tienda.tcg.carrito.dto.CarritoItemResponse
+[ERROR] /c:/Proyectos/Branch Malcolm/Proyecto-gestion-tienda-tcg/carrito/carrito/src/main/java/com/gestion/tienda/tcg/carrito/assemblers/CarritoModelAssembler.java:[20,96] cannot find symbol
+[ERROR]   symbol:   method getIdCarrito()
+[ERROR]   location: variable response of type com.gestion.tienda.tcg.carrito.dto.CarritoResponse
+[ERROR] /c:/Proyectos/Branch Malcolm/Proyecto-gestion-tienda-tcg/carrito/carrito/src/main/java/com/gestion/tienda/tcg/carrito/assemblers/CarritoModelAssembler.java:[23,97] cannot find symbol
+[ERROR]   symbol:   method getIdCarrito()
+[ERROR]   location: variable response of type com.gestion.tienda.tcg.carrito.dto.CarritoResponse
+[ERROR] /c:/Proyectos/Branch Malcolm/Proyecto-gestion-tienda-tcg/carrito/carrito/src/main/java/com/gestion/tienda/tcg/carrito/assemblers/CarritoModelAssembler.java:[25,100] cannot find symbol
+[ERROR]   symbol:   method getIdCarrito()
+[ERROR]   location: variable response of type com.gestion.tienda.tcg.carrito.dto.CarritoResponse
+[ERROR] /c:/Proyectos/Branch Malcolm/Proyecto-gestion-tienda-tcg/carrito/carrito/src/main/java/com/gestion/tienda/tcg/carrito/assemblers/CarritoModelAssembler.java:[27,101] cannot find symbol
+[ERROR]   symbol:   method getIdCarrito()
+[ERROR]   location: variable response of type com.gestion.tienda.tcg.carrito.dto.CarritoResponse
+[ERROR] /c:/Proyectos/Branch Malcolm/Proyecto-gestion-tienda-tcg/carrito/carrito/src/main/java/com/gestion/tienda/tcg/carrito/controller/V1/CarritoController.java:[43,17] cannot find symbol
+[ERROR]   symbol:   variable log
+[ERROR]   location: class com.gestion.tienda.tcg.carrito.controller.V1.CarritoController
+[ERROR] /c:/Proyectos/Branch Malcolm/Proyecto-gestion-tienda-tcg/carrito/carrito/src/main/java/com/gestion/tienda/tcg/carrito/controller/V1/CarritoController.java:[52,17] cannot find symbol
+[ERROR]   symbol:   variable log
+[ERROR]   location: class com.gestion.tienda.tcg.carrito.controller.V1.CarritoController
+[ERROR] /c:/Proyectos/Branch Malcolm/Proyecto-gestion-tienda-tcg/carrito/carrito/src/main/java/com/gestion/tienda/tcg/carrito/controller/V1/CarritoController.java:[60,17] cannot find symbol
+[ERROR]   symbol:   variable log
+[ERROR]   location: class com.gestion.tienda.tcg.carrito.controller.V1.CarritoController
+[ERROR] /c:/Proyectos/Branch Malcolm/Proyecto-gestion-tienda-tcg/carrito/carrito/src/main/java/com/gestion/tienda/tcg/carrito/controller/V1/CarritoController.java:[71,17] cannot find symbol
+[ERROR]   symbol:   variable log
+[ERROR]   location: class com.gestion.tienda.tcg.carrito.controller.V1.CarritoController
+[ERROR] /c:/Proyectos/Branch Malcolm/Proyecto-gestion-tienda-tcg/carrito/carrito/src/main/java/com/gestion/tienda/tcg/carrito/controller/V1/CarritoController.java:[71,99] cannot find symbol
+[ERROR]   symbol:   method getUsuarioId()
+[ERROR]   location: variable request of type com.gestion.tienda.tcg.carrito.dto.PagarCarritoRequest
+[ERROR] /c:/Proyectos/Branch Malcolm/Proyecto-gestion-tienda-tcg/carrito/carrito/src/main/java/com/gestion/tienda/tcg/carrito/controller/V1/CarritoController.java:[81,17] cannot find symbol
+[ERROR]   symbol:   variable log
+[ERROR]   location: class com.gestion.tienda.tcg.carrito.controller.V1.CarritoController
+[ERROR] /c:/Proyectos/Branch Malcolm/Proyecto-gestion-tienda-tcg/carrito/carrito/src/main/java/com/gestion/tienda/tcg/carrito/controller/V1/CarritoController.java:[91,17] cannot find symbol
+[ERROR]   symbol:   variable log
+[ERROR]   location: class com.gestion.tienda.tcg.carrito.controller.V1.CarritoController
+[ERROR] /c:/Proyectos/Branch Malcolm/Proyecto-gestion-tienda-tcg/carrito/carrito/src/main/java/com/gestion/tienda/tcg/carrito/controller/V1/CarritoController.java:[94,73] cannot find symbol
+[ERROR]   symbol:   method getUsuarioId()
+[ERROR]   location: variable request of type com.gestion.tienda.tcg.carrito.dto.PagarCarritoRequest
+[ERROR] /c:/Proyectos/Branch Malcolm/Proyecto-gestion-tienda-tcg/carrito/carrito/src/main/java/com/gestion/tienda/tcg/carrito/controller/V1/CarritoController.java:[103,17] cannot find symbol
+[ERROR]   symbol:   variable log
+[ERROR]   location: class com.gestion.tienda.tcg.carrito.controller.V1.CarritoController
+[ERROR] /c:/Proyectos/Branch Malcolm/Proyecto-gestion-tienda-tcg/carrito/carrito/src/main/java/com/gestion/tienda/tcg/carrito/controller/V1/CarritoController.java:[111,17] cannot find symbol
+[ERROR]   symbol:   variable log
+[ERROR]   location: class com.gestion.tienda.tcg.carrito.controller.V1.CarritoController
+[ERROR] /c:/Proyectos/Branch Malcolm/Proyecto-gestion-tienda-tcg/carrito/carrito/src/main/java/com/gestion/tienda/tcg/carrito/controller/V1/CarritoController.java:[119,17] cannot find symbol
+[ERROR]   symbol:   variable log
+[ERROR]   location: class com.gestion.tienda.tcg.carrito.controller.V1.CarritoController
+[ERROR] /c:/Proyectos/Branch Malcolm/Proyecto-gestion-tienda-tcg/carrito/carrito/src/main/java/com/gestion/tienda/tcg/carrito/controller/V1/CarritoController.java:[127,17] cannot find symbol
+[ERROR]   symbol:   variable log
+[ERROR]   location: class com.gestion.tienda.tcg.carrito.controller.V1.CarritoController
+[ERROR] /c:/Proyectos/Branch Malcolm/Proyecto-gestion-tienda-tcg/carrito/carrito/src/main/java/com/gestion/tienda/tcg/carrito/service/CarritoService.java:[36,17] cannot find symbol
+[ERROR]   symbol:   variable log
+[ERROR]   location: class com.gestion.tienda.tcg.carrito.service.CarritoService
+[ERROR] /c:/Proyectos/Branch Malcolm/Proyecto-gestion-tienda-tcg/carrito/carrito/src/main/java/com/gestion/tienda/tcg/carrito/service/CarritoService.java:[38,24] cannot find symbol
+[ERROR]   symbol:   method setEstadoCarrito(com.gestion.tienda.tcg.carrito.enums.EstadoCarrito)
+[ERROR]   location: variable carrito of type com.gestion.tienda.tcg.carrito.model.Carrito
+[ERROR] /c:/Proyectos/Branch Malcolm/Proyecto-gestion-tienda-tcg/carrito/carrito/src/main/java/com/gestion/tienda/tcg/carrito/service/CarritoService.java:[39,24] cannot find symbol
+[ERROR]   symbol:   method setTotalCarrito(double)
+[ERROR]   location: variable carrito of type com.gestion.tienda.tcg.carrito.model.Carrito
+[ERROR] /c:/Proyectos/Branch Malcolm/Proyecto-gestion-tienda-tcg/carrito/carrito/src/main/java/com/gestion/tienda/tcg/carrito/service/CarritoService.java:[65,17] cannot find symbol
+[ERROR]   symbol:   variable log
+[ERROR]   location: class com.gestion.tienda.tcg.carrito.service.CarritoService
+[ERROR] /c:/Proyectos/Branch Malcolm/Proyecto-gestion-tienda-tcg/carrito/carrito/src/main/java/com/gestion/tienda/tcg/carrito/service/CarritoService.java:[70,28] cannot find symbol
+[ERROR]   symbol:   method getEstadoCarrito()
+[ERROR]   location: variable carrito of type com.gestion.tienda.tcg.carrito.model.Carrito
+[ERROR] /c:/Proyectos/Branch Malcolm/Proyecto-gestion-tienda-tcg/carrito/carrito/src/main/java/com/gestion/tienda/tcg/carrito/service/CarritoService.java:[71,43] cannot find symbol
+[ERROR]   symbol:   method getEstadoCarrito()
+[ERROR]   location: variable carrito of type com.gestion.tienda.tcg.carrito.model.Carrito
+[ERROR] /c:/Proyectos/Branch Malcolm/Proyecto-gestion-tienda-tcg/carrito/carrito/src/main/java/com/gestion/tienda/tcg/carrito/service/CarritoService.java:[76,28] cannot find symbol
+[ERROR]   symbol:   method getItems()
+[ERROR]   location: variable carrito of type com.gestion.tienda.tcg.carrito.model.Carrito
+[ERROR] /c:/Proyectos/Branch Malcolm/Proyecto-gestion-tienda-tcg/carrito/carrito/src/main/java/com/gestion/tienda/tcg/carrito/service/CarritoService.java:[76,58] cannot find symbol
+[ERROR]   symbol:   method getItems()
+[ERROR]   location: variable carrito of type com.gestion.tienda.tcg.carrito.model.Carrito
+[ERROR] /c:/Proyectos/Branch Malcolm/Proyecto-gestion-tienda-tcg/carrito/carrito/src/main/java/com/gestion/tienda/tcg/carrito/service/CarritoService.java:[81,40] cannot find symbol
+[ERROR]   symbol:   method getItems()
+[ERROR]   location: variable carrito of type com.gestion.tienda.tcg.carrito.model.Carrito
+[ERROR] /c:/Proyectos/Branch Malcolm/Proyecto-gestion-tienda-tcg/carrito/carrito/src/main/java/com/gestion/tienda/tcg/carrito/service/CarritoService.java:[86,40] cannot find symbol
+[ERROR]   symbol:   method setEstadoCarrito(com.gestion.tienda.tcg.carrito.enums.EstadoCarrito)
+[ERROR]   location: variable carrito of type com.gestion.tienda.tcg.carrito.model.Carrito
+[ERROR] /c:/Proyectos/Branch Malcolm/Proyecto-gestion-tienda-tcg/carrito/carrito/src/main/java/com/gestion/tienda/tcg/carrito/service/CarritoService.java:[93,39] cannot find symbol
+[ERROR]   symbol:   method getStockActual()
+[ERROR]   location: variable inventario of type com.gestion.tienda.tcg.carrito.dto.InventarioResponse
+[ERROR] /c:/Proyectos/Branch Malcolm/Proyecto-gestion-tienda-tcg/carrito/carrito/src/main/java/com/gestion/tienda/tcg/carrito/service/CarritoService.java:[94,40] cannot find symbol
+[ERROR]   symbol:   method setEstadoCarrito(com.gestion.tienda.tcg.carrito.enums.EstadoCarrito)
+[ERROR]   location: variable carrito of type com.gestion.tienda.tcg.carrito.model.Carrito
+[ERROR] /c:/Proyectos/Branch Malcolm/Proyecto-gestion-tienda-tcg/carrito/carrito/src/main/java/com/gestion/tienda/tcg/carrito/service/CarritoService.java:[99,95] cannot find symbol
+[ERROR]   symbol:   method getStockActual()
+[ERROR]   location: variable inventario of type com.gestion.tienda.tcg.carrito.dto.InventarioResponse
+[ERROR] /c:/Proyectos/Branch Malcolm/Proyecto-gestion-tienda-tcg/carrito/carrito/src/main/java/com/gestion/tienda/tcg/carrito/service/CarritoService.java:[106,28] cannot find symbol
+[ERROR]   symbol:   method getDireccionEnvio()
+[ERROR]   location: variable request of type com.gestion.tienda.tcg.carrito.dto.PagarCarritoRequest
+[ERROR] /c:/Proyectos/Branch Malcolm/Proyecto-gestion-tienda-tcg/carrito/carrito/src/main/java/com/gestion/tienda/tcg/carrito/service/CarritoService.java:[106,68] cannot find symbol
+[ERROR]   symbol:   method getDireccionEnvio()
+[ERROR]   location: variable request of type com.gestion.tienda.tcg.carrito.dto.PagarCarritoRequest
+[ERROR] /c:/Proyectos/Branch Malcolm/Proyecto-gestion-tienda-tcg/carrito/carrito/src/main/java/com/gestion/tienda/tcg/carrito/service/CarritoService.java:[107,58] cannot find symbol
+[ERROR]   symbol:   method getDireccionEnvio()
+[ERROR]   location: variable request of type com.gestion.tienda.tcg.carrito.dto.PagarCarritoRequest
+[ERROR] /c:/Proyectos/Branch Malcolm/Proyecto-gestion-tienda-tcg/carrito/carrito/src/main/java/com/gestion/tienda/tcg/carrito/service/CarritoService.java:[108,25] cannot find symbol
+[ERROR]   symbol:   variable log
+[ERROR]   location: class com.gestion.tienda.tcg.carrito.service.CarritoService
+[ERROR] /c:/Proyectos/Branch Malcolm/Proyecto-gestion-tienda-tcg/carrito/carrito/src/main/java/com/gestion/tienda/tcg/carrito/service/CarritoService.java:[109,48] cannot find symbol
+[ERROR]   symbol:   method getDireccionEnvio()
+[ERROR]   location: variable request of type com.gestion.tienda.tcg.carrito.dto.PagarCarritoRequest
+[ERROR] /c:/Proyectos/Branch Malcolm/Proyecto-gestion-tienda-tcg/carrito/carrito/src/main/java/com/gestion/tienda/tcg/carrito/service/CarritoService.java:[112,24] cannot find symbol
+[ERROR]   symbol:   method setEstadoCarrito(com.gestion.tienda.tcg.carrito.enums.EstadoCarrito)
+[ERROR]   location: variable carrito of type com.gestion.tienda.tcg.carrito.model.Carrito
+[ERROR] /c:/Proyectos/Branch Malcolm/Proyecto-gestion-tienda-tcg/carrito/carrito/src/main/java/com/gestion/tienda/tcg/carrito/service/CarritoService.java:[124,17] cannot find symbol
+[ERROR]   symbol:   variable log
+[ERROR]   location: class com.gestion.tienda.tcg.carrito.service.CarritoService
+[ERROR] /c:/Proyectos/Branch Malcolm/Proyecto-gestion-tienda-tcg/carrito/carrito/src/main/java/com/gestion/tienda/tcg/carrito/service/CarritoService.java:[129,28] cannot find symbol
+[ERROR]   symbol:   method getEstadoCarrito()
+[ERROR]   location: variable carrito of type com.gestion.tienda.tcg.carrito.model.Carrito
+[ERROR] /c:/Proyectos/Branch Malcolm/Proyecto-gestion-tienda-tcg/carrito/carrito/src/main/java/com/gestion/tienda/tcg/carrito/service/CarritoService.java:[135,40] cannot find symbol
+[ERROR]   symbol:   method getItems()
+[ERROR]   location: variable carrito of type com.gestion.tienda.tcg.carrito.model.Carrito
+[ERROR] /c:/Proyectos/Branch Malcolm/Proyecto-gestion-tienda-tcg/carrito/carrito/src/main/java/com/gestion/tienda/tcg/carrito/service/CarritoService.java:[138,33] cannot find symbol
+[ERROR]   symbol:   variable log
+[ERROR]   location: class com.gestion.tienda.tcg.carrito.service.CarritoService
+[ERROR] /c:/Proyectos/Branch Malcolm/Proyecto-gestion-tienda-tcg/carrito/carrito/src/main/java/com/gestion/tienda/tcg/carrito/service/CarritoService.java:[141,33] cannot find symbol
+[ERROR]   symbol:   variable log
+[ERROR]   location: class com.gestion.tienda.tcg.carrito.service.CarritoService
+[ERROR] /c:/Proyectos/Branch Malcolm/Proyecto-gestion-tienda-tcg/carrito/carrito/src/main/java/com/gestion/tienda/tcg/carrito/service/CarritoService.java:[148,24] cannot find symbol
+[ERROR]   symbol:   method setEstadoCarrito(com.gestion.tienda.tcg.carrito.enums.EstadoCarrito)
+[ERROR]   location: variable carrito of type com.gestion.tienda.tcg.carrito.model.Carrito
+[ERROR] /c:/Proyectos/Branch Malcolm/Proyecto-gestion-tienda-tcg/carrito/carrito/src/main/java/com/gestion/tienda/tcg/carrito/service/CarritoService.java:[163,32] cannot find symbol
+[ERROR]   symbol:   method setEstadoCarrito(com.gestion.tienda.tcg.carrito.enums.EstadoCarrito)
+[ERROR]   location: variable carrito of type com.gestion.tienda.tcg.carrito.model.Carrito
+[ERROR] /c:/Proyectos/Branch Malcolm/Proyecto-gestion-tienda-tcg/carrito/carrito/src/main/java/com/gestion/tienda/tcg/carrito/service/CarritoService.java:[167,25] cannot find symbol
+[ERROR]   symbol:   variable log
+[ERROR]   location: class com.gestion.tienda.tcg.carrito.service.CarritoService
+[ERROR] /c:/Proyectos/Branch Malcolm/Proyecto-gestion-tienda-tcg/carrito/carrito/src/main/java/com/gestion/tienda/tcg/carrito/service/CarritoService.java:[176,17] cannot find symbol
+[ERROR]   symbol:   variable log
+[ERROR]   location: class com.gestion.tienda.tcg.carrito.service.CarritoService
+[ERROR] /c:/Proyectos/Branch Malcolm/Proyecto-gestion-tienda-tcg/carrito/carrito/src/main/java/com/gestion/tienda/tcg/carrito/service/CarritoService.java:[181,28] cannot find symbol
+[ERROR]   symbol:   method getEstadoCarrito()
+[ERROR]   location: variable carrito of type com.gestion.tienda.tcg.carrito.model.Carrito
+[ERROR] /c:/Proyectos/Branch Malcolm/Proyecto-gestion-tienda-tcg/carrito/carrito/src/main/java/com/gestion/tienda/tcg/carrito/service/CarritoService.java:[190,24] cannot find symbol
+[ERROR]   symbol:   method setEstadoCarrito(com.gestion.tienda.tcg.carrito.enums.EstadoCarrito)
+[ERROR]   location: variable carrito of type com.gestion.tienda.tcg.carrito.model.Carrito
+[ERROR] /c:/Proyectos/Branch Malcolm/Proyecto-gestion-tienda-tcg/carrito/carrito/src/main/java/com/gestion/tienda/tcg/carrito/service/CarritoService.java:[203,28] cannot find symbol
+[ERROR]   symbol:   method getEstadoCarrito()
+[ERROR]   location: variable carrito of type com.gestion.tienda.tcg.carrito.model.Carrito
+[ERROR] /c:/Proyectos/Branch Malcolm/Proyecto-gestion-tienda-tcg/carrito/carrito/src/main/java/com/gestion/tienda/tcg/carrito/service/CarritoService.java:[207,24] cannot find symbol
+[ERROR]   symbol:   method setEstadoCarrito(com.gestion.tienda.tcg.carrito.enums.EstadoCarrito)
+[ERROR]   location: variable carrito of type com.gestion.tienda.tcg.carrito.model.Carrito
+[ERROR] /c:/Proyectos/Branch Malcolm/Proyecto-gestion-tienda-tcg/carrito/carrito/src/main/java/com/gestion/tienda/tcg/carrito/service/CarritoService.java:[219,28] cannot find symbol
+[ERROR]   symbol:   method getEstadoCarrito()
+[ERROR]   location: variable carrito of type com.gestion.tienda.tcg.carrito.model.Carrito
+[ERROR] /c:/Proyectos/Branch Malcolm/Proyecto-gestion-tienda-tcg/carrito/carrito/src/main/java/com/gestion/tienda/tcg/carrito/service/CarritoService.java:[223,24] cannot find symbol
+[ERROR]   symbol:   method setEstadoCarrito(com.gestion.tienda.tcg.carrito.enums.EstadoCarrito)
+[ERROR]   location: variable carrito of type com.gestion.tienda.tcg.carrito.model.Carrito
+[ERROR] /c:/Proyectos/Branch Malcolm/Proyecto-gestion-tienda-tcg/carrito/carrito/src/main/java/com/gestion/tienda/tcg/carrito/service/CarritoService.java:[235,28] cannot find symbol
+[ERROR]   symbol:   method getEstadoCarrito()
+[ERROR]   location: variable carrito of type com.gestion.tienda.tcg.carrito.model.Carrito
+[ERROR] /c:/Proyectos/Branch Malcolm/Proyecto-gestion-tienda-tcg/carrito/carrito/src/main/java/com/gestion/tienda/tcg/carrito/mapper/CarritoMapper.java:[29,20] cannot find symbol
+[ERROR]   symbol:   method getItems()
+[ERROR]   location: variable carrito of type com.gestion.tienda.tcg.carrito.model.Carrito
+[ERROR] /c:/Proyectos/Branch Malcolm/Proyecto-gestion-tienda-tcg/carrito/carrito/src/main/java/com/gestion/tienda/tcg/carrito/mapper/CarritoMapper.java:[31,28] cannot find symbol
+[ERROR]   symbol:   method getItems()
+[ERROR]   location: variable carrito of type com.gestion.tienda.tcg.carrito.model.Carrito
+[ERROR] /c:/Proyectos/Branch Malcolm/Proyecto-gestion-tienda-tcg/carrito/carrito/src/main/java/com/gestion/tienda/tcg/carrito/mapper/CarritoMapper.java:[40,24] cannot find symbol
+[ERROR]   symbol:   method getTotalCarrito()
+[ERROR]   location: variable carrito of type com.gestion.tienda.tcg.carrito.model.Carrito
+[ERROR] /c:/Proyectos/Branch Malcolm/Proyecto-gestion-tienda-tcg/carrito/carrito/src/main/java/com/gestion/tienda/tcg/carrito/mapper/CarritoMapper.java:[39,24] cannot find symbol
+[ERROR]   symbol:   method getEstadoCarrito()
+[ERROR]   location: variable carrito of type com.gestion.tienda.tcg.carrito.model.Carrito
+[ERROR] /c:/Proyectos/Branch Malcolm/Proyecto-gestion-tienda-tcg/carrito/carrito/src/main/java/com/gestion/tienda/tcg/carrito/mapper/CarritoMapper.java:[38,24] cannot find symbol
+[ERROR]   symbol:   method getIdCarrito()
+[ERROR]   location: variable carrito of type com.gestion.tienda.tcg.carrito.model.Carrito
+[ERROR] /c:/Proyectos/Branch Malcolm/Proyecto-gestion-tienda-tcg/carrito/carrito/src/main/java/com/gestion/tienda/tcg/carrito/service/CarritoHistorialService.java:[40,9] cannot find symbol
+[ERROR]   symbol:   variable log
+[ERROR]   location: class com.gestion.tienda.tcg.carrito.service.CarritoHistorialService
+[ERROR] /c:/Proyectos/Branch Malcolm/Proyecto-gestion-tienda-tcg/carrito/carrito/src/main/java/com/gestion/tienda/tcg/carrito/service/CarritoHistorialService.java:[41,24] cannot find symbol
+[ERROR]   symbol:   method getIdCarrito()
+[ERROR]   location: variable carrito of type com.gestion.tienda.tcg.carrito.model.Carrito
+[ERROR] /c:/Proyectos/Branch Malcolm/Proyecto-gestion-tienda-tcg/carrito/carrito/src/main/java/com/gestion/tienda/tcg/carrito/service/CarritoHistorialService.java:[44,18] cannot find symbol
+[ERROR]   symbol:   method setCarrito(com.gestion.tienda.tcg.carrito.model.Carrito)
+[ERROR]   location: variable historial of type com.gestion.tienda.tcg.carrito.model.CarritoHistorial
+[ERROR] /c:/Proyectos/Branch Malcolm/Proyecto-gestion-tienda-tcg/carrito/carrito/src/main/java/com/gestion/tienda/tcg/carrito/service/CarritoHistorialService.java:[45,18] cannot find symbol
+[ERROR]   symbol:   method setEstado(com.gestion.tienda.tcg.carrito.enums.EstadoCarrito)
+[ERROR]   location: variable historial of type com.gestion.tienda.tcg.carrito.model.CarritoHistorial
+[ERROR] /c:/Proyectos/Branch Malcolm/Proyecto-gestion-tienda-tcg/carrito/carrito/src/main/java/com/gestion/tienda/tcg/carrito/service/CarritoHistorialService.java:[46,18] cannot find symbol
+[ERROR]   symbol:   method setDescripcion(java.lang.String)
+[ERROR]   location: variable historial of type com.gestion.tienda.tcg.carrito.model.CarritoHistorial
+[ERROR] /c:/Proyectos/Branch Malcolm/Proyecto-gestion-tienda-tcg/carrito/carrito/src/main/java/com/gestion/tienda/tcg/carrito/service/CarritoHistorialService.java:[55,9] cannot find symbol
+[ERROR]   symbol:   variable log
+[ERROR]   location: class com.gestion.tienda.tcg.carrito.service.CarritoHistorialService
+[ERROR] /c:/Proyectos/Branch Malcolm/Proyecto-gestion-tienda-tcg/carrito/carrito/src/main/java/com/gestion/tienda/tcg/carrito/mapper/CarritoHistorialMapper.java:[13,42] cannot find symbol
+[ERROR]   symbol:   method getIdHistorial()
+[ERROR]   location: variable historial of type com.gestion.tienda.tcg.carrito.model.CarritoHistorial
+[ERROR] /c:/Proyectos/Branch Malcolm/Proyecto-gestion-tienda-tcg/carrito/carrito/src/main/java/com/gestion/tienda/tcg/carrito/mapper/CarritoHistorialMapper.java:[14,37] cannot find symbol
+[ERROR]   symbol:   method getEstado()
+[ERROR]   location: variable historial of type com.gestion.tienda.tcg.carrito.model.CarritoHistorial
+[ERROR] /c:/Proyectos/Branch Malcolm/Proyecto-gestion-tienda-tcg/carrito/carrito/src/main/java/com/gestion/tienda/tcg/carrito/mapper/CarritoHistorialMapper.java:[15,42] cannot find symbol
+[ERROR]   symbol:   method getDescripcion()
+[ERROR]   location: variable historial of type com.gestion.tienda.tcg.carrito.model.CarritoHistorial
+[ERROR] /c:/Proyectos/Branch Malcolm/Proyecto-gestion-tienda-tcg/carrito/carrito/src/main/java/com/gestion/tienda/tcg/carrito/mapper/CarritoHistorialMapper.java:[16,36] cannot find symbol
+[ERROR]   symbol:   method getFecha()
+[ERROR]   location: variable historial of type com.gestion.tienda.tcg.carrito.model.CarritoHistorial
+[ERROR] /c:/Proyectos/Branch Malcolm/Proyecto-gestion-tienda-tcg/carrito/carrito/src/main/java/com/gestion/tienda/tcg/carrito/mapper/CarritoItemMapper.java:[22,21] cannot find symbol
+[ERROR]   symbol:   method getCarrito()
+[ERROR]   location: variable item of type com.gestion.tienda.tcg.carrito.model.CarritoItem
+[ERROR] /c:/Proyectos/Branch Malcolm/Proyecto-gestion-tienda-tcg/carrito/carrito/src/main/java/com/gestion/tienda/tcg/carrito/mapper/CarritoItemMapper.java:[21,21] cannot find symbol
+[ERROR]   symbol:   method getPrecioTotalItem()
+[ERROR]   location: variable item of type com.gestion.tienda.tcg.carrito.model.CarritoItem
+[ERROR] /c:/Proyectos/Branch Malcolm/Proyecto-gestion-tienda-tcg/carrito/carrito/src/main/java/com/gestion/tienda/tcg/carrito/mapper/CarritoItemMapper.java:[20,21] cannot find symbol
+[ERROR]   symbol:   method getPrecioUnitario()
+[ERROR]   location: variable item of type com.gestion.tienda.tcg.carrito.model.CarritoItem
+[ERROR] /c:/Proyectos/Branch Malcolm/Proyecto-gestion-tienda-tcg/carrito/carrito/src/main/java/com/gestion/tienda/tcg/carrito/mapper/CarritoItemMapper.java:[19,21] cannot find symbol
+[ERROR]   symbol:   method getCantidad()
+[ERROR]   location: variable item of type com.gestion.tienda.tcg.carrito.model.CarritoItem
+[ERROR] /c:/Proyectos/Branch Malcolm/Proyecto-gestion-tienda-tcg/carrito/carrito/src/main/java/com/gestion/tienda/tcg/carrito/mapper/CarritoItemMapper.java:[18,21] cannot find symbol
+[ERROR]   symbol:   method getDescripcionProducto()
+[ERROR]   location: variable item of type com.gestion.tienda.tcg.carrito.model.CarritoItem
+[ERROR] /c:/Proyectos/Branch Malcolm/Proyecto-gestion-tienda-tcg/carrito/carrito/src/main/java/com/gestion/tienda/tcg/carrito/mapper/CarritoItemMapper.java:[17,21] cannot find symbol
+[ERROR]   symbol:   method getProductoId()
+[ERROR]   location: variable item of type com.gestion.tienda.tcg.carrito.model.CarritoItem
+[ERROR] /c:/Proyectos/Branch Malcolm/Proyecto-gestion-tienda-tcg/carrito/carrito/src/main/java/com/gestion/tienda/tcg/carrito/mapper/CarritoItemMapper.java:[16,21] cannot find symbol
+[ERROR]   symbol:   method getIdItem()
+[ERROR]   location: variable item of type com.gestion.tienda.tcg.carrito.model.CarritoItem
+[ERROR] /c:/Proyectos/Branch Malcolm/Proyecto-gestion-tienda-tcg/carrito/carrito/src/main/java/com/gestion/tienda/tcg/carrito/controller/V1/CarritoHistorialController.java:[35,17] cannot find symbol
+[ERROR]   symbol:   variable log
+[ERROR]   location: class com.gestion.tienda.tcg.carrito.controller.V1.CarritoHistorialController
+[ERROR] /c:/Proyectos/Branch Malcolm/Proyecto-gestion-tienda-tcg/carrito/carrito/src/main/java/com/gestion/tienda/tcg/carrito/controller/V1/CarritoItemController.java:[45,9] cannot find symbol
+[ERROR]   symbol:   variable log
+[ERROR]   location: class com.gestion.tienda.tcg.carrito.controller.V1.CarritoItemController
+[ERROR] /c:/Proyectos/Branch Malcolm/Proyecto-gestion-tienda-tcg/carrito/carrito/src/main/java/com/gestion/tienda/tcg/carrito/controller/V1/CarritoItemController.java:[57,9] cannot find symbol
+[ERROR]   symbol:   variable log
+[ERROR]   location: class com.gestion.tienda.tcg.carrito.controller.V1.CarritoItemController
+[ERROR] /c:/Proyectos/Branch Malcolm/Proyecto-gestion-tienda-tcg/carrito/carrito/src/main/java/com/gestion/tienda/tcg/carrito/controller/V1/CarritoItemController.java:[70,9] cannot find symbol
+[ERROR]   symbol:   variable log
+[ERROR]   location: class com.gestion.tienda.tcg.carrito.controller.V1.CarritoItemController
+[ERROR] /c:/Proyectos/Branch Malcolm/Proyecto-gestion-tienda-tcg/carrito/carrito/src/main/java/com/gestion/tienda/tcg/carrito/controller/V1/CarritoItemController.java:[83,9] cannot find symbol
+[ERROR]   symbol:   variable log
+[ERROR]   location: class com.gestion.tienda.tcg.carrito.controller.V1.CarritoItemController
+[ERROR] /c:/Proyectos/Branch Malcolm/Proyecto-gestion-tienda-tcg/carrito/carrito/src/main/java/com/gestion/tienda/tcg/carrito/controller/V1/CarritoItemController.java:[84,80] cannot find symbol
+[ERROR]   symbol:   method getCantidad()
+[ERROR]   location: variable request of type com.gestion.tienda.tcg.carrito.dto.ActualizarCantidadRequest
+[ERROR] /c:/Proyectos/Branch Malcolm/Proyecto-gestion-tienda-tcg/carrito/carrito/src/main/java/com/gestion/tienda/tcg/carrito/controller/V1/CarritoItemController.java:[93,9] cannot find symbol
+[ERROR]   symbol:   variable log
+[ERROR]   location: class com.gestion.tienda.tcg.carrito.controller.V1.CarritoItemController
+[ERROR] /c:/Proyectos/Branch Malcolm/Proyecto-gestion-tienda-tcg/carrito/carrito/src/main/java/com/gestion/tienda/tcg/carrito/service/CarritoItemService.java:[49,28] cannot find symbol
+[ERROR]   symbol:   method getEstadoCarrito()
+[ERROR]   location: variable carrito of type com.gestion.tienda.tcg.carrito.model.Carrito
+[ERROR] /c:/Proyectos/Branch Malcolm/Proyecto-gestion-tienda-tcg/carrito/carrito/src/main/java/com/gestion/tienda/tcg/carrito/service/CarritoItemService.java:[50,43] cannot find symbol
+[ERROR]   symbol:   method getEstadoCarrito()
+[ERROR]   location: variable carrito of type com.gestion.tienda.tcg.carrito.model.Carrito
+[ERROR] /c:/Proyectos/Branch Malcolm/Proyecto-gestion-tienda-tcg/carrito/carrito/src/main/java/com/gestion/tienda/tcg/carrito/service/CarritoItemService.java:[56,79] cannot find symbol
+[ERROR]   symbol:   method getProductoId()
+[ERROR]   location: variable request of type com.gestion.tienda.tcg.carrito.dto.CarritoItemRequest
+[ERROR] /c:/Proyectos/Branch Malcolm/Proyecto-gestion-tienda-tcg/carrito/carrito/src/main/java/com/gestion/tienda/tcg/carrito/service/CarritoItemService.java:[61,49] cannot find symbol
+[ERROR]   symbol:   method getPrecioUnitario()
+[ERROR]   location: variable producto of type com.gestion.tienda.tcg.carrito.dto.ProductoDto
+[ERROR] /c:/Proyectos/Branch Malcolm/Proyecto-gestion-tienda-tcg/carrito/carrito/src/main/java/com/gestion/tienda/tcg/carrito/service/CarritoItemService.java:[67,91] cannot find symbol
+[ERROR]   symbol:   method getProductoId()
+[ERROR]   location: variable request of type com.gestion.tienda.tcg.carrito.dto.CarritoItemRequest
+[ERROR] /c:/Proyectos/Branch Malcolm/Proyecto-gestion-tienda-tcg/carrito/carrito/src/main/java/com/gestion/tienda/tcg/carrito/service/CarritoItemService.java:[72,31] cannot find symbol
+[ERROR]   symbol:   method getStockActual()
+[ERROR]   location: variable inventario of type com.gestion.tienda.tcg.carrito.dto.InventarioResponse
+[ERROR] /c:/Proyectos/Branch Malcolm/Proyecto-gestion-tienda-tcg/carrito/carrito/src/main/java/com/gestion/tienda/tcg/carrito/service/CarritoItemService.java:[72,58] cannot find symbol
+[ERROR]   symbol:   method getCantidad()
+[ERROR]   location: variable request of type com.gestion.tienda.tcg.carrito.dto.CarritoItemRequest
+[ERROR] /c:/Proyectos/Branch Malcolm/Proyecto-gestion-tienda-tcg/carrito/carrito/src/main/java/com/gestion/tienda/tcg/carrito/service/CarritoItemService.java:[77,89] cannot find symbol
+[ERROR]   symbol:   method getProductoId()
+[ERROR]   location: variable request of type com.gestion.tienda.tcg.carrito.dto.CarritoItemRequest
+[ERROR] /c:/Proyectos/Branch Malcolm/Proyecto-gestion-tienda-tcg/carrito/carrito/src/main/java/com/gestion/tienda/tcg/carrito/service/CarritoItemService.java:[82,58] cannot find symbol
+[ERROR]   symbol:   method getCantidad()
+[ERROR]   location: variable itemExistente of type com.gestion.tienda.tcg.carrito.model.CarritoItem
+[ERROR] /c:/Proyectos/Branch Malcolm/Proyecto-gestion-tienda-tcg/carrito/carrito/src/main/java/com/gestion/tienda/tcg/carrito/service/CarritoItemService.java:[82,82] cannot find symbol
+[ERROR]   symbol:   method getCantidad()
+[ERROR]   location: variable request of type com.gestion.tienda.tcg.carrito.dto.CarritoItemRequest
+[ERROR] /c:/Proyectos/Branch Malcolm/Proyecto-gestion-tienda-tcg/carrito/carrito/src/main/java/com/gestion/tienda/tcg/carrito/service/CarritoItemService.java:[84,39] cannot find symbol
+[ERROR]   symbol:   method getStockActual()
+[ERROR]   location: variable inventario of type com.gestion.tienda.tcg.carrito.dto.InventarioResponse
+[ERROR] /c:/Proyectos/Branch Malcolm/Proyecto-gestion-tienda-tcg/carrito/carrito/src/main/java/com/gestion/tienda/tcg/carrito/service/CarritoItemService.java:[88,38] cannot find symbol
+[ERROR]   symbol:   method setCantidad(int)
+[ERROR]   location: variable itemExistente of type com.gestion.tienda.tcg.carrito.model.CarritoItem
+[ERROR] /c:/Proyectos/Branch Malcolm/Proyecto-gestion-tienda-tcg/carrito/carrito/src/main/java/com/gestion/tienda/tcg/carrito/service/CarritoItemService.java:[89,71] cannot find symbol
+[ERROR]   symbol:   method getPrecioUnitario()
+[ERROR]   location: variable itemExistente of type com.gestion.tienda.tcg.carrito.model.CarritoItem
+[ERROR] /c:/Proyectos/Branch Malcolm/Proyecto-gestion-tienda-tcg/carrito/carrito/src/main/java/com/gestion/tienda/tcg/carrito/service/CarritoItemService.java:[95,77] cannot find symbol
+[ERROR]   symbol:   method getEstadoCarrito()
+[ERROR]   location: variable carrito of type com.gestion.tienda.tcg.carrito.model.Carrito
+[ERROR] /c:/Proyectos/Branch Malcolm/Proyecto-gestion-tienda-tcg/carrito/carrito/src/main/java/com/gestion/tienda/tcg/carrito/service/CarritoItemService.java:[103,43] cannot find symbol
+[ERROR]   symbol:   method getProductoId()
+[ERROR]   location: variable request of type com.gestion.tienda.tcg.carrito.dto.CarritoItemRequest
+[ERROR] -> [Help 1]
+[ERROR] 
+[ERROR] To see the full stack trace of the errors, re-run Maven with the -e switch.
+[ERROR] Re-run Maven using the -X switch to enable full debug logging.
+[ERROR] 
+[ERROR] For more information about the errors and possible solutions, please read the following articles:
+[ERROR] [Help 1] http://cwiki.apache.org/confluence/display/MAVEN/MojoFailureException

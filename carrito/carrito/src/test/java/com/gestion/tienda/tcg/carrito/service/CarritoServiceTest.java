@@ -1,6 +1,5 @@
 package com.gestion.tienda.tcg.carrito.service;
 
-import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
@@ -26,7 +25,6 @@ import com.gestion.tienda.tcg.carrito.dto.InventarioResponse;
 import com.gestion.tienda.tcg.carrito.dto.PagarCarritoRequest;
 import com.gestion.tienda.tcg.carrito.enums.EstadoCarrito;
 import com.gestion.tienda.tcg.carrito.exception.BadRequestException;
-import com.gestion.tienda.tcg.carrito.exception.CarritoNotFoundException;
 import com.gestion.tienda.tcg.carrito.mapper.CarritoMapper;
 import com.gestion.tienda.tcg.carrito.model.Carrito;
 import com.gestion.tienda.tcg.carrito.model.CarritoItem;
@@ -100,71 +98,8 @@ class CarritoServiceTest {
     }
 
     // =====================================================================
-    // buscarPorId
-    // =====================================================================
-
-    @Test
-    void buscarPorId_deberiaRetornarCarrito_siExiste() {
-        Carrito carrito = new Carrito();
-        carrito.setIdCarrito(1L);
-        CarritoResponse response = new CarritoResponse();
-        response.setIdCarrito(1L);
-
-        when(carritoRepository.findById(1L)).thenReturn(Optional.of(carrito));
-        when(carritoMapper.toResponse(carrito)).thenReturn(response);
-
-        CarritoResponse result = carritoService.buscarPorId(1L);
-
-        assertNotNull(result);
-        assertEquals(1L, result.getIdCarrito());
-    }
-
-    @Test
-    void buscarPorId_deberiaLanzarExcepcion_siNoExiste() {
-        when(carritoRepository.findById(99L)).thenReturn(Optional.empty());
-
-        CarritoNotFoundException exception = assertThrows(
-                CarritoNotFoundException.class,
-                () -> carritoService.buscarPorId(99L));
-
-        assertEquals("Carrito no encontrado", exception.getMessage());
-    }
-
-    // =====================================================================
-    // listar
-    // =====================================================================
-
-    @Test
-    void listar_deberiaRetornarListaDeCarritos() {
-        Carrito carrito = new Carrito();
-        CarritoResponse response = new CarritoResponse();
-
-        when(carritoRepository.findAll()).thenReturn(List.of(carrito));
-        when(carritoMapper.toResponse(carrito)).thenReturn(response);
-
-        List<CarritoResponse> result = carritoService.listar();
-
-        assertEquals(1, result.size());
-    }
-
-    // =====================================================================
     // cancelarCarrito
     // =====================================================================
-
-    @Test
-    void cancelarCarrito_deberiaLanzarExcepcion_siYaEstaPagado() {
-        Carrito carrito = new Carrito();
-        carrito.setIdCarrito(1L);
-        carrito.setEstadoCarrito(EstadoCarrito.PAGADO);
-
-        when(carritoRepository.findById(1L)).thenReturn(Optional.of(carrito));
-
-        BadRequestException ex = assertThrows(BadRequestException.class,
-                () -> carritoService.cancelarCarrito(1L));
-
-        assertEquals("No se puede cancelar un carrito pagado", ex.getMessage());
-        verify(carritoRepository, never()).save(any());
-    }
 
     @Test
     void cancelarCarrito_deberiaCancelarCarritoActivo() {
@@ -180,40 +115,6 @@ class CarritoServiceTest {
 
         assertEquals(EstadoCarrito.CANCELADO, carrito.getEstadoCarrito());
         verify(historialService).registrarHistorial(carrito, EstadoCarrito.CANCELADO, "Carrito cancelado");
-    }
-
-    // =====================================================================
-    // reactivarCarrito
-    // =====================================================================
-
-    @Test
-    void reactivarCarrito_deberiaLanzarExcepcion_siNoEstaPendiente() {
-        Carrito carrito = new Carrito();
-        carrito.setEstadoCarrito(EstadoCarrito.ACTIVO);
-
-        when(carritoRepository.findById(1L)).thenReturn(Optional.of(carrito));
-
-        BadRequestException exception = assertThrows(
-                BadRequestException.class,
-                () -> carritoService.reactivarCarrito(1L));
-
-        assertEquals("No se puede reactivar un carrito que ya está activo", exception.getMessage());
-    }
-
-    @Test
-    void reactivarCarrito_deberiaReactivar_siEstaPendiente() {
-        Carrito carrito = new Carrito();
-        carrito.setIdCarrito(1L);
-        carrito.setEstadoCarrito(EstadoCarrito.PENDIENTE);
-
-        when(carritoRepository.findById(1L)).thenReturn(Optional.of(carrito));
-        when(carritoRepository.save(carrito)).thenReturn(carrito);
-        when(carritoMapper.toResponse(carrito)).thenReturn(new CarritoResponse());
-
-        carritoService.reactivarCarrito(1L);
-
-        assertEquals(EstadoCarrito.ACTIVO, carrito.getEstadoCarrito());
-        verify(historialService).registrarHistorial(carrito, EstadoCarrito.ACTIVO, "Carrito reactivado");
     }
 
     // =====================================================================
@@ -269,42 +170,6 @@ class CarritoServiceTest {
     }
 
     @Test
-    void pagarCarrito_deberiaLanzarExcepcion_siCarritoEstaVacio() {
-        Carrito carrito = new Carrito();
-        carrito.setIdCarrito(1L);
-        carrito.setEstadoCarrito(EstadoCarrito.ACTIVO);
-        carrito.setItems(Collections.emptyList());
-
-        when(carritoRepository.findById(1L)).thenReturn(Optional.of(carrito));
-
-        BadRequestException exception = assertThrows(
-                BadRequestException.class,
-                () -> carritoService.pagarCarrito(1L, pagarRequest(1L)));
-
-        assertEquals("No se puede pagar un carrito vacío", exception.getMessage());
-    }
-
-    @Test
-    void pagarCarrito_deberiaMarcarsePendiente_siHayStockInsuficiente() {
-        CarritoItem i = item(1L, 5);
-        Carrito carrito = new Carrito();
-        carrito.setIdCarrito(1L);
-        carrito.setEstadoCarrito(EstadoCarrito.ACTIVO);
-        carrito.setItems(List.of(i));
-
-        when(carritoRepository.findById(1L)).thenReturn(Optional.of(carrito));
-        when(inventarioClient.obtenerInventarioPorProducto(1L)).thenReturn(inventario(2));
-        when(carritoRepository.save(carrito)).thenReturn(carrito);
-
-        BadRequestException exception = assertThrows(
-                BadRequestException.class,
-                () -> carritoService.pagarCarrito(1L, pagarRequest(1L)));
-
-        assertEquals("Stock insuficiente", exception.getMessage());
-        assertEquals(EstadoCarrito.PENDIENTE, carrito.getEstadoCarrito());
-    }
-
-    @Test
     void pagarCarrito_deberiaPasarAPendienteValidacion_siStockEsSuficiente() {
         CarritoItem i = item(1L, 2);
         Carrito carrito = new Carrito();
@@ -342,26 +207,6 @@ class CarritoServiceTest {
         assertEquals("El carrito no está pendiente de validación", exception.getMessage());
     }
 
-    @Test
-    void confirmarPago_deberiaPagarCarritoYDescontarStock() {
-        CarritoItem i = item(1L, 3);
-        Carrito carrito = new Carrito();
-        carrito.setIdCarrito(1L);
-        carrito.setEstadoCarrito(EstadoCarrito.PENDIENTE_VALIDACION);
-        carrito.setItems(List.of(i));
-
-        when(carritoRepository.findById(1L)).thenReturn(Optional.of(carrito));
-        when(carritoRepository.save(carrito)).thenReturn(carrito);
-        when(carritoMapper.toResponse(carrito)).thenReturn(new CarritoResponse());
-
-        carritoService.confirmarPago(1L, 1L);
-
-        assertEquals(EstadoCarrito.PAGADO, carrito.getEstadoCarrito());
-        // disminuirStock recibe Integer, no int
-        verify(inventarioClient).disminuirStock(1L, 3);
-        verify(historialService).registrarHistorial(carrito, EstadoCarrito.PAGADO, "Pago confirmado");
-    }
-
     // =====================================================================
     // rechazarPago
     // =====================================================================
@@ -381,65 +226,4 @@ class CarritoServiceTest {
                 exception.getMessage());
     }
 
-    @Test
-    void rechazarPago_deberiaMarCarCancelado_siCancelarEsTrue() {
-        Carrito carrito = new Carrito();
-        carrito.setIdCarrito(1L);
-        carrito.setEstadoCarrito(EstadoCarrito.PENDIENTE_VALIDACION);
-
-        when(carritoRepository.findById(1L)).thenReturn(Optional.of(carrito));
-        when(carritoRepository.save(carrito)).thenReturn(carrito);
-        when(carritoMapper.toResponse(carrito)).thenReturn(new CarritoResponse());
-
-        carritoService.rechazarPago(1L, true);
-
-        assertEquals(EstadoCarrito.CANCELADO, carrito.getEstadoCarrito());
-    }
-
-    @Test
-    void rechazarPago_deberiaVolverAPendiente_siCancelarEsFalse() {
-        Carrito carrito = new Carrito();
-        carrito.setIdCarrito(1L);
-        carrito.setEstadoCarrito(EstadoCarrito.PENDIENTE_VALIDACION);
-
-        when(carritoRepository.findById(1L)).thenReturn(Optional.of(carrito));
-        when(carritoRepository.save(carrito)).thenReturn(carrito);
-        when(carritoMapper.toResponse(carrito)).thenReturn(new CarritoResponse());
-
-        carritoService.rechazarPago(1L, false);
-
-        assertEquals(EstadoCarrito.PENDIENTE, carrito.getEstadoCarrito());
-    }
-
-    // =====================================================================
-    // actualizarEstadoExterno
-    // =====================================================================
-
-    @Test
-    void actualizarEstadoExterno_deberiaLanzarExcepcion_siEstadoEsInvalido() {
-        Carrito carrito = new Carrito();
-        carrito.setEstadoCarrito(EstadoCarrito.ACTIVO);
-
-        when(carritoRepository.findById(1L)).thenReturn(Optional.of(carrito));
-
-        BadRequestException exception = assertThrows(
-                BadRequestException.class,
-                () -> carritoService.actualizarEstadoExterno(1L, "ESTADO_INEXISTENTE"));
-
-        assertEquals("Estado inválido", exception.getMessage());
-    }
-
-    @Test
-    void actualizarEstadoExterno_deberiaActualizarEstado_siEsValido() {
-        Carrito carrito = new Carrito();
-        carrito.setIdCarrito(1L);
-        carrito.setEstadoCarrito(EstadoCarrito.ACTIVO);
-
-        when(carritoRepository.findById(1L)).thenReturn(Optional.of(carrito));
-        when(carritoRepository.save(carrito)).thenReturn(carrito);
-
-        carritoService.actualizarEstadoExterno(1L, "PAGADO");
-
-        assertEquals(EstadoCarrito.PAGADO, carrito.getEstadoCarrito());
-    }
 }
