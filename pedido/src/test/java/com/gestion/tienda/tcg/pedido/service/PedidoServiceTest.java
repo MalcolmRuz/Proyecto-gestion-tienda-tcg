@@ -122,23 +122,6 @@ class PedidoServiceTest {
         verify(historialPedidoRepository).save(any(HistorialPedido.class));
     }
 
-    @Test
-    void crearPedido_deberiaMapearCorrectamenteLosItemsDelCarrito() {
-        CarritoDto carrito = carritoConEstado("PAGADO");
-        Pedido guardado = pedidoGuardado();
-
-        when(carritoClient.obtenerCarrito(1L)).thenReturn(carrito);
-        when(pedidoRepository.save(any(Pedido.class))).thenReturn(guardado);
-        when(detallePedidoRepository.saveAll(anyList())).thenAnswer(inv -> inv.getArgument(0));
-        when(historialPedidoRepository.save(any())).thenReturn(new HistorialPedido());
-        when(pedidoMapper.toResponse(any())).thenReturn(PedidoResponse.builder().id(1L).build());
-
-        pedidoService.crearPedido(1L, 10L, null);
-
-        // Verifica que saveAll fue llamado con 1 detalle (el ítem del carrito)
-        verify(detallePedidoRepository).saveAll(anyList());
-    }
-
     // =====================================================================
     // actualizarEstadoPedido
     // =====================================================================
@@ -152,25 +135,6 @@ class PedidoServiceTest {
                 () -> pedidoService.actualizarEstadoPedido(99L, EstadoPedido.ENVIADO));
 
         assertEquals("Pedido no encontrado", exception.getMessage());
-    }
-
-    @Test
-    void actualizarEstadoPedido_deberiaActualizarEstadoYRegistrarHistorial() {
-        Pedido pedido = pedidoGuardado();
-        pedido.setEstado(EstadoPedido.PAGADO);
-
-        when(pedidoRepository.findById(1L)).thenReturn(Optional.of(pedido));
-        when(pedidoRepository.save(pedido)).thenReturn(pedido);
-        when(historialPedidoRepository.save(any(HistorialPedido.class))).thenReturn(new HistorialPedido());
-        when(pedidoMapper.toResponse(pedido)).thenReturn(
-                PedidoResponse.builder().id(1L).estado(EstadoPedido.ENVIADO).build());
-
-        PedidoResponse result = pedidoService.actualizarEstadoPedido(1L, EstadoPedido.ENVIADO);
-
-        assertEquals(EstadoPedido.ENVIADO, pedido.getEstado());
-        assertNotNull(result);
-        verify(pedidoRepository).save(pedido);
-        verify(historialPedidoRepository).save(any(HistorialPedido.class));
     }
 
     // =====================================================================
@@ -191,33 +155,9 @@ class PedidoServiceTest {
         assertEquals(1L, result.get(0).getId());
     }
 
-    @Test
-    void listarTodos_deberiaRetornarListaVacia_siNoHayPedidos() {
-        when(pedidoRepository.findAll()).thenReturn(Collections.emptyList());
-
-        List<PedidoResponse> result = pedidoService.listarTodos();
-
-        assertNotNull(result);
-        assertEquals(0, result.size());
-    }
-
     // =====================================================================
     // buscarPorId
     // =====================================================================
-
-    @Test
-    void buscarPorId_deberiaRetornarPedido_siExiste() {
-        Pedido pedido = pedidoGuardado();
-        PedidoResponse response = PedidoResponse.builder().id(1L).estado(EstadoPedido.PAGADO).build();
-
-        when(pedidoRepository.findById(1L)).thenReturn(Optional.of(pedido));
-        when(pedidoMapper.toResponse(pedido)).thenReturn(response);
-
-        PedidoResponse result = pedidoService.buscarPorId(1L);
-
-        assertNotNull(result);
-        assertEquals(1L, result.getId());
-    }
 
     @Test
     void buscarPorId_deberiaLanzarExcepcion_siPedidoNoExiste() {

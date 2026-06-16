@@ -1,0 +1,102 @@
+version: '3.8'
+
+services:
+  # Base de datos para Carrito
+  carrito-db:
+    image: mysql:8.0
+    container_name: carrito-db
+    environment:
+      MYSQL_DATABASE: carrito
+      MYSQL_ROOT_PASSWORD: carrito_root_pass
+      MYSQL_USER: carrito_user
+      MYSQL_PASSWORD: carrito_pass
+    ports:
+      - "3307:3306"
+    volumes:
+      - carrito_db_data:/var/lib/mysql
+    networks:
+      - tcg-network
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
+      timeout: 20s
+      retries: 10
+
+  # Base de datos para Pedido
+  pedido-db:
+    image: mysql:8.0
+    container_name: pedido-db
+    environment:
+      MYSQL_DATABASE: pedido
+      MYSQL_ROOT_PASSWORD: pedido_root_pass
+      MYSQL_USER: pedido_user
+      MYSQL_PASSWORD: pedido_pass
+    ports:
+      - "3308:3306"
+    volumes:
+      - pedido_db_data:/var/lib/mysql
+    networks:
+      - tcg-network
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
+      timeout: 20s
+      retries: 10
+
+  # Microservicio Carrito
+  carrito:
+    build:
+      context: ./carrito/carrito
+      dockerfile: ./Dockerfile
+    container_name: carrito-service
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:mysql://carrito-db:3306/carrito
+      SPRING_DATASOURCE_USERNAME: carrito_user
+      SPRING_DATASOURCE_PASSWORD: carrito_pass
+      SPRING_DATASOURCE_DRIVER_CLASS_NAME: com.mysql.cj.jdbc.Driver
+      SPRING_JPA_HIBERNATE_DDL_AUTO: update
+      SPRING_JPA_SHOW_SQL: "false"
+      SPRING_APPLICATION_NAME: CARRITO
+      SERVER_PORT: 8083
+      # Comentar si no hay Eureka en Docker
+      # EUREKA_CLIENT_SERVICE_URL_DEFAULTZONE: http://eureka:8761/eureka/
+    ports:
+      - "8083:8083"
+    depends_on:
+      carrito-db:
+        condition: service_healthy
+    networks:
+      - tcg-network
+    restart: unless-stopped
+
+  # Microservicio Pedido
+  pedido:
+    build:
+      context: ./pedido
+      dockerfile: Dockerfile
+    container_name: pedido-service
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:mysql://pedido-db:3306/pedido
+      SPRING_DATASOURCE_USERNAME: pedido_user
+      SPRING_DATASOURCE_PASSWORD: pedido_pass
+      SPRING_DATASOURCE_DRIVER_CLASS_NAME: com.mysql.cj.jdbc.Driver
+      SPRING_JPA_HIBERNATE_DDL_AUTO: update
+      SPRING_JPA_SHOW_SQL: "false"
+      SPRING_APPLICATION_NAME: PEDIDO-SERVICE
+      SERVER_PORT: 8084
+      # Comentar si no hay Eureka en Docker
+      # EUREKA_CLIENT_SERVICE_URL_DEFAULTZONE: http://eureka:8761/eureka/
+    ports:
+      - "8084:8084"
+    depends_on:
+      pedido-db:
+        condition: service_healthy
+    networks:
+      - tcg-network
+    restart: unless-stopped
+
+volumes:
+  carrito_db_data:
+  pedido_db_data:
+
+networks:
+  tcg-network:
+    driver: bridge
