@@ -17,7 +17,5 @@ public class CarritoResponse {
     private String estadoCarrito;
     private Double totalCarrito;
     private List<CarritoItemResponse> items;
-
-    // 3. 🔽 AGREGAMOS EL CAMPO QUE FALTA 🔽
     private String direccionEnvio;
 }

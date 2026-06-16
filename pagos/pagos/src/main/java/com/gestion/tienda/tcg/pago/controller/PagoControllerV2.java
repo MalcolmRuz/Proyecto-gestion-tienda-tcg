@@ -3,6 +3,7 @@ package com.gestion.tienda.tcg.pago.controller;
 import com.gestion.tienda.tcg.pago.assemblers.PagoModelAssembler;
 import com.gestion.tienda.tcg.pago.dto.PagoRequest;
 import com.gestion.tienda.tcg.pago.dto.PagoResponse;
+import com.gestion.tienda.tcg.pago.enums.EstadoPago;
 import com.gestion.tienda.tcg.pago.service.PagoService;
 import jakarta.validation.Valid;
 import org.springframework.hateoas.CollectionModel;
@@ -54,6 +55,33 @@ public class PagoControllerV2 {
                         .listadoPagos())
                         .withSelfRel());
 
+    }
+
+    @GetMapping("/{id}")
+    public EntityModel<PagoResponse> buscarPagoPorId(
+            @PathVariable Long id){
+
+        PagoResponse response = pagoService.buscarPagoPorId(id);
+
+        return assembler.toModel(response);
+    }
+
+    @GetMapping("/estado/{estado}")
+    public CollectionModel<EntityModel<PagoResponse>> listarPagosPorEstado(
+            @PathVariable EstadoPago estado){
+
+        List<EntityModel<PagoResponse>> lista =
+                pagoService.listarPagosPorEstado(estado)
+                        .stream()
+                        .map(assembler::toModel)
+                        .collect(Collectors.toList());
+
+        return CollectionModel.of(
+                lista,
+                linkTo(methodOn(PagoControllerV2.class)
+                        .listarPagosPorEstado(estado))
+                        .withSelfRel()
+        );
     }
 
 }

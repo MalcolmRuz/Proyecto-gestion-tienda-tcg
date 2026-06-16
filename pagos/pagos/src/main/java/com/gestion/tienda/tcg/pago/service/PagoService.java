@@ -123,10 +123,33 @@ public class PagoService {
         return pagoMapper.toResponse(pagoRepository.save(pagoAprobado));
     }
 
+    @Transactional(readOnly = true)
     public List<PagoResponse> listarPagos() {
         return pagoRepository.findAll()
                 .stream()
                 .map(pagoMapper::toResponse)
                 .toList();
+    }
+
+    @Transactional(readOnly = true)
+    public PagoResponse buscarPagoPorId(Long id){
+
+        Pago pago = pagoRepository.findById(id)
+                .orElseThrow(() ->
+                        new RecursoNoEncontradoException("Pago no encontrado"));
+
+        return pagoMapper.toResponse(pago);
+
+    }
+
+    @Transactional(readOnly = true)
+    public List<PagoResponse> listarPagosPorEstado(EstadoPago estado){
+
+        List<Pago> pagos = pagoRepository.findByEstado(estado);
+
+        return pagos.stream()
+                .map(pagoMapper::toResponse)
+                .toList();
+
     }
 }

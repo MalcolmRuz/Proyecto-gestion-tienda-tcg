@@ -2,14 +2,11 @@ package com.gestion.tienda.tcg.pago.controller;
 
 import java.util.List;
 
+import com.gestion.tienda.tcg.pago.enums.EstadoPago;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import com.gestion.tienda.tcg.pago.dto.PagoRequest;
 import com.gestion.tienda.tcg.pago.dto.PagoResponse;
@@ -39,6 +36,30 @@ public class PagoController {
     public ResponseEntity<List<PagoResponse>> listarPagos() {
 
         return ResponseEntity.ok(pagoService.listarPagos());
+    }
+
+    @GetMapping("/{id}")
+    @Operation(
+            summary = "Buscar pago por ID", description = "Obtiene la información de un pago mediante su ID")
+    public ResponseEntity<PagoResponse> buscarPagoPorId(
+            @PathVariable Long id){
+
+        return ResponseEntity.ok(
+                pagoService.buscarPagoPorId(id)
+        );
+
+    }
+
+    @GetMapping("/estado/{estado}")
+    @Operation(
+            summary = "Listar pagos por estado", description = "Obtiene todos los pagos según su estado")
+    public ResponseEntity<List<PagoResponse>> listarPagosPorEstado(
+            @PathVariable EstadoPago estado){
+
+        return ResponseEntity.ok(
+                pagoService.listarPagosPorEstado(estado)
+        );
+
     }
 
 }

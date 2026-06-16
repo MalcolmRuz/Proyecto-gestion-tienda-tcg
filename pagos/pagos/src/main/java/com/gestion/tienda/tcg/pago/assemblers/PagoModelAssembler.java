@@ -18,6 +18,10 @@ public class PagoModelAssembler implements RepresentationModelAssembler <PagoRes
         return EntityModel.of(response,
 
                 linkTo(methodOn(PagoControllerV2.class)
+                        .buscarPagoPorId(response.getIdPago()))
+                        .withSelfRel(),
+
+                linkTo(methodOn(PagoControllerV2.class)
                         .realizarPago(null))
                         .withRel("realizar-pago"),
 
