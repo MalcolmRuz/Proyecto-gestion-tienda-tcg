@@ -49,7 +49,8 @@ public class SecurityConfig {
                         // login
                         .requestMatchers(
                                 HttpMethod.POST,
-                                "/api/v1/usuarios/auth/**"
+                                "/api/v1/usuarios/auth/**",
+                                "/auth/**"
                         )
                         .permitAll()
 

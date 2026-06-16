@@ -36,7 +36,7 @@ public class PagoControllerV2 {
     }
 
     @PostMapping
-    @Operation(summary = "Crear pago", description = "Realiza un pago y retorna con enlaces HATEOAS")
+    @Operation(summary = "Realizar un pago", description = "Realiza un pago y retorna con enlaces HATEOAS")
     public ResponseEntity<EntityModel<PagoResponse>>realizarPago(@Valid @RequestBody PagoRequest request){
 
         PagoResponse response = pagoService.realizarPago(request);
@@ -47,7 +47,7 @@ public class PagoControllerV2 {
     }
 
     @GetMapping
-    @Operation(summary = "Listar pagos", description = "Obtiene todos los pagos registrados con enlaces HATEOAS")
+    @Operation(summary = "Mostrar todos los pagos", description = "Obtiene todos los pagos registrados con enlaces HATEOAS")
     public CollectionModel<EntityModel<PagoResponse>>listadoPagos(){
 
         List<EntityModel<PagoResponse>> lista = pagoService.listarPagos()
@@ -63,7 +63,7 @@ public class PagoControllerV2 {
     }
 
     @GetMapping("/{id}")
-    @Operation(summary = "Buscar pago por ID", description = "Obtiene un pago específico mediante su ID con enlaces HATEOAS")
+    @Operation(summary = "Buscar pagos por su ID", description = "Obtiene un pago específico mediante su ID con enlaces HATEOAS")
     public EntityModel<PagoResponse> buscarPagoPorId(@PathVariable Long id){
 
         PagoResponse response = pagoService.buscarPagoPorId(id);
@@ -72,7 +72,7 @@ public class PagoControllerV2 {
     }
 
     @GetMapping("/estado/{estado}")
-    @Operation(summary = "Listar pagos por estado", description = "Obtiene todos los pagos filtrados por estado con enlaces HATEOAS")
+    @Operation(summary = "Mostrar pagos por su estado", description = "Obtiene todos los pagos filtrados por estado con enlaces HATEOAS")
     public CollectionModel<EntityModel<PagoResponse>> listarPagosPorEstado(@PathVariable EstadoPago estado){
 
         List<EntityModel<PagoResponse>> lista =

@@ -3,11 +3,15 @@ package com.gestion.tienda.tcg.registro.security.auth;
 import com.gestion.tienda.tcg.registro.model.Usuario;
 import com.gestion.tienda.tcg.registro.repository.UsuarioRepository;
 import com.gestion.tienda.tcg.registro.security.jwt.JwtService;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/auth")
+@Tag(name = "Autenticación", description = "Generación y validación de tokens JWT para acceso a la API")
 public class AuthController {
 
     private final UsuarioRepository usuarioRepository;
@@ -27,7 +31,8 @@ public class AuthController {
     }
 
     @PostMapping("/login")
-    public LoginResponse login(@RequestBody LoginRequest request){
+    @Operation(summary = "Generar Token JWT", description = "Autentica un usuario mediante email y contraseña, retornando un Token JWT para endpoint protegidos ")
+    public ResponseEntity<String> login(@RequestBody LoginRequest request){
 
         Usuario usuario = usuarioRepository.findByEmail(request.getEmail())
                 .orElseThrow(() -> new RuntimeException("Usuario no encontrado"));
@@ -43,7 +48,7 @@ public class AuthController {
                 usuario.getRol().getNombreRol().name()
         );
 
-        return new LoginResponse(token);
+        return ResponseEntity.ok(token);
 
     }
 

@@ -26,13 +26,13 @@ public class PagoController {
     }
 
     @PostMapping
-    @Operation(summary = "Realizar Pago", description = "Registro de pago para carrito pendiente de validación")
+    @Operation(summary = "Realizar un Pago", description = "Registro de pago para carrito pendiente de validación")
     public ResponseEntity<PagoResponse> crearPago(@Valid @RequestBody PagoRequest request) {
         return ResponseEntity.ok(pagoService.realizarPago(request));
     }
 
     @GetMapping
-    @Operation(summary = "Lista pagos", description = "Listado de todos los pagos registrados")
+    @Operation(summary = "Mostrar todos los pagos", description = "Listado de todos los pagos registrados")
     public ResponseEntity<List<PagoResponse>> listarPagos() {
 
         return ResponseEntity.ok(pagoService.listarPagos());
@@ -40,7 +40,7 @@ public class PagoController {
 
     @GetMapping("/{id}")
     @Operation(
-            summary = "Buscar pago por ID", description = "Obtiene la información de un pago mediante su ID")
+            summary = "Buscar pago por su ID", description = "Obtiene la información de un pago mediante su ID")
     public ResponseEntity<PagoResponse> buscarPagoPorId(
             @PathVariable Long id){
 
@@ -52,7 +52,7 @@ public class PagoController {
 
     @GetMapping("/estado/{estado}")
     @Operation(
-            summary = "Listar pagos por estado", description = "Muestra todos los pagos según su estado de pago")
+            summary = "Mostrar pagos por su estado", description = "Muestra todos los pagos según su estado de pago")
     public ResponseEntity<List<PagoResponse>> listarPagosPorEstado(
             @PathVariable EstadoPago estado){
 

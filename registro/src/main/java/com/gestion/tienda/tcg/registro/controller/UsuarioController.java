@@ -47,7 +47,7 @@ public class UsuarioController {
     }
 
     @PostMapping("/auth/login")
-    @Operation(summary = "Inicio de sesión Admin", description = "Iniciar sesión como rol ADMIN para generar" +
+    @Operation(summary = "Inicio de sesión como ADMIN", description = "Iniciar sesión como rol ADMIN para generar" +
                                                                  " un token JWT y acceder a métodos protegidos")
     public ResponseEntity<?> login(@RequestBody LoginRequest request){
 
@@ -81,7 +81,7 @@ public class UsuarioController {
     }
 
     @GetMapping("/{id}")//para búsqueda por Id, uso de GET, 200 ok, porque solo está consultando
-    @Operation(summary = "Búsqueda de Usuario", description = "Se busca a un usuario registrado a través de su id")
+    @Operation(summary = "Buscar usuario por ID", description = "Se busca a un usuario registrado a través de su id")
     public ResponseEntity<UsuarioResponse>buscarPorId(@PathVariable Long id){
 
         UsuarioResponse usuarioResponse = usuarioService.buscarPorId(id);
@@ -121,7 +121,7 @@ public class UsuarioController {
     }
 
     @PutMapping("/{id}/admin")
-    @Operation(summary = "Asignar rol Admin", description = "Asignar el rol admin a un usuario registrado como cliente")
+    @Operation(summary = "Asignar rol administrador", description = "Asignar el rol admin a un usuario registrado como cliente")
     public ResponseEntity<UsuarioResponse>convertirUsuarioAdmin(@PathVariable Long id){
 
         UsuarioResponse usuarioResponse = usuarioService.asignarRolAdminPorIdUsuario(id);

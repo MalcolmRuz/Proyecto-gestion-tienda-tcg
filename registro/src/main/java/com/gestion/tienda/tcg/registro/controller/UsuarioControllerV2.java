@@ -21,7 +21,7 @@ import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
 
 @RestController
 @RequestMapping("/api/v2/usuarios")
-@Tag(name = "Usuarios HATEOAS", description = "Gestión de usuarios utilizando Spring HATEOAS")
+@Tag(name = "Registro HATEOAS", description = "Gestión de registros utilizando Spring HATEOAS")
 public class UsuarioControllerV2 {
 
     private final UsuarioService usuarioService;
@@ -46,7 +46,7 @@ public class UsuarioControllerV2 {
     }
 
     @GetMapping
-    @Operation(summary = "Listar usuarios", description = "Obtiene un listado de usuarios con enlaces HATEOAS")
+    @Operation(summary = "Mostrar todos los usuarios", description = "Obtiene un listado de usuarios con enlaces HATEOAS")
     public CollectionModel<EntityModel<UsuarioResponse>> listar(){
 
         List<EntityModel<UsuarioResponse>> lista = usuarioService.listarUsuarios().stream()
@@ -59,7 +59,7 @@ public class UsuarioControllerV2 {
     }
 
     @PostMapping
-    @Operation(summary = "Registrar usuario", description = "Registra un nuevo usuario y retorna con enlaces HATEOAS")
+    @Operation(summary = "Registro de usuario", description = "Registra un nuevo usuario y retorna con enlaces HATEOAS")
     public ResponseEntity<EntityModel<UsuarioResponse>>registrar(@Valid @RequestBody UsuarioRequest request){
 
         UsuarioResponse response = usuarioService.registrarUsuario(request);
@@ -69,7 +69,7 @@ public class UsuarioControllerV2 {
     }
 
     @PutMapping("/{id}/actualizar")
-    @Operation(summary = "Actualizar usuario", description = "Actualiza la información de un usuario y retorna con enlaces HATEOAS")
+    @Operation(summary = "Actualización de Datos", description = "Actualiza la información de un usuario y retorna con enlaces HATEOAS")
     public EntityModel<UsuarioResponse>actualizar(@PathVariable Long id, @Valid @RequestBody UsuarioRequest request){
 
         UsuarioResponse response = usuarioService.actualizarUsuario(id,request);
