@@ -1,0 +1,15 @@
+spring:
+  datasource:
+    url: jdbc:oracle:thin:@inventariobd_high?TNS_ADMIN=/app/oracle_wallet
+    username: "ADMIN"
+    password: "Inventario2026!Secure"
+
+server:
+  port: ${PORT:8085}
+
+eureka:
+  client:
+    service-url:
+      defaultZone: ${EUREKA_SERVER_URL:http://localhost:8761/eureka/}
+  instance:
+    prefer-ip-address: true
