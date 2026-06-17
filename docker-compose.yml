@@ -1,0 +1,44 @@
+networks:
+  tienda-network:
+    driver: bridge
+
+services:
+  eureka-server:
+    image: steeltoeoss/eureka-server:latest
+    container_name: eureka-server
+    ports:
+      - "8761:8761"
+    networks:
+      - tienda-network
+    healthcheck:
+      test: ["CMD-SHELL", "wget -qO- http://localhost:8761/actuator/health || exit 1"]
+      interval: 10s
+      timeout: 5s
+      retries: 10
+      start_period: 20s
+
+  producto-service:
+    image: jelra/micro-producto:1.0
+    container_name: producto-service
+    ports:
+      - "8086:8086"
+    environment:
+      - EUREKA_CLIENT_SERVICEURL_DEFAULTZONE=http://eureka-server:8761/eureka/
+    networks:
+      - tienda-network
+    depends_on:
+      eureka-server:
+        condition: service_healthy
+
+  inventario-service:
+    image: jelra/micro-inventario:1.0
+    container_name: inventario-service
+    ports:
+      - "8085:8085"
+    environment:
+      - EUREKA_CLIENT_SERVICEURL_DEFAULTZONE=http://eureka-server:8761/eureka/
+    networks:
+      - tienda-network
+    depends_on:
+      eureka-server:
+        condition: service_healthy
