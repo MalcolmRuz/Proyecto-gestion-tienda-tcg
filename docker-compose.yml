@@ -1,5 +1,3 @@
-version: '3.8'
-
 services:
   # Base de datos para Carrito
   carrito-db:
@@ -20,6 +18,9 @@ services:
       test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
       timeout: 20s
       retries: 10
+      interval: 10s
+      start_period: 40s
+    restart: unless-stopped
 
   # Base de datos para Pedido
   pedido-db:
@@ -40,12 +41,13 @@ services:
       test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
       timeout: 20s
       retries: 10
+      interval: 10s
+      start_period: 40s
+    restart: unless-stopped
 
   # Microservicio Carrito
   carrito:
-    build:
-      context: ./carrito/carrito
-      dockerfile: ./Dockerfile
+    image: malcolmruz/carrito:1.0
     container_name: carrito-service
     environment:
       SPRING_DATASOURCE_URL: jdbc:mysql://carrito-db:3306/carrito
@@ -56,8 +58,10 @@ services:
       SPRING_JPA_SHOW_SQL: "false"
       SPRING_APPLICATION_NAME: CARRITO
       SERVER_PORT: 8083
-      # Comentar si no hay Eureka en Docker
+      # Uncomment if Eureka is running in Docker
       # EUREKA_CLIENT_SERVICE_URL_DEFAULTZONE: http://eureka:8761/eureka/
+    env_file:
+      - .env.docker
     ports:
       - "8083:8083"
     depends_on:
@@ -65,13 +69,17 @@ services:
         condition: service_healthy
     networks:
       - tcg-network
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8083/actuator/health"]
+      timeout: 10s
+      retries: 5
+      interval: 15s
+      start_period: 30s
     restart: unless-stopped
 
   # Microservicio Pedido
   pedido:
-    build:
-      context: ./pedido
-      dockerfile: Dockerfile
+    image: malcolmruz/pedido:1.0
     container_name: pedido-service
     environment:
       SPRING_DATASOURCE_URL: jdbc:mysql://pedido-db:3306/pedido
@@ -82,8 +90,10 @@ services:
       SPRING_JPA_SHOW_SQL: "false"
       SPRING_APPLICATION_NAME: PEDIDO-SERVICE
       SERVER_PORT: 8084
-      # Comentar si no hay Eureka en Docker
+      # Uncomment if Eureka is running in Docker
       # EUREKA_CLIENT_SERVICE_URL_DEFAULTZONE: http://eureka:8761/eureka/
+    env_file:
+      - .env.docker
     ports:
       - "8084:8084"
     depends_on:
@@ -91,6 +101,12 @@ services:
         condition: service_healthy
     networks:
       - tcg-network
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8084/actuator/health"]
+      timeout: 10s
+      retries: 5
+      interval: 15s
+      start_period: 30s
     restart: unless-stopped
 
 volumes:

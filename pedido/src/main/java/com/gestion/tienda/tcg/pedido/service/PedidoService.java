@@ -10,7 +10,6 @@ import org.springframework.transaction.annotation.Transactional;
 import com.gestion.tienda.tcg.pedido.Client.CarritoClient;
 import com.gestion.tienda.tcg.pedido.dto.CarritoDto;
 import com.gestion.tienda.tcg.pedido.dto.PedidoResponse;
-import com.gestion.tienda.tcg.pedido.enums.EstadoEnvio;
 import com.gestion.tienda.tcg.pedido.enums.EstadoPedido;
 import com.gestion.tienda.tcg.pedido.exception.BadRequestException;
 import com.gestion.tienda.tcg.pedido.exception.PedidoNotFoundException;
@@ -46,7 +45,7 @@ public class PedidoService {
                 pedido.setIdCarrito(idCarrito);
                 pedido.setEstado(EstadoPedido.PAGADO);
                 pedido.setTotalPedido(carrito.getTotalCarrito());
-                //pedido.setDireccionEnvio(direccionEnvio);
+                // pedido.setDireccionEnvio(direccionEnvio);
 
                 Pedido guardado = pedidoRepository.save(pedido);
 
