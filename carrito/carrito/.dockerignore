@@ -5,3 +5,10 @@ target/
 *.log
 *.md
 .mvn/wrapper/maven-wrapper.jar
+.idea/
+*.iml
+*.iws
+*.ipr
+.env.local
+.env.*.local
+build-log.txt
