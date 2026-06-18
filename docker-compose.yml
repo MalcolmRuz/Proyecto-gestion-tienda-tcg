@@ -1,7 +1,29 @@
-version: '3.8'
+networks:
+  tienda-network:
+    driver: bridge
+
+volumes:
+  carrito_db_data:
+  pedido_db_data:
 
 services:
-  # Base de datos para Carrito
+  # =========================================================================
+  # INFRAESTRUCTURA Y BASES DE DATOS (Tus servicios base)
+  # =========================================================================
+  eureka-server:
+    image: steeltoeoss/eureka-server:latest
+    container_name: eureka-server
+    ports:
+      - "8761:8761"
+    networks:
+      - tienda-network
+    healthcheck:
+      test: ["CMD-SHELL", "wget -qO- http://localhost:8761/actuator/health || exit 1"]
+      interval: 10s
+      timeout: 5s
+      retries: 10
+      start_period: 20s
+
   carrito-db:
     image: mysql:8.0
     container_name: carrito-db
@@ -15,16 +37,15 @@ services:
     volumes:
       - carrito_db_data:/var/lib/mysql
     networks:
-      - tcg-network
+      - tienda-network
     healthcheck:
       test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
       timeout: 20s
       retries: 10
       interval: 10s
-      start_period: 40s
+      start_period: 60s
     restart: unless-stopped
 
-  # Base de datos para Pedido
   pedido-db:
     image: mysql:8.0
     container_name: pedido-db
@@ -38,97 +59,129 @@ services:
     volumes:
       - pedido_db_data:/var/lib/mysql
     networks:
-      - tcg-network
+      - tienda-network
     healthcheck:
       test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
       timeout: 20s
       retries: 10
       interval: 10s
-      start_period: 40s
+      start_period: 60s
     restart: unless-stopped
 
-  # Eureka Server
-  eureka:
-    image: malcolmruz/eureka:1.0
-    container_name: eureka-server
-    ports:
-      - "8761:8761"
-    networks:
-      - tcg-network
-    healthcheck:
-      test: ["CMD", "curl", "-f", "http://localhost:8761/actuator/health"]
-      timeout: 10s
-      retries: 5
-      interval: 15s
-      start_period: 30s
-    restart: unless-stopped
-
-  # Microservicio Carrito
-  carrito:
-    image: malcolmruz/carrito:1.0
+  # =========================================================================
+  # MICROSERVICIOS PRINCIPALES (Corregidos para hablar con las DB internas)
+  # =========================================================================
+  carrito-service:
+    image: malcolmruz/micro-carrito:2.0
     container_name: carrito-service
-    environment:
-      SPRING_DATASOURCE_URL: jdbc:mysql://carrito-db:3306/carrito
-      SPRING_DATASOURCE_USERNAME: carrito_user
-      SPRING_DATASOURCE_PASSWORD: carrito_pass
-      SPRING_DATASOURCE_DRIVER_CLASS_NAME: com.mysql.cj.jdbc.Driver
-      SPRING_JPA_HIBERNATE_DDL_AUTO: update
-      SPRING_JPA_SHOW_SQL: "false"
-      SPRING_APPLICATION_NAME: CARRITO
-      SERVER_PORT: 8083
-      EUREKA_CLIENT_SERVICE_URL_DEFAULTZONE: http://eureka:8761/eureka/
     ports:
       - "8083:8083"
+    environment:
+      # Usamos el formato con puntos para asegurar que Spring Boot lo reconozca y pise al properties interno
+      spring.datasource.url: jdbc:mysql://carrito-db:3306/carrito?allowPublicKeyRetrieval=true&useSSL=false&serverTimezone=UTC
+      spring.datasource.username: carrito_user
+      spring.datasource.password: carrito_pass
+      spring.datasource.driver-class-name: com.mysql.cj.jdbc.Driver
+      spring.jpa.hibernate.ddl-auto: update
+      spring.application.name: CARRITO
+      server.port: 8083
+      eureka.client.service-url.defaultZone: http://eureka-server:8761/eureka/
+    networks:
+      - tienda-network
     depends_on:
       carrito-db:
         condition: service_healthy
-      eureka:
+      eureka-server:
         condition: service_healthy
-    networks:
-      - tcg-network
     healthcheck:
-      test: ["CMD", "curl", "-f", "http://localhost:8083/actuator/health"]
+      test: [ "CMD-SHELL", "curl -f http://localhost:8083/actuator/health || exit 1" ]
       timeout: 10s
       retries: 5
       interval: 15s
-      start_period: 30s
+      start_period: 60s
     restart: unless-stopped
 
-  # Microservicio Pedido
-  pedido:
-    image: malcolmruz/pedido:1.0
+  pedido-service:
+    image: malcolmruz/micro-pedido:2.0
     container_name: pedido-service
-    environment:
-      SPRING_DATASOURCE_URL: jdbc:mysql://pedido-db:3306/pedido
-      SPRING_DATASOURCE_USERNAME: pedido_user
-      SPRING_DATASOURCE_PASSWORD: pedido_pass
-      SPRING_DATASOURCE_DRIVER_CLASS_NAME: com.mysql.cj.jdbc.Driver
-      SPRING_JPA_HIBERNATE_DDL_AUTO: update
-      SPRING_JPA_SHOW_SQL: "false"
-      SPRING_APPLICATION_NAME: PEDIDO-SERVICE
-      SERVER_PORT: 8084
-      EUREKA_CLIENT_SERVICE_URL_DEFAULTZONE: http://eureka:8761/eureka/
     ports:
       - "8084:8084"
+    environment:
+      # Lo mismo para pedido: inyectamos los puntos y agregamos el allowPublicKeyRetrieval=true
+      spring.datasource.url: jdbc:mysql://pedido-db:3306/pedido?allowPublicKeyRetrieval=true&useSSL=false&serverTimezone=UTC
+      spring.datasource.username: pedido_user
+      spring.datasource.password: pedido_pass
+      spring.datasource.driver-class-name: com.mysql.cj.jdbc.Driver
+      spring.jpa.hibernate.ddl-auto: update
+      spring.application.name: PEDIDO-SERVICE
+      server.port: 8084
+      eureka.client.service-url.defaultZone: http://eureka-server:8761/eureka/
+    networks:
+      - tienda-network
     depends_on:
       pedido-db:
         condition: service_healthy
-      eureka:
+      eureka-server:
         condition: service_healthy
-    networks:
-      - tcg-network
     healthcheck:
-      test: ["CMD", "curl", "-f", "http://localhost:8084/actuator/health"]
+      test: [ "CMD-SHELL", "curl -f http://localhost:8084/actuator/health || exit 1" ]
       timeout: 10s
       retries: 5
       interval: 15s
-      start_period: 30s
+      start_period: 60s
     restart: unless-stopped
 
-volumes:
-  carrito_db_data:
-  pedido_db_data:
+  # =========================================================================
+  # MICROSERVICIOS DE REFUERZO (Los servicios de tus compañeros)
+  # =========================================================================
+  pagos-service:
+    image: gonzalou/micro-pagos:1.0
+    container_name: pagos-service
+    ports:
+      - "8081:8081"
+    environment:
+      - EUREKA_CLIENT_SERVICEURL_DEFAULTZONE=http://eureka-server:8761/eureka/
+    networks:
+      - tienda-network
+    depends_on:
+      eureka-server:
+        condition: service_healthy
 
-networks:
-  tcg-network:
-    driver: bridge
+  registro-service:
+    image: gonzalou/micro-registro:1.0
+    container_name: registro-service
+    ports:
+      - "8082:8082"
+    environment:
+      - EUREKA_CLIENT_SERVICEURL_DEFAULTZONE=http://eureka-server:8761/eureka/
+    networks:
+      - tienda-network
+    depends_on:
+      eureka-server:
+        condition: service_healthy
+
+  inventario-service:
+    image: jelra/micro-inventario:1.0
+    container_name: inventario-service
+    ports:
+      - "8085:8085"
+    environment:
+      - EUREKA_CLIENT_SERVICEURL_DEFAULTZONE=http://eureka-server:8761/eureka/
+    networks:
+      - tienda-network
+    depends_on:
+      eureka-server:
+        condition: service_healthy
+
+  producto-service:
+    image: jelra/micro-producto:1.0
+    container_name: producto-service
+    ports:
+      - "8086:8086"
+    environment:
+      - EUREKA_CLIENT_SERVICEURL_DEFAULTZONE=http://eureka-server:8761/eureka/
+    networks:
+      - tienda-network
+    depends_on:
+      eureka-server:
+        condition: service_healthy
