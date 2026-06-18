@@ -1,0 +1,16 @@
+spring:
+  datasource:
+    url: jdbc:oracle:thin:@pagosdb_high?TNS_ADMIN=/app/oracle_wallet
+    username: "ADMIN"
+    password: "Aaa-98399159"
+
+server:
+  port: ${PORT:8081}
+
+eureka:
+  client:
+    service-url:
+      #defaultZone: ${EUREKA_SERVER_URL:http://localhost:8761/eureka/}
+      defaultZone: http://eureka-server:8761/eureka/
+  instance:
+    prefer-ip-address: true

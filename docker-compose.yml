@@ -1,0 +1,111 @@
+networks:
+  tienda-network:
+    driver: bridge
+
+services:
+  eureka-server:
+    image: steeltoeoss/eureka-server:latest
+    container_name: eureka-server
+    ports:
+      - "8761:8761"
+    networks:
+      - tienda-network
+    healthcheck:
+      test: ["CMD-SHELL", "wget -qO- http://localhost:8761/actuator/health || exit 1"]
+      interval: 10s
+      timeout: 5s
+      retries: 10
+      start_period: 20s
+
+  pagos-service:
+    image: gonzalou/micro-pagos:1.0
+    container_name: pagos-service
+    ports:
+      - "8081:8081"
+    environment:
+      - EUREKA_CLIENT_SERVICEURL_DEFAULTZONE=http://eureka-server:8761/eureka/
+    networks:
+      - tienda-network
+    depends_on:
+      eureka-server:
+        condition: service_healthy
+
+  registro-service:
+    image: gonzalou/micro-registro:1.0
+    container_name: registro-service
+    ports:
+      - "8082:8082"
+    environment:
+      - EUREKA_CLIENT_SERVICEURL_DEFAULTZONE=http://eureka-server:8761/eureka/
+    networks:
+      - tienda-network
+    depends_on:
+      eureka-server:
+        condition: service_healthy
+
+
+
+  carrito-service:
+    image: malcolmruz/carrito:1.0
+    container_name: carrito-service
+    ports:
+      - "8083:8083"
+    extra_hosts:
+      - "host.docker.internal:host-gateway" # <--- Permite al contenedor salir a la PC local
+    environment:
+      - EUREKA_CLIENT_SERVICEURL_DEFAULTZONE=http://eureka-server:8761/eureka/
+      # --- VARIABLES DE SU BASE DE DATOS (Ajustar nombres según sus application.properties) ---
+      - SPRING_DATASOURCE_URL=jdbc:mysql://host.docker.internal:3306/nombre_bd_carrito?useSSL=false&serverTimezone=UTC
+      - SPRING_DATASOURCE_USERNAME=root
+      - SPRING_DATASOURCE_PASSWORD=
+    networks:
+      - tienda-network
+    depends_on:
+      eureka-server:
+        condition: service_healthy
+
+
+  pedido-service:
+    image: malcolmruz/pedido:1.0
+    container_name: pedido-service
+    ports:
+      - "8084:8084"
+    extra_hosts:
+      - "host.docker.internal:host-gateway" # <--- Permite al contenedor salir a la PC local
+    environment:
+      - EUREKA_CLIENT_SERVICEURL_DEFAULTZONE=http://eureka-server:8761/eureka/
+      # --- VARIABLES DE SU BASE DE DATOS (Ajustar nombres según sus application.properties) ---
+      - SPRING_DATASOURCE_URL=jdbc:mysql://host.docker.internal:3306/nombre_bd_pedido?useSSL=false&serverTimezone=UTC
+      - SPRING_DATASOURCE_USERNAME=root
+      - SPRING_DATASOURCE_PASSWORD=
+    networks:
+      - tienda-network
+    depends_on:
+      eureka-server:
+        condition: service_healthy
+
+  inventario-service:
+    image: jelra/micro-inventario:1.0
+    container_name: inventario-service
+    ports:
+      - "8085:8085"
+    environment:
+      - EUREKA_CLIENT_SERVICEURL_DEFAULTZONE=http://eureka-server:8761/eureka/
+    networks:
+      - tienda-network
+    depends_on:
+      eureka-server:
+        condition: service_healthy
+
+  producto-service:
+    image: jelra/micro-producto:1.0
+    container_name: producto-service
+    ports:
+      - "8086:8086"
+    environment:
+      - EUREKA_CLIENT_SERVICEURL_DEFAULTZONE=http://eureka-server:8761/eureka/
+    networks:
+      - tienda-network
+    depends_on:
+      eureka-server:
+        condition: service_healthy

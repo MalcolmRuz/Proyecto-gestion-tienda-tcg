@@ -19,6 +19,6 @@ COPY --from=build /app/target/*.jar app.jar
 COPY ./oracle_wallet /app/oracle_wallet
 
 # Lectura de puerto dinámico
-EXPOSE ${PORT:-8082}
+EXPOSE ${PORT:-8081}
 
 ENTRYPOINT ["java", "-Dspring.profiles.active=docker", "-Doracle.net.tns_admin=/app/oracle_wallet", "-jar", "app.jar"]
