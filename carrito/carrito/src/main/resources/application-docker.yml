@@ -1,0 +1,31 @@
+spring:
+  application:
+    name: CARRITO
+
+  datasource:
+    url: jdbc:mysql://carrito-db:3306/carrito
+    username: carrito_user
+    password: carrito_pass
+    driver-class-name: com.mysql.cj.jdbc.Driver
+
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+    properties:
+      hibernate:
+        format_sql: true
+
+server:
+  port: 8083
+
+eureka:
+  client:
+    service-url:
+      defaultZone: http://eureka:8761/eureka/
+
+springdoc:
+  api-docs:
+    enabled: true
+  swagger-ui:
+    enabled: true

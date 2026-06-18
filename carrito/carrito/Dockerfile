@@ -19,6 +19,9 @@ RUN --mount=type=cache,target=/root/.m2 ./mvnw clean package -DskipTests
 # Runtime stage: run the application
 FROM eclipse-temurin:17-jre-alpine
 
+# Instalar curl para el healthcheck de Docker
+RUN apk add --no-cache curl
+
 # Create non-root user
 RUN addgroup -S appgroup && adduser -S appuser -G appgroup
 
