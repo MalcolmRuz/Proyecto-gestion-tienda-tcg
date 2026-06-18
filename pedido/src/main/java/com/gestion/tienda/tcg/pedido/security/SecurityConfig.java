@@ -44,6 +44,12 @@ public class SecurityConfig {
                                                                 "/doc/swagger-ui.html")
                                                 .permitAll()
 
+                                                // Actuator (healthcheck de Docker)
+                                                .requestMatchers(
+                                                                "/actuator/health",
+                                                                "/actuator/health/**")
+                                                .permitAll()
+
                                                 // =========================================================================
                                                 // REGLAS PARA PEDIDOS
                                                 // =========================================================================
